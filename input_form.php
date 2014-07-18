@@ -418,14 +418,14 @@ code by siwawes wongcharoen
             Reference journal:<br/>
             <textarea name="reference" rows="5" cols="100"></textarea>
             <div class="obj-display" style="background-color: orange;">
-              เสาวณีย์ จำเดิมเผด็จศึก. (2534). การรักษาภาวะจับหืดเฉียบพลันในเด็ก. ใน สมศักดิ์ โล่ห์เลขา, ชลีรัตน์ ดิเรกวัฒชัย และ มนตรี ตู้จินดา (บรรณาธิการ), อิมมูโนวิทยาทางคลีนิคและโรคภูมิแพ้. (น. 99-103). กรุงเทพฯ: วิทยาลัย กุมารแพทย์แห่งประเทศไทย และสมาคมกุมารแพทย์แห่งประเทศไทย.
+              S. Suksern, S.V. Meleshko. Applications of tangent transformations to the linearization problem of fourth-order ordinary differential equations. Classical Analysis and ODEs. 26 Page
             </div>
           </div>
           <div>
             Reference conference:<br/>
             <textarea name="reference" rows="5" cols="100"></textarea>
             <div class="obj-display" style="background-color: orange;">
-              เสาวณีย์ จำเดิมเผด็จศึก. (2534). การรักษาภาวะจับหืดเฉียบพลันในเด็ก. ใน สมศักดิ์ โล่ห์เลขา, ชลีรัตน์ ดิเรกวัฒชัย และ มนตรี ตู้จินดา (บรรณาธิการ), อิมมูโนวิทยาทางคลีนิคและโรคภูมิแพ้. (น. 99-103). กรุงเทพฯ: วิทยาลัย กุมารแพทย์แห่งประเทศไทย และสมาคมกุมารแพทย์แห่งประเทศไทย.
+              ธนากร วงษศา, หนึ่งฤทัย จักรศรี และ อนุพันธ์ กงบังเกิด.ผลของ BA ร่วมกับ NAA ต่อการเจริญและพัฒนาของชิ้นส่วนข้อเอื้องดินปากพัดใบพาย (Cheirostylis spathulata J. J. Sm.) ในสภาพปลอดเชื้อ. Proceedings การประชุมวิชาการระดับชาติ “วิทยาศาสตร์วิจัย” ครั้งที่ 5. ระหว่างวันที่ 4-5 มีนาคม 2556. BIO 68-71.
             </div>
           </div>
           <input type="submit" />
