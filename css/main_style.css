@@ -1,0 +1,33 @@
+.container {
+  margin: auto;
+  width: 800px;
+}
+
+.title-banner {
+  height: 100px;
+  background-color: orange;
+  font-size: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.mouse-focus:hover {
+  background-color: orange;
+}
+
+.obj-display {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 5px;
+  vertical-align:top;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+.researcher_display {
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border:1px;
+  border-style:dotted;
+}
