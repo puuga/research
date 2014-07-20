@@ -226,6 +226,32 @@ code by siwawes wongcharoen
         }
 
       }
+
+      function setConferenceEndDateFromConferenceStartDate() {
+        var startDate = new Date($("#conference_start_date").val());
+        var endDate = new Date();
+        endDate.setDate(startDate.getDate() + 1);
+        //console.log("startDate:"+startDate);
+        console.log("endDate:"+endDate.toLocaleDateString());
+
+        var today = endDate;
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+
+        var yyyy = today.getFullYear();
+        if (dd<10) {
+          dd = '0'+dd;
+        }
+        if (mm<10) {
+          mm = '0'+mm;
+        }
+        today = yyyy+'-'+mm+'-'+dd;
+
+        $("#conference_end_date").val(today);
+
+        console.log("endDate:"+$("#conference_end_date").val());
+      }
+
     </script>
   </head>
   <body>
@@ -390,8 +416,8 @@ code by siwawes wongcharoen
                   Conference date:
                 </div>
                 <div class="obj-display">
-                  Start Date: <input type="date" name="conference_start_date"/><br/>
-                  End Date: <input type="date" name="conference_end_date"/><br/>
+                  Start Date: <input type="date" id="conference_start_date" name="conference_start_date" oninput="setConferenceEndDateFromConferenceStartDate()"/><br/>
+                  End Date: <input type="date" id="conference_end_date" name="conference_end_date"/><br/>
                 </div>
               </div>
               <div></div>
@@ -415,19 +441,24 @@ code by siwawes wongcharoen
             Attach File: <input type="file" name="att_file" />
           </div>
           <div>
-            Reference journal:<br/>
+            Reference:<br/>
             <textarea name="reference" rows="5" cols="100"></textarea>
-            <div class="obj-display" style="background-color: orange;">
-              S. Suksern, S.V. Meleshko. Applications of tangent transformations to the linearization problem of fourth-order ordinary differential equations. Classical Analysis and ODEs. 26 Page
+            <div class="obj-display-background">
+              <p><b>Reference journal:</b></p>
+              <p>
+                S. Suksern, S.V. Meleshko. Applications of tangent transformations to the linearization problem of fourth-order ordinary differential equations. Classical Analysis and ODEs. 26 Page
+              </p>
             </div>
+            <div class="obj-display-background">
+              <p><b>Reference conference:</b></p>
+              <p>
+                ธนากร วงษศา, หนึ่งฤทัย จักรศรี และ อนุพันธ์ กงบังเกิด.ผลของ BA ร่วมกับ NAA ต่อการเจริญและพัฒนาของชิ้นส่วนข้อเอื้องดินปากพัดใบพาย (Cheirostylis spathulata J. J. Sm.) ในสภาพปลอดเชื้อ. Proceedings การประชุมวิชาการระดับชาติ “วิทยาศาสตร์วิจัย” ครั้งที่ 5. ระหว่างวันที่ 4-5 มีนาคม 2556. BIO 68-71.
+              </p>
+            </div>
+          </div>
           </div>
           <div>
-            Reference conference:<br/>
-            <textarea name="reference" rows="5" cols="100"></textarea>
-            <div class="obj-display" style="background-color: orange;">
-              ธนากร วงษศา, หนึ่งฤทัย จักรศรี และ อนุพันธ์ กงบังเกิด.ผลของ BA ร่วมกับ NAA ต่อการเจริญและพัฒนาของชิ้นส่วนข้อเอื้องดินปากพัดใบพาย (Cheirostylis spathulata J. J. Sm.) ในสภาพปลอดเชื้อ. Proceedings การประชุมวิชาการระดับชาติ “วิทยาศาสตร์วิจัย” ครั้งที่ 5. ระหว่างวันที่ 4-5 มีนาคม 2556. BIO 68-71.
-            </div>
-          </div>
+
           <input type="submit" />
           <input type="reset" />
         </form>

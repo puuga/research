@@ -9,19 +9,42 @@
   font-size: 50px;
   margin-bottom: 20px;
   text-align: center;
+  box-shadow: 0px 5px 5px #888888;
 }
 
 .mouse-focus:hover {
   background-color: orange;
+  -webkit-animation: liftup 0.5s;
+  box-shadow: 0px 5px 5px #888888;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes liftup {
+    from {
+      box-shadow: 0px 0px 0px #FFFFFF;
+    }
+    to {
+      box-shadow: 0px 5px 5px #888888;
+    }
 }
 
 .obj-display {
   display: inline-block;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 0px;
   vertical-align:top;
   margin-top:10px;
   margin-bottom:10px;
+}
+
+.obj-display-background {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 0px;
+  vertical-align:top;
+  margin-top:10px;
+  margin-bottom:10px;
+  background-color: orange;
 }
 
 .researcher_display {
