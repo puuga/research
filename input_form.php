@@ -19,11 +19,11 @@ code by siwawes wongcharoen
       var researcherAmount = 0;
 
       var department = {
-        chemistry:"ภาควิชาเคมี",
-        physics:"ภาควิชาฟิสิกส์",
-        biology:"ภาควิชาชีววิทยา",
-        math:"ภาควิชาคณิตศาสตร์",
-        csit:"ภาควิชาวิทยาการคอมพิวเตอร์และเทคโนโลยีสารสนเทศ"
+        chemistry:"เคมี",
+        physics:"ฟิสิกส์",
+        biology:"ชีววิทยา",
+        math:"คณิตศาสตร์",
+        csit:"วิทยาการคอมพิวเตอร์และเทคโนโลยีสารสนเทศ"
       };
 
       <?php
@@ -32,6 +32,8 @@ code by siwawes wongcharoen
         $result = mysqli_query($con, $sql);
 
         $researchers = array();
+
+        $researchers_name = array();
 
         while($row = mysqli_fetch_array($result)) {
           $researcherTH = array();
@@ -43,11 +45,16 @@ code by siwawes wongcharoen
 
           $researchers[] = $researcherTH;
           $researchers[] = $researcherEN;
+
+          $temp = array();
+          $temp["name_th"] = $row['name_th'];
+          $temp["name_en"] = $row['name_en'];
+          $researchers_name[] = $temp;
         }
 
         //mysqli_close($con);
         //read conference
-        $sql = "SELECT * FROM conference";
+        $sql = "SELECT distinct name FROM conference";
         $result = mysqli_query($con, $sql);
 
         $conferences = array();
@@ -60,7 +67,7 @@ code by siwawes wongcharoen
         }
 
         //read journals
-        $sql = "SELECT * FROM journal";
+        $sql = "SELECT distinct name FROM journal";
         $result = mysqli_query($con, $sql);
 
         $journals = array();
@@ -89,6 +96,8 @@ code by siwawes wongcharoen
       var researcher_data = JSON.parse('<?php echo json_encode($researchers); ?>');
       var conference_data = JSON.parse('<?php echo json_encode($conferences); ?>');
       var journal_data = JSON.parse('<?php echo json_encode($journals); ?>');
+
+      var researchers_name = JSON.parse('<?php echo json_encode($researchers_name); ?>');
 
       $(document).ready(function(){
 
@@ -178,6 +187,8 @@ code by siwawes wongcharoen
 
         var temp = "<div name='researcher_name' class='researcher_display'>";
         temp += "<input list='researchers' name='researcher"+researcherAmount+"' size='80' oninput='setDepartment(this.value,this.name)' placeholder='Authur'/> ";
+        temp += "<input type='hidden' name='researcher"+researcherAmount+"_th' />";
+        temp += "<input type='hidden' name='researcher"+researcherAmount+"_en' />";
         temp += "<label><input type='checkbox' name='isFirstResearcher"+researcherAmount+"' value='true'>First name</label>";
         temp += "<label><input type='checkbox' name='isCorresponding"+researcherAmount+"' value='true'>Corresponding</label>";
         temp += "<br/>";
@@ -216,12 +227,20 @@ code by siwawes wongcharoen
       function setDepartment(name,inputname) {
         console.log("name ="+name);
         console.log("inputname ="+inputname);
+
+        for(var i=0; i<researchers_name.length; i++) {
+          if(researchers_name[i].name_th == name || researchers_name[i].name_en == name) {
+            $("[name="+inputname+"_th]").val(researchers_name[i].name_th);
+            $("[name="+inputname+"_en]").val(researchers_name[i].name_en);
+          }
+        }
+
+
         inputname = inputname.replace("researcher", "department");
         for(var i=0; i<researcher_data.length; i++) {
-          console.log("i ="+i);
+          //console.log("i ="+i);
           if(researcher_data[i].name == name) {
             $("[name="+inputname+"]").val(researcher_data[i].department);
-            return;
           }
         }
 
@@ -271,6 +290,8 @@ code by siwawes wongcharoen
             <div id="researcher">
               <div class="researcher_display">
               <input list="researchers" name="researcher0" size='80' oninput="setDepartment(this.value,this.name)" placeholder="Authur Name"/>
+              <input type="hidden" name="researcher0_th" />
+              <input type="hidden" name="researcher0_en" />
               <label>
                 <input type="checkbox" name="isFirstResearcher0" value="true">First name
               </label>
