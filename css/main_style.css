@@ -28,6 +28,12 @@
     }
 }
 
+.mouse-focus-v2:hover {
+  background-color: #555555;
+}
+
+
+
 .obj-display {
   display: inline-block;
   padding: 10px;
@@ -53,4 +59,18 @@
   border-radius: 5px;
   border:1px;
   border-style:dotted;
+}
+
+.subBox {
+  position:relative;
+  border-bottom-style: solid;
+  border-width: 1px;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
 }

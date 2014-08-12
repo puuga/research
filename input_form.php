@@ -189,8 +189,7 @@ code by siwawes wongcharoen
         temp += "<input list='researchers' name='researcher"+researcherAmount+"' size='80' oninput='setDepartment(this.value,this.name)' placeholder='Authur'/> ";
         temp += "<input type='hidden' name='researcher"+researcherAmount+"_th' />";
         temp += "<input type='hidden' name='researcher"+researcherAmount+"_en' />";
-        temp += "<label><input type='checkbox' name='isFirstResearcher"+researcherAmount+"' value='true'>First name</label>";
-        temp += "<label><input type='checkbox' name='isCorresponding"+researcherAmount+"' value='true'>Corresponding</label>";
+        temp += "<label><input type='radio' name='corresponding' value='"+researcherAmount+"'>Corresponding</label>";
         temp += "<br/>";
         temp += "<input list='departments' name='department"+researcherAmount+"' size='80' placeholder='department'/>";
         temp += "</div>";
@@ -277,26 +276,28 @@ code by siwawes wongcharoen
     <div class="container">
       <div class="title-banner">Science Research System</div>
       <div>
-        <form method="get" action="input_form_process.php">
+        <form id="form1" method="post" action="input_form_process.php" enctype="multipart/form-data">
           <div class="mouse-focus obj-display">
-            Paper Title: <input type="text" name="research_name" size='100'/>
+            Paper Title: <input type="text" name="research_name" size='100' required/>
           </div>
           <div class="mouse-focus obj-display">
             <label><input type="checkbox" name="isStudentProduct" value="true">For Student Graduation: </label>
           </div>
           <div></div>
           <div class="mouse-focus obj-display">
-            Authur<br/>
+            Authur Name<br/>
             <div id="researcher">
               <div class="researcher_display">
               <input list="researchers" name="researcher0" size='80' oninput="setDepartment(this.value,this.name)" placeholder="Authur Name"/>
               <input type="hidden" name="researcher0_th" />
               <input type="hidden" name="researcher0_en" />
+              <!--
               <label>
                 <input type="checkbox" name="isFirstResearcher0" value="true">First name
               </label>
+              -->
               <label>
-                <input type="checkbox" name="isCorresponding0" value="true">Corresponding
+                <input type="radio" name="corresponding" value="0">Corresponding
               </label>
               <br/>
               <input list="departments" name="department0" size='80' placeholder="Deparment"/>
@@ -315,12 +316,12 @@ code by siwawes wongcharoen
           <div class="mouse-focus obj-display">
             Type:
             <label><input id="radio_journal" type="radio" name="type" value="journal" />Journal</label>
-            <label><input id="radio_conference" type="radio" name="type" value="conference" />Proceeding Paper</label>
+            <label><input id="radio_conference" type="radio" name="type" value="conference" />Proceedings</label>
           </div>
           <div>
             <div id="journal_form" style="display: none;">
               <div class="mouse-focus obj-display">
-                Journal Name:
+                Journal Title:
                 <input list="journal_names" name="journal_name" size='80'/>
                 <datalist id="journal_names">
                 </datalist>
@@ -334,7 +335,7 @@ code by siwawes wongcharoen
                 </label>
                 <label>
                   <input id="radio_journal_type_international" type="radio" name="journal_type" value="international" />
-                  Inter-National
+                  International
                 </label>
 
                 <div></div>
@@ -373,50 +374,103 @@ code by siwawes wongcharoen
                 <label><input id="radio_journal_type_inpress" type="radio" name="journal_type_progress" value="inpress" />Inpress</label>
               </div>
               <div id="journal_type_public" class="mouse-focus obj-display" style="display: none;">
-                Vol no: <input type="text" name="journal_vol"/><br/>
-                Issue: <input type="text" name="journal_issue"/><br/>
-                Number: <input type="text" name="journal_number"/><br/>
-                Page: <input type="text" name="journal_page_start"/> To: <input type="text" name="journal_page_end"/><br/>
-                DOI no: <input type="text" name="journal_doi_no"/><br/>
-                Accepted date: <input type="month" name="journal_accepted_date"/><br/>
-                Published month:
-                <span>
-                  <select name="journal_published_month">
-                    <option value="January">January</option>
-                    <option value="February">February</option>
-                    <option value="March">March</option>
-                    <option value="April">April</option>
-                    <option value="May">May</option>
-                    <option value="June">June</option>
-                    <option value="July">July</option>
-                    <option value="August">August</option>
-                    <option value="September">September</option>
-                    <option value="October">October</option>
-                    <option value="November">November</option>
-                    <option value="December">December</option>
-                  </select>
-                </span><br/>
-                Published year:
-                <span>
-                  <select id="journal_published_year" name="journal_published_year">
-                  </select>
-                  <script>
-                    // setup year
-                    var d = new Date();
-                    var n = d.getFullYear();
-                    var nMin = n-5;
-                    var nMax = n+5;
-                    for ( i=nMin; i<=nMax; i++ ) {
-                      var temp = "<option value='"+i+"'>"+i+"</option>";
-                      if ( i==n ) {
-                        temp = "<option value='"+i+"' selected>"+i+"</option>";
-                      }
-                      $("#journal_published_year").append(temp);
-                    }
-                  </script>
-                </span>
+                <div class="subBox">
+                  <div class="left">Vol.:</div>
+                  <div class="right"><input type="text" name="journal_vol"/></div>
+                  <br/>
+                </div>
                 <br/>
+
+                <div class="subBox">
+                  <div class="left">Issue No.:</div>
+                  <div class="right"><input type="text" name="journal_issue"/></div>
+                  <br/>
+                </div>
+                <br/>
+
+                <div class="subBox">
+                  <div class="left">Number:</div>
+                  <div class="right"><input type="text" name="journal_number"/></div>
+                  <br/>
+                </div>
+                <br/>
+
+                <div class="subBox">
+                  <div class="left">Page:</div>
+                  <div class="right">
+                    <div class="left">From:</div>
+                    <div class="right"><input type="text" name="journal_page_start"/></div>
+                    <br/>
+                    <div class="left">To:</div>
+                    <div class="right"><input type="text" name="journal_page_end"/></div>
+                  </div>
+                  <br/>
+                  <br/>
+                </div>
+                <br/>
+
+                <div class="subBox">
+                  <div class="left">DOI no:</div>
+                  <div class="right"><input type="text" name="journal_doi_no"/></div>
+                  <br/>
+                </div>
+                <br/>
+
+                <div class="subBox">
+                  <div class="left">Accepted date:</div>
+                  <div class="right"><input type="month" name="journal_accepted_date"/></div>
+                  <br/>
+                </div>
+                <br/>
+
+                <div class="subBox">
+                  <div class="left">Published month:</div>
+                  <div class="right">
+                    <select name="journal_published_month">
+                      <option value="January">January</option>
+                      <option value="February">February</option>
+                      <option value="March">March</option>
+                      <option value="April">April</option>
+                      <option value="May">May</option>
+                      <option value="June">June</option>
+                      <option value="July">July</option>
+                      <option value="August">August</option>
+                      <option value="September">September</option>
+                      <option value="October">October</option>
+                      <option value="November">November</option>
+                      <option value="December">December</option>
+                    </select>
+                  </div>
+                  <br/>
+                </div>
+                <br/>
+
+                <div class="subBox">
+                  <div class="left">Published year:</div>
+                  <div class="right">
+                    <select id="journal_published_year" name="journal_published_year">
+                    </select>
+                    <script>
+                      // setup year
+                      var d = new Date();
+                      var n = d.getFullYear();
+                      var nMin = n-5;
+                      var nMax = n+5;
+                      for ( i=nMin; i<=nMax; i++ ) {
+                        var temp = "<option value='"+i+"'>"+i+"</option>";
+                        if ( i==n ) {
+                          temp = "<option value='"+i+"' selected>"+i+"</option>";
+                        }
+                        $("#journal_published_year").append(temp);
+                      }
+                    </script>
+                  </div>
+                  <br/>
+                </div>
+                <br/>
+
               </div>
+
               <div id="journal_type_inpress" class="mouse-focus obj-display" style="display: none;">
                 journal_type_inpress
               </div>
@@ -425,12 +479,11 @@ code by siwawes wongcharoen
             <div id="conference_form" style="display: none;">
               <div class="mouse-focus obj-display">
                 Conference Name:
-                <input list="conference_names" name="conference_name" size='120'/>
-                <datalist id="conference_names">
-                </datalist>
+                  <input list="conference_names" name="conference_name" size='120'/>
+                  <datalist id="conference_names"></datalist>
               </div>
               <div class="mouse-focus obj-display">
-                Address: <input type="text" name="conference_address" size='80'/>
+                Venue: <input type="text" name="conference_address" size='80'/>
               </div>
               <div class="mouse-focus obj-display">
                 <div class="obj-display">
@@ -458,32 +511,40 @@ code by siwawes wongcharoen
             </div>
           </div>
           <div></div>
-          <div>
-            Attach File: <input type="file" name="att_file" />
+          <div class="mouse-focus obj-display">
+            Uplaod File: (.pdf file)<input type="file" name="att_file" accept="application/pdf" required/>
           </div>
-          <div>
+          <div> </div>
+          <div class="mouse-focus obj-display">
             Reference:<br/>
             <textarea name="reference" rows="5" cols="100"></textarea>
+
+          </div>
+          </div>
             <div class="obj-display-background">
-              <p><b>Reference journal:</b></p>
+              <p><b>Reference Format:</b></p>
               <p>
                 S. Suksern, S.V. Meleshko. Applications of tangent transformations to the linearization problem of fourth-order ordinary differential equations. Classical Analysis and ODEs. 26 Page
               </p>
             </div>
-            <div class="obj-display-background">
-              <p><b>Reference conference:</b></p>
-              <p>
-                ธนากร วงษศา, หนึ่งฤทัย จักรศรี และ อนุพันธ์ กงบังเกิด.ผลของ BA ร่วมกับ NAA ต่อการเจริญและพัฒนาของชิ้นส่วนข้อเอื้องดินปากพัดใบพาย (Cheirostylis spathulata J. J. Sm.) ในสภาพปลอดเชื้อ. Proceedings การประชุมวิชาการระดับชาติ “วิทยาศาสตร์วิจัย” ครั้งที่ 5. ระหว่างวันที่ 4-5 มีนาคม 2556. BIO 68-71.
-              </p>
-            </div>
-          </div>
-          </div>
           <div>
 
           <input type="submit" />
           <input type="reset" />
         </form>
       </div>
+
+      <script type="text/javascript">
+        // disable submit button
+        // btnSubmit
+        $( "#form1" ).submit(function( event ) {
+          //alert( "Handler for .submit() called." );
+          //event.preventDefault();
+          $( "#btnSubmit" ).attr("disabled", "disabled");
+          //event.preventDefault();
+        });
+      </script>
+
     </div>
   </body>
 </html>
