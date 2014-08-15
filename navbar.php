@@ -1,0 +1,82 @@
+<!-- top nav bar -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Science Research</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="research.php"><span class="glyphicon glyphicon-stats"></span> Summary</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-th"></span>
+            System <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Research System</a></li>
+            <li class="divider"></li>
+            <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Patent System</a></li>
+            <li class="divider"></li>
+            <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Researcher System</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-user"></span>
+            username <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li class="divider"></li>
+            <li><a href="#">log out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<!-- buttom nav bar -->
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Science Research</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="http://www.sci.nu.ac.th/science/">Sci Web</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Department <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="http://www.sci.nu.ac.th/chemistry">Chemistry</a></li>
+            <li><a href="http://www.sci.nu.ac.th/physics">Physics</a></li>
+            <li><a href="http://www.sci.nu.ac.th/biology">Biology</a></li>
+            <li><a href="http://www.sci.nu.ac.th/mathematics/math">Mathematics</a></li>
+            <li><a href="http://www.sci.nu.ac.th/csit">CSIT</a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
