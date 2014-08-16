@@ -1,5 +1,5 @@
 <?php //input_form.php ?>
-
+<?php include 'login_control.php'; ?>
 <?php include 'db_connect.php'; ?>
 
 <!DOCTYPE html>

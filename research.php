@@ -1,3 +1,5 @@
+<?php include 'login_control.php'; ?>
+<?php include 'db_connect.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -26,7 +28,6 @@
   </head>
   <body>
     <?php include 'navbar.php'; ?>
-
 
     <h1>Hello, world!</h1>
     <div>

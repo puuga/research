@@ -34,12 +34,10 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-user"></span>
-            username <span class="caret"></span>
+            <?php echo $current_user; ?> <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li class="divider"></li>
-            <li><a href="#">log out</a></li>
+            <li><a href="logout_process.php">Sign out</a></li>
           </ul>
         </li>
       </ul>
