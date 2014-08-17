@@ -22,7 +22,7 @@
             System <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Research System</a></li>
+            <li><a href="research_view.php"><span class="glyphicon glyphicon-pencil"></span> Research System</a></li>
             <li class="divider"></li>
             <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Patent System</a></li>
             <li class="divider"></li>
