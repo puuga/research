@@ -53,7 +53,7 @@
         <div class="col-md-2 text-right">
           <p></p>
           <p>
-            <a class="btn btn-danger" href="input_form.php" role="button">
+            <a class="btn btn-success" href="input_form.php" role="button">
               <span class="glyphicon glyphicon-plus"></span> New Research
             </a>
           </p>
