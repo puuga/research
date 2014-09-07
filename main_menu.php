@@ -1,6 +1,9 @@
 <div>
-  ระบบจัดการรายชื่อบุคคลากร
+  manage staff details
 </div>
 <div>
-  ระบบจัดการงานวิจัย
+  <a href="research.php">Manage paper details</a>
+</div>
+<div>
+  Manage patent details
 </div>

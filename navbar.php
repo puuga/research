@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Science Research</a>
+      <a class="navbar-brand" href="#"><?php echo String::system_title; ?></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

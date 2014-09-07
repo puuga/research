@@ -1,5 +1,4 @@
 <?php //db_connect.php ?>
-
 <?php
   // Create connection
   $con = mysqli_connect("localhost","researchdba","123456","research");
