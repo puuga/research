@@ -18,23 +18,62 @@
       var researchs = [];
 
       function setDataForDetail(id) {
-        console.log("researchs"+researchs.length);
-        research = researchs[id];
+        console.log("researchs.length:"+researchs.length);
+        console.log("id:"+id);
+
+        var research;
+        for (var i=0; i<researchs.length; i++) {
+          if (researchs[i].id == id) {
+            research = researchs[i];
+            break;
+          }
+        }
+
         $("#researchTitleDetail").html(research.title);
         $("#researchTitleDetailForStudentGraduation").html(research.is_student_grad);
-        $("#researchTitleDetailAuther").html(research.author_name_th+"<br/>"+research.author_name_en);
+        $("#researchTitleDetailAuthor").html(research.author_name_th+"<br/>"+research.author_name_en);
         $("#researchTitleDetailCorresponding").html(research.corresponding);
         $("#researchTitleDetailReference").html(research.reference);
+
+        if (research.research_type == "journal") {
+          $("#researchTitleDetailForJournal").show();
+          $("#researchTitleDetailForProceeding").hide();
+
+          $("#researchTitleDetailJournalTitle").html(research.journal_name);
+
+        } else if (research.research_type == "conference") {
+          $("#researchTitleDetailForProceeding").show();
+          $("#researchTitleDetailForJournal").hide();
+
+          $("#researchTitleDetailConferenceName").html(research.conference_name);
+          $("#researchTitleDetailVenue").html(research.conference_address);
+
+        }
+
         $("#researchTitleDetailAttFile").attr("href", research.att_file);
       }
 
       function setDataForModal(id) {
-        research = researchs[id];
+        var research;
+        for (var i=0; i<researchs.length; i++) {
+          if (researchs[i].id == id) {
+            research = researchs[i];
+            break;
+          }
+        }
+
         $("#researchTitleToEdit").html(research.title);
       }
 
       function setDataToDelete(id) {
-        research = researchs[id];
+        var research;
+        for (var i=0; i<researchs.length; i++) {
+          if (researchs[i].id == id) {
+            research = researchs[i];
+            break;
+          }
+        }
+
         $("#researchTitleToDelete").html(research.title);
       }
 
@@ -70,7 +109,8 @@
           <table class="table table-hover table-striped">
             <thead>
               <tr class="info">
-                <th>Data</th>
+                <th>Paper Title</th>
+                <th>Author</th>
                 <th>Detail</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -90,7 +130,11 @@
                     ?>
                     <tr>
                       <td>
-                        <?php echo $row['reference']; ?>
+                        <?php echo $row['title']; ?>
+                      </td>
+                      <td>
+                        <?php echo $row['author_name_th']; ?><br/>
+                        <?php echo $row['author_name_en']; ?>
                       </td>
                       <td>
                         <!-- Button trigger modal -->
@@ -146,7 +190,7 @@
               <strong>For Student Graduation:</strong> <span id="researchTitleDetailForStudentGraduation"></span>
             </div>
             <div>
-              <strong>Authur:</strong> <span id="researchTitleDetailAuther"></span>
+              <strong>Author:</strong> <span id="researchTitleDetailAuthor"></span>
             </div>
             <div>
               <strong>Corresponding:</strong> <span id="researchTitleDetailCorresponding"></span>
@@ -154,6 +198,26 @@
             <div>
               <strong>Reference:</strong> <span id="researchTitleDetailReference"></span>
             </div>
+
+            <div id="researchTitleDetailForJournal">
+
+              <div>
+                <strong>Journal Title:</strong> <span id="researchTitleDetailJournalTitle"></span>
+              </div>
+
+            </div>
+
+            <div id="researchTitleDetailForProceeding">
+
+              <div>
+                <strong>Conference Name:</strong> <span id="researchTitleDetailConferenceName"></span>
+              </div>
+              <div>
+                <strong>Venue:</strong> <span id="researchTitleDetailVenue"></span>
+              </div>
+
+            </div>
+
             <div>
               <a id="researchTitleDetailAttFile" href="#" class='btn btn-primary' target="_blank">
                 <span class='glyphicon glyphicon-download'></span> Download
@@ -182,7 +246,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancle</button>
             <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
