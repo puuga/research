@@ -22,6 +22,7 @@
 
         var data = google.visualization.arrayToDataTable([
           ['Year', 'Chemistry', 'Physics', 'Biology', 'Mathematics', 'CSIT'],
+          ['2012', 90, 100, 110, 105, 110],
           ['2013', 100, 110, 120, 115, 120],
           ['2014', 101, 111, 121, 116, 121]
         ]);
@@ -29,7 +30,7 @@
         var options = {
           title: 'Summary Chart',
           hAxis: {title: 'Year', titleTextStyle: {color: 'red'}},
-          vAxis: {title: 'Number', titleTextStyle: {color: 'red'}}
+          vAxis: {title: 'Number of paper', titleTextStyle: {color: 'red'}}
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
@@ -46,7 +47,7 @@
 
     <div class="jumbotron">
       <div class="container">
-        <h2>Summary Chart</h2>
+        <h2>Summary Paper Chart</h2>
         <div id="chart_div" style="width: 100%; height: 400px;"></div>
       </div>
     </div>
@@ -57,7 +58,7 @@
       <!--title row-->
       <div class="row bg-primary">
         <div class="col-md-12 ">
-          <h2>Summary Data</h2>
+          <h2>Summary Paper Data</h2>
         </div>
       </div>
 

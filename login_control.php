@@ -9,14 +9,28 @@
     exit();
   }
 
-  if (empty($_SESSION['current_user']) || $_SESSION['current_user']=="") {
+  $current_user_name = "";
+  $current_user_admin_level = 10;
+
+  if (empty($_SESSION['current_user_name']) || $_SESSION['current_user_name']=="") {
     //header( 'Location: login.php' );
     //exit();
-    redirect('login.php', false);
+    $current_user_name = "";
+    $current_user_admin_level = 10;
     //echo "check";
   } else {
-    $current_user = $_SESSION['current_user'];
+    $current_user_name = $_SESSION['current_user_name'];
+    $current_user_admin_level = $_SESSION['current_user_admin_level'];
     //echo "check2";
+  }
+
+  function needAdminLevel($requireLevel) {
+    if (empty($_SESSION['current_user_name']) || $_SESSION['current_user_name']=="") {
+      redirect('login.php?message=Need admin permission', false);
+    }
+    if (0+$_SESSION['current_user_admin_level'] > 0+$requireLevel) {
+      redirect('login.php?message=Need admin permission'.$_SESSION['current_user_admin_level'].",".$requireLevel, false);
+    }
   }
 
 ?>

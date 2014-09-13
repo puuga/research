@@ -512,7 +512,7 @@ code by siwawes wongcharoen
           </div>
           <div></div>
           <div class="mouse-focus obj-display">
-            Uplaod File: (.pdf file)<input type="file" name="att_file" accept="application/pdf" required/>
+            Uplaod File: (.pdf file)<input type="file" name="att_file" accept="application/pdf"/>
           </div>
           <div> </div>
           <div class="mouse-focus obj-display">

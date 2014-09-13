@@ -9,24 +9,24 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><?php echo String::system_title; ?></a>
+      <a class="navbar-brand" href="main_menu.php"><?php echo String::system_title; ?></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="research.php"><span class="glyphicon glyphicon-stats"></span> Summary</a></li>
+        <li><a href="research.php"><span class="glyphicon glyphicon-stats"></span> Summary Paper</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-th"></span>
             System <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="research_view.php"><span class="glyphicon glyphicon-list-alt"></span> Research System</a></li>
+            <li><a href="research_view.php"><span class="glyphicon glyphicon-list-alt"></span> Paper Management System</a></li>
             <li class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-tag"></span> Patent System</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-tag"></span> Patent Management System</a></li>
             <li class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Researcher System</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Staff Management System</a></li>
           </ul>
         </li>
       </ul>
@@ -34,10 +34,18 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-user"></span>
-            <?php echo $current_user; ?> <span class="caret"></span>
+            <?php echo $current_user_name; ?> <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="logout_process.php">Sign out</a></li>
+            <?php
+              if ($current_user_name != "") {
+                echo '<li><a href="logout_process.php">Sign out</a></li>';
+              } else {
+                echo '<li><a href="login.php">Sign in</a></li>';
+              }
+            ?>
+
+
           </ul>
         </li>
       </ul>
@@ -56,7 +64,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Science Research</a>
+      <a class="navbar-brand" href="main_menu.php"><?php echo String::system_title; ?></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

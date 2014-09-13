@@ -112,7 +112,7 @@
       // upload file
       // In PHP versions earlier than 4.1.0, $HTTP_POST_FILES should be used instead
       // of $_FILES.
-      if (isset($_FILES['att_file'])) {
+      if (isset($_FILES['att_file']) || !empty($_FILES['att_file'])) {
         $uploaddir = 'upload_file/';
         $uploadfile = $uploaddir . date("l_d_m_Y_H_i_s") . "_". basename($_FILES['att_file']['name']);
 
