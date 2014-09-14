@@ -94,20 +94,21 @@
   // upload file
   // In PHP versions earlier than 4.1.0, $HTTP_POST_FILES should be used instead
   // of $_FILES.
-  if (isset($_FILES['att_file']) || !empty($_FILES['att_file'])) {
+  if ($_FILES['att_file']) {
     $uploaddir = 'upload_file/';
     $uploadfile = $uploaddir . date("l_d_m_Y_H_i_s") . "_". basename($_FILES['att_file']['name']);
 
-    echo '<hr>';
+    //echo '<hr>';
     //echo date("l_d_m_Y_H_i_s") . "<br>";
 
     if (move_uploaded_file($_FILES['att_file']['tmp_name'], $uploadfile)) {
-        echo "File is valid, and was successfully uploaded.\n";
+        //echo "File is valid, and was successfully uploaded.\n";
     } else {
-        echo "Can not upload file!\n";
-        exit();
+        //echo "Can not upload file!\n";
+        //exit();
+        $uploadfile = "";
     }
-    echo '<hr>';
+    //echo '<hr>';
   }
   $att_file = $uploadfile;
   $reference = isset($_POST["reference"]) ? $_POST["reference"] : "" ;
@@ -192,7 +193,7 @@
   if (!$result) {
     die('Error: ' . mysqli_error($con));
   }
-  header('Location: research_view.php');
+  header('Location: research_view.php?message=Add New Paper Completed');
 
   echo "1 record added";
   mysqli_close($con);

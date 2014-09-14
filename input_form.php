@@ -189,8 +189,8 @@ code by siwawes wongcharoen
         //
         researcherAmount++;
 
-        var temp = "<br><div name='researcher_name'>";
-        temp += "<div class='row'>";
+        var temp = "<div name='researcher_name'>";
+        temp += "<div class='row'><br/>";
         temp += "<div class='col-md-10'>";
         temp += "<input list='researchers' name='researcher"+researcherAmount+"' class='form-control' oninput='setDepartment(this.value,this.name)' placeholder='Authur'/> ";
         temp += "<input list='departments' name='department"+researcherAmount+"' class='form-control' placeholder='department'/>";
@@ -198,7 +198,9 @@ code by siwawes wongcharoen
         temp += "<input type='hidden' name='researcher"+researcherAmount+"_en' />";
         temp += "</div>";
         temp += "<div class='col-md-2'>";
+        temp += "<div class='radio'>";
         temp += "<label><input type='radio' name='corresponding' value='"+researcherAmount+"'>Corresponding</label>";
+        temp += "</div>";
         temp += "</div>";
 
         temp += "</div>";
@@ -301,6 +303,30 @@ code by siwawes wongcharoen
         </div>
       </div>
 
+      <?php
+        if (!empty($_GET["message"])) {
+          ?>
+          <div class="row bg-info">
+
+            <div class="col-md-4">
+            </div>
+
+            <div class="col-md-4">
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <strong><?php echo $_GET["message"]; ?></strong>
+              </div>
+            </div>
+
+          </div>
+          <?php
+        }
+      ?>
+
+
+
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
@@ -343,9 +369,11 @@ code by siwawes wongcharoen
                     <input type="hidden" name="researcher0_en" />
                   </div>
                   <div class="col-md-2">
-                    <label>
-                      <input type="radio" name="corresponding" value="0">Corresponding
-                    </label>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="corresponding" value="0">Corresponding
+                      </label>
+                    </div>
                   </div>
                 </div>
 
@@ -366,205 +394,371 @@ code by siwawes wongcharoen
 
         <div class="row">
           <div class="col-md-12">
+            <br/>
+            Type:
             <div class="radio">
-                Type:<br/>
-                <label><input id="radio_journal" type="radio" name="type" value="journal" />Journal</label>
-                <label><input id="radio_conference" type="radio" name="type" value="conference" />Proceedings</label>
+              <label>
+                <input id="radio_journal" type="radio" name="type" value="journal" />
+                Journal
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input id="radio_conference" type="radio" name="type" value="conference" />
+                Proceedings
+              </label>
             </div>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-12">
+
             <div id="journal_form" style="display: none;">
-              <div class="mouse-focus obj-display">
-                Journal Title:
-                <input list="journal_names" name="journal_name" size='80'/>
-                <datalist id="journal_names">
-                </datalist>
-              </div>
-              <div></div>
-              <div></div>
-              <div class="mouse-focus obj-display">
-                <label>
-                  <input id="radio_journal_type_national" type="radio" name="journal_type" value="national" />
-                  National
-                </label>
-                <label>
-                  <input id="radio_journal_type_international" type="radio" name="journal_type" value="international" />
-                  International
-                </label>
 
-                <div></div>
-              </div>
-
-
-
-              <div id="journal_national" class="mouse-focus obj-display" style="display: none;">
-                <label><input type="radio" name="journal_national_group" value="TCI group 1" />TCI group 1</label> <br/>
-                <label><input type="radio" name="journal_national_group" value="TCI group 2" />TCI group 2</label> <br/>
-                <label><input type="radio" name="journal_national_group" value="none" />none</label> <br/>
-              </div>
-
-              <div id="journal_international" class="mouse-focus obj-display" style="display: none;">
-                <input type="checkbox" name="is_journal_international_ISI" value="ISI">ISI <br/>
-                <input type="checkbox" name="is_journal_international_SCOPUS" value="SCOPUS">SCOPUS <br/>
-                <input type="checkbox" name="is_journal_international_SJR" value="SJR">SJR
-                <span>
-                  <div id="journal_international_group_sjr" style="display: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label><input type="radio" name="journal_international_group_sjr" value="Q1" />Q1</label> <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label><input type="radio" name="journal_international_group_sjr" value="Q2" />Q2</label> <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label><input type="radio" name="journal_international_group_sjr" value="Q3" />Q3</label> <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label><input type="radio" name="journal_international_group_sjr" value="Q4" />Q4</label> <br/>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="journal_name">Journal Title:</label>
+                    <input list="journal_names" name="journal_name" id="journal_name" class="form-control" />
+                    <datalist id="journal_names"></datalist>
                   </div>
-                </span>
+                </div>
               </div>
 
-              <div></div>
+              <div class="row">
 
-              <div class="mouse-focus obj-display">
-                <label><input id="radio_journal_type_public" type="radio" name="journal_type_progress" value="public" />Published</label>
-                <label><input id="radio_journal_type_inpress" type="radio" name="journal_type_progress" value="inpress" />Inpress</label>
-              </div>
-              <div id="journal_type_public" class="mouse-focus obj-display" style="display: none;">
-                <div class="subBox">
-                  <div class="left">Vol.:</div>
-                  <div class="right"><input type="text" name="journal_vol"/></div>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="subBox">
-                  <div class="left">Issue No.:</div>
-                  <div class="right"><input type="text" name="journal_issue"/></div>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="subBox">
-                  <div class="left">Number:</div>
-                  <div class="right"><input type="text" name="journal_number"/></div>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="subBox">
-                  <div class="left">Page:</div>
-                  <div class="right">
-                    <div class="left">From:</div>
-                    <div class="right"><input type="text" name="journal_page_start"/></div>
-                    <br/>
-                    <div class="left">To:</div>
-                    <div class="right"><input type="text" name="journal_page_end"/></div>
+                <div class="col-md-2">
+                  <div class="radio">
+                    <label>
+                      <input id="radio_journal_type_national" type="radio" name="journal_type" value="national" />
+                      National
+                    </label>
                   </div>
-                  <br/>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="subBox">
-                  <div class="left">DOI no:</div>
-                  <div class="right"><input type="text" name="journal_doi_no"/></div>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="subBox">
-                  <div class="left">Accepted date:</div>
-                  <div class="right"><input type="month" name="journal_accepted_date"/></div>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="subBox">
-                  <div class="left">Published month:</div>
-                  <div class="right">
-                    <select name="journal_published_month">
-                      <option value="January">January</option>
-                      <option value="February">February</option>
-                      <option value="March">March</option>
-                      <option value="April">April</option>
-                      <option value="May">May</option>
-                      <option value="June">June</option>
-                      <option value="July">July</option>
-                      <option value="August">August</option>
-                      <option value="September">September</option>
-                      <option value="October">October</option>
-                      <option value="November">November</option>
-                      <option value="December">December</option>
-                    </select>
+                  <div class="radio">
+                    <label>
+                      <input id="radio_journal_type_international" type="radio" name="journal_type" value="international" />
+                      International
+                    </label>
                   </div>
-                  <br/>
                 </div>
-                <br/>
 
-                <div class="subBox">
-                  <div class="left">Published year:</div>
-                  <div class="right">
-                    <select id="journal_published_year" name="journal_published_year">
-                    </select>
-                    <script>
-                      // setup year
-                      var d = new Date();
-                      var n = d.getFullYear();
-                      var nMin = n-5;
-                      var nMax = n+5;
-                      for ( i=nMin; i<=nMax; i++ ) {
-                        var temp = "<option value='"+i+"'>"+i+"</option>";
-                        if ( i==n ) {
-                          temp = "<option value='"+i+"' selected>"+i+"</option>";
-                        }
-                        $("#journal_published_year").append(temp);
-                      }
-                    </script>
+                <div class="col-md-10">
+                  <div id="journal_national" style="display: none;">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="journal_national_group" value="TCI group 1" />
+                            TCI group 1
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="journal_national_group" value="TCI group 2" />
+                            TCI group 2
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" name="journal_national_group" value="none" />none
+                          </label>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <br/>
+
+                  <div id="journal_international" style="display: none;">
+                    <div class="row">
+
+                      <div class="col-md-2">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="is_journal_international_ISI" value="ISI">
+                            ISI
+                          </label>
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="is_journal_international_SCOPUS" value="SCOPUS">
+                            SCOPUS
+                          </label>
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="is_journal_international_SJR" value="SJR">
+                            SJR
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-2">
+                        <div id="journal_international_group_sjr" style="display: none;">
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="journal_international_group_sjr" value="Q1" />Q1
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="journal_international_group_sjr" value="Q2" />Q2
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="journal_international_group_sjr" value="Q3" />Q3
+                            </label>
+                          </div>
+                          <div class="radio">
+                            <label>
+                              <input type="radio" name="journal_international_group_sjr" value="Q4" />Q4
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <br/>
 
               </div>
 
-              <div id="journal_type_inpress" class="mouse-focus obj-display" style="display: none;">
-                journal_type_inpress
+              <div class="row">
+
+                <div class="col-md-2">
+                  <div class="radio">
+                    <label>
+                      <input id="radio_journal_type_public" type="radio" name="journal_type_progress" value="public" />
+                      Published
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input id="radio_journal_type_inpress" type="radio" name="journal_type_progress" value="inpress" />
+                      Inpress
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+
+                  <div id="journal_type_public" class="form-horizontal" style="display: none;">
+
+                    <div class="form-group">
+                      <label for="journal_vol" class="col-sm-4 control-label">
+                        Vol.:
+                      </label>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control" name="journal_vol" id="journal_vol"/>
+                      </div>
+                      <br/>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="journal_issue" class="col-sm-4 control-label">
+                        Issue No.:
+                      </label>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control" name="journal_issue" id="journal_issue"/>
+                      </div>
+                      <br/>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="journal_number" class="col-sm-4 control-label">
+                        Number:
+                      </label>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control" name="journal_number" id="journal_number"/>
+                      </div>
+                      <br/>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="journal_page_start" class="col-sm-4 control-label">
+                        From Page:
+                      </label>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control" name="journal_page_start" id="journal_page_start"/>
+                      </div>
+                      <br/>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="journal_page_end" class="col-sm-4 control-label">
+                        To Page:
+                      </label>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control" name="journal_page_end" id="journal_page_end"/>
+                      </div>
+                      <br/>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="journal_doi_no" class="col-sm-4 control-label">
+                        DOI no:
+                      </label>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control" name="journal_doi_no" id="journal_doi_no"/>
+                      </div>
+                      <br/>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="journal_accepted_date" class="col-sm-4 control-label">
+                        Accepted date:
+                      </label>
+                      <div class="col-sm-4">
+                        <input type="month" class="form-control" name="journal_accepted_date" id="journal_accepted_date"/>
+                      </div>
+                      <br/>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="journal_published_month" class="col-sm-4 control-label">
+                        Published month:
+                      </label>
+                      <div class="col-sm-4">
+                        <select class="form-control" name="journal_published_month" id="journal_published_month">
+                          <option value="January">January</option>
+                          <option value="February">February</option>
+                          <option value="March">March</option>
+                          <option value="April">April</option>
+                          <option value="May">May</option>
+                          <option value="June">June</option>
+                          <option value="July">July</option>
+                          <option value="August">August</option>
+                          <option value="September">September</option>
+                          <option value="October">October</option>
+                          <option value="November">November</option>
+                          <option value="December">December</option>
+                        </select>
+                      </div>
+                      <br/>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="journal_published_year" class="col-sm-4 control-label">
+                        Published year:
+                      </label>
+                      <div class="col-sm-4">
+                        <select class="form-control" id="journal_published_year" name="journal_published_year">
+                        </select>
+                        <script>
+                          // setup year
+                          var d = new Date();
+                          var n = d.getFullYear();
+                          var nMin = n-5;
+                          var nMax = n+5;
+                          for ( i=nMin; i<=nMax; i++ ) {
+                            var temp = "<option value='"+i+"'>"+i+"</option>";
+                            if ( i==n ) {
+                              temp = "<option value='"+i+"' selected>"+i+"</option>";
+                            }
+                            $("#journal_published_year").append(temp);
+                          }
+                        </script>
+                      </div>
+                      <br/>
+                    </div>
+
+                  </div>
+
+                  <div id="journal_type_inpress" style="display: none;">
+                  </div>
+
+                </div>
+
               </div>
+
             </div>
 
             <div id="conference_form" style="display: none;">
-              <div class="mouse-focus obj-display">
-                Conference Name:
-                  <input list="conference_names" name="conference_name" size='120'/>
-                  <datalist id="conference_names"></datalist>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="conference_name">Conference Name:</label>
+                    <input list="conference_names" name="conference_name" id="conference_name" class="form-control"/>
+                    <datalist id="conference_names"></datalist>
+                  </div>
+                </div>
               </div>
-              <div class="mouse-focus obj-display">
-                Venue: <input type="text" name="conference_address" size='80'/>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="conference_address">Venue:</label>
+                    <input type="text" name="conference_address" id="conference_address" class="form-control"/>
+                  </div>
+                </div>
               </div>
-              <div class="mouse-focus obj-display">
-                <div class="obj-display">
+
+              <div class="row form-horizontal">
+
+                <div class="col-md-3">
                   Conference date:
+                  <div class="form-group">
+                    <label for="conference_start_date" class="col-sm-6 control-label">Start Date:</label>
+                    <div class="col-sm-6">
+                      <input type="date" class="form-control" id="conference_start_date" name="conference_start_date" oninput="setConferenceEndDateFromConferenceStartDate()"/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="conference_end_date" class="col-sm-6 control-label">End Date:</label>
+                    <div class="col-sm-6">
+                      <input type="date" class="form-control" id="conference_end_date" name="conference_end_date"/>
+                    </div>
+                  </div>
                 </div>
-                <div class="obj-display">
-                  Start Date: <input type="date" id="conference_start_date" name="conference_start_date" oninput="setConferenceEndDateFromConferenceStartDate()"/><br/>
-                  End Date: <input type="date" id="conference_end_date" name="conference_end_date"/><br/>
+
+                <div class="col-md-3">
+                  Page:
+                  <div class="form-group">
+                    <label for="conference_page_start" class="col-sm-3 control-label">From:</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" name="conference_page_start" id="conference_page_start"/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="conference_page_end" class="col-sm-3 control-label">To:</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control" name="conference_page_end" id="conference_page_end"/>
+                    </div>
+                  </div>
                 </div>
+
+                <div class="col-md-3">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="conference_location_type" value="national" />
+                      National
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="conference_location_type" value="international" />
+                      International
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="conference_type" value="oral" />
+                      Oral
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="conference_type" value="poster" />
+                      Poster
+                    </label>
+                  </div>
+                </div>
+
               </div>
-              <div></div>
-              <div class="mouse-focus obj-display">
-                Page: <input type="text" name="conference_page_start"/> To: <input type="text" name="conference_page_end"/><br/>
-              </div>
-              <div></div>
-              <div class="mouse-focus obj-display">
-                <label><input type="radio" name="conference_location_type" value="national" />National</label><br/>
-                <label><input type="radio" name="conference_location_type" value="international" />Inter-National</label><br/>
-              </div>
-              <div></div>
-              <div class="mouse-focus obj-display">
-                <label><input type="radio" name="conference_type" value="oral" />oral</label><br/>
-                <label><input type="radio" name="conference_type" value="poster" />poster</label><br/>
-              </div>
+
             </div>
           </div>
         </div>
@@ -573,7 +767,8 @@ code by siwawes wongcharoen
           <div class="col-md-12">
             <div class="form-group">
               <label for="att_file">Uplaod File: (.pdf file)</label>
-              <input type="file" name="att_file" id="att_file" accept="application/pdf" class="form-control"/>
+              <input type="file" name="att_file" id="att_file" accept="application/pdf" />
+              <p class="help-block">Accept only .pdf file</p>
             </div>
           </div>
         </div>
@@ -587,227 +782,28 @@ code by siwawes wongcharoen
           </div>
         </div>
 
-      </form
-
-<hr/>
-      <div>
-        <form id="form1" method="post" action="input_form_process.php" enctype="multipart/form-data">
-
-          <div>
-            <div id="journal_form" style="display: none;">
-              <div class="mouse-focus obj-display">
-                Journal Title:
-                <input list="journal_names" name="journal_name" size='80'/>
-                <datalist id="journal_names">
-                </datalist>
-              </div>
-              <div></div>
-              <div></div>
-              <div class="mouse-focus obj-display">
-                <label>
-                  <input id="radio_journal_type_national" type="radio" name="journal_type" value="national" />
-                  National
-                </label>
-                <label>
-                  <input id="radio_journal_type_international" type="radio" name="journal_type" value="international" />
-                  International
-                </label>
-
-                <div></div>
-              </div>
-
-
-
-              <div id="journal_national" class="mouse-focus obj-display" style="display: none;">
-                <label><input type="radio" name="journal_national_group" value="TCI group 1" />TCI group 1</label> <br/>
-                <label><input type="radio" name="journal_national_group" value="TCI group 2" />TCI group 2</label> <br/>
-                <label><input type="radio" name="journal_national_group" value="none" />none</label> <br/>
-              </div>
-
-              <div id="journal_international" class="mouse-focus obj-display" style="display: none;">
-                <input type="checkbox" name="is_journal_international_ISI" value="ISI">ISI <br/>
-                <input type="checkbox" name="is_journal_international_SCOPUS" value="SCOPUS">SCOPUS <br/>
-                <input type="checkbox" name="is_journal_international_SJR" value="SJR">SJR
-                <span>
-                  <div id="journal_international_group_sjr" style="display: none;">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label><input type="radio" name="journal_international_group_sjr" value="Q1" />Q1</label> <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label><input type="radio" name="journal_international_group_sjr" value="Q2" />Q2</label> <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label><input type="radio" name="journal_international_group_sjr" value="Q3" />Q3</label> <br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label><input type="radio" name="journal_international_group_sjr" value="Q4" />Q4</label> <br/>
-                  </div>
-                </span>
-              </div>
-
-              <div></div>
-
-              <div class="mouse-focus obj-display">
-                <label><input id="radio_journal_type_public" type="radio" name="journal_type_progress" value="public" />Published</label>
-                <label><input id="radio_journal_type_inpress" type="radio" name="journal_type_progress" value="inpress" />Inpress</label>
-              </div>
-              <div id="journal_type_public" class="mouse-focus obj-display" style="display: none;">
-                <div class="subBox">
-                  <div class="left">Vol.:</div>
-                  <div class="right"><input type="text" name="journal_vol"/></div>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="subBox">
-                  <div class="left">Issue No.:</div>
-                  <div class="right"><input type="text" name="journal_issue"/></div>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="subBox">
-                  <div class="left">Number:</div>
-                  <div class="right"><input type="text" name="journal_number"/></div>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="subBox">
-                  <div class="left">Page:</div>
-                  <div class="right">
-                    <div class="left">From:</div>
-                    <div class="right"><input type="text" name="journal_page_start"/></div>
-                    <br/>
-                    <div class="left">To:</div>
-                    <div class="right"><input type="text" name="journal_page_end"/></div>
-                  </div>
-                  <br/>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="subBox">
-                  <div class="left">DOI no:</div>
-                  <div class="right"><input type="text" name="journal_doi_no"/></div>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="subBox">
-                  <div class="left">Accepted date:</div>
-                  <div class="right"><input type="month" name="journal_accepted_date"/></div>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="subBox">
-                  <div class="left">Published month:</div>
-                  <div class="right">
-                    <select name="journal_published_month">
-                      <option value="January">January</option>
-                      <option value="February">February</option>
-                      <option value="March">March</option>
-                      <option value="April">April</option>
-                      <option value="May">May</option>
-                      <option value="June">June</option>
-                      <option value="July">July</option>
-                      <option value="August">August</option>
-                      <option value="September">September</option>
-                      <option value="October">October</option>
-                      <option value="November">November</option>
-                      <option value="December">December</option>
-                    </select>
-                  </div>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="subBox">
-                  <div class="left">Published year:</div>
-                  <div class="right">
-                    <select id="journal_published_year" name="journal_published_year">
-                    </select>
-                    <script>
-                      // setup year
-                      var d = new Date();
-                      var n = d.getFullYear();
-                      var nMin = n-5;
-                      var nMax = n+5;
-                      for ( i=nMin; i<=nMax; i++ ) {
-                        var temp = "<option value='"+i+"'>"+i+"</option>";
-                        if ( i==n ) {
-                          temp = "<option value='"+i+"' selected>"+i+"</option>";
-                        }
-                        $("#journal_published_year").append(temp);
-                      }
-                    </script>
-                  </div>
-                  <br/>
-                </div>
-                <br/>
-
-              </div>
-
-              <div id="journal_type_inpress" class="mouse-focus obj-display" style="display: none;">
-                journal_type_inpress
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-body bg-info">
+                <p><b>Reference Format:</b></p>
+                <p>
+                  S. Suksern, S.V. Meleshko. Applications of tangent transformations to the linearization problem of fourth-order ordinary differential equations. Classical Analysis and ODEs. 26 Page
+                </p>
               </div>
             </div>
 
-            <div id="conference_form" style="display: none;">
-              <div class="mouse-focus obj-display">
-                Conference Name:
-                  <input list="conference_names" name="conference_name" size='120'/>
-                  <datalist id="conference_names"></datalist>
-              </div>
-              <div class="mouse-focus obj-display">
-                Venue: <input type="text" name="conference_address" size='80'/>
-              </div>
-              <div class="mouse-focus obj-display">
-                <div class="obj-display">
-                  Conference date:
-                </div>
-                <div class="obj-display">
-                  Start Date: <input type="date" id="conference_start_date" name="conference_start_date" oninput="setConferenceEndDateFromConferenceStartDate()"/><br/>
-                  End Date: <input type="date" id="conference_end_date" name="conference_end_date"/><br/>
-                </div>
-              </div>
-              <div></div>
-              <div class="mouse-focus obj-display">
-                Page: <input type="text" name="conference_page_start"/> To: <input type="text" name="conference_page_end"/><br/>
-              </div>
-              <div></div>
-              <div class="mouse-focus obj-display">
-                <label><input type="radio" name="conference_location_type" value="national" />National</label><br/>
-                <label><input type="radio" name="conference_location_type" value="international" />Inter-National</label><br/>
-              </div>
-              <div></div>
-              <div class="mouse-focus obj-display">
-                <label><input type="radio" name="conference_type" value="oral" />oral</label><br/>
-                <label><input type="radio" name="conference_type" value="poster" />poster</label><br/>
-              </div>
-            </div>
           </div>
-          <div></div>
-          <div class="mouse-focus obj-display">
-            Uplaod File: (.pdf file)<input type="file" name="att_file" accept="application/pdf"/>
-          </div>
-          <div> </div>
-          <div class="mouse-focus obj-display">
-            Reference:<br/>
-            <textarea name="reference" rows="5" cols="100"></textarea>
+        </div>
 
+        <div class="row">
+          <div class="col-md-12">
+              <input type="submit" class="btn btn-primary" />
+              <input type="reset" class="btn btn-warning" />
           </div>
-          </div>
-            <div class="obj-display-background">
-              <p><b>Reference Format:</b></p>
-              <p>
-                S. Suksern, S.V. Meleshko. Applications of tangent transformations to the linearization problem of fourth-order ordinary differential equations. Classical Analysis and ODEs. 26 Page
-              </p>
-            </div>
-          <div>
+        </div>
 
-          <input type="submit" />
-          <input type="reset" />
-        </form>
-      </div>
+      </form>
 
       <script type="text/javascript">
         // disable submit button
