@@ -298,34 +298,16 @@ code by siwawes wongcharoen
 
       <!--title row-->
       <div class="row bg-info">
-        <div class="col-md-12">
+        <div class="col-md-10">
           <h2>Add New Paper</h2>
         </div>
+        <div class="col-md-2 text-right">
+          <p></p>
+          <a class="btn btn-danger" href="javascript:history.go(-1)" role="button">
+            <span class="glyphicon glyphicon-remove"></span> Cancle
+          </a>
+        </div>
       </div>
-
-      <?php
-        if (!empty($_GET["message"])) {
-          ?>
-          <div class="row bg-info">
-
-            <div class="col-md-4">
-            </div>
-
-            <div class="col-md-4">
-              <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert">
-                  <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                </button>
-                <strong><?php echo $_GET["message"]; ?></strong>
-              </div>
-            </div>
-
-          </div>
-          <?php
-        }
-      ?>
-
-
 
       <div class="row">
         <div class="col-md-12">
@@ -695,7 +677,7 @@ code by siwawes wongcharoen
 
               <div class="row form-horizontal">
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                   Conference date:
                   <div class="form-group">
                     <label for="conference_start_date" class="col-sm-6 control-label">Start Date:</label>
@@ -727,7 +709,7 @@ code by siwawes wongcharoen
                   </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                   <div class="radio">
                     <label>
                       <input type="radio" name="conference_location_type" value="national" />
@@ -742,7 +724,7 @@ code by siwawes wongcharoen
                   </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
                   <div class="radio">
                     <label>
                       <input type="radio" name="conference_type" value="oral" />
@@ -798,7 +780,7 @@ code by siwawes wongcharoen
 
         <div class="row">
           <div class="col-md-12">
-              <input type="submit" class="btn btn-primary" />
+              <input type="submit" class="btn btn-primary" >
               <input type="reset" class="btn btn-warning" />
           </div>
         </div>

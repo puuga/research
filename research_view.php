@@ -75,6 +75,8 @@
         }
 
         $("#researchTitleToDelete").html(research.title);
+
+        $("#researchIdToDelete").attr("href", "research_delete.php?id="+research.id);
       }
 
     </script>
@@ -101,6 +103,28 @@
           </p>
         </div>
       </div>
+
+      <?php
+        if (!empty($_GET["message"])) {
+          ?>
+          <div class="row bg-info">
+
+            <div class="col-md-4">
+            </div>
+
+            <div class="col-md-4">
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <strong><?php echo $_GET["message"]; ?></strong>
+              </div>
+            </div>
+
+          </div>
+          <?php
+        }
+      ?>
 
       <br/>
       <!--data row-->
@@ -269,6 +293,9 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancle</button>
             <button type="button" class="btn btn-danger">Delete</button>
+            <a id="researchIdToDelete" href="#" class='btn btn-danger'>
+              <span class='glyphicon glyphicon-trash'></span> Delete
+            </a>
           </div>
         </div>
 
