@@ -243,6 +243,10 @@ code by siwawes wongcharoen
           if(researchers_name[i].name_th == name || researchers_name[i].name_en == name) {
             $("[name="+inputname+"_th]").val(researchers_name[i].name_th);
             $("[name="+inputname+"_en]").val(researchers_name[i].name_en);
+            break;
+          } else {
+            $("[name="+inputname+"_th]").val(name);
+            $("[name="+inputname+"_en]").val(name);
           }
         }
 
@@ -252,6 +256,7 @@ code by siwawes wongcharoen
           //console.log("i ="+i);
           if(researcher_data[i].name == name) {
             $("[name="+inputname+"]").val(researcher_data[i].department);
+            break;
           }
         }
 
