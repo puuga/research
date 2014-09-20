@@ -27,7 +27,7 @@
             <a href="#" class="list-group-item">
               <span class="glyphicon glyphicon-tag"></span> Patent Management System
             </a>
-            <a href="#" class="list-group-item">
+            <a href="staff_view.php" class="list-group-item">
               <span class="glyphicon glyphicon-user"></span> Staff Management System
             </a>
           </div>

@@ -314,13 +314,6 @@ code by siwawes wongcharoen
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-          </div>
-        </div>
-      </div>
-
       <form role="form" id="form1" method="post" action="input_form_process.php" enctype="multipart/form-data">
 
         <div class="row">
