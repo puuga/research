@@ -196,7 +196,7 @@
   if (!$result) {
     die('Error: ' . mysqli_error($con));
   }
-  //header('Location: research_view.php?message=Add New Paper Completed');
+  header('Location: research_view.php?message=Add New Paper Completed');
 
   echo "1 record added";
   mysqli_close($con);
