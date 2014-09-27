@@ -53,11 +53,11 @@
       $journal_national_group = isset($_POST["journal_national_group"]) ? $_POST["journal_national_group"] : "" ;
     } else if ($journal_type == "international") {
       $is_journal_international_ISI = isset($_POST["is_journal_international_ISI"]) && !empty($_POST["is_journal_international_ISI"]) ? $_POST["is_journal_international_ISI"] : "false" ;
-      //echo "is_journal_international_ISI".$is_journal_international_ISI."<br/>";
+      $is_journal_international_ISI = $is_journal_international_ISI == "false" ? 0 : 1 ;
       $is_journal_international_SCOPUS = isset($_POST["is_journal_international_SCOPUS"]) && !empty($_POST["is_journal_international_SCOPUS"]) ? $_POST["is_journal_international_SCOPUS"] : "false" ;
-      //echo "is_journal_international_SCOPUS".$is_journal_international_SCOPUS."<br/>";
+      $is_journal_international_SCOPUS = $is_journal_international_SCOPUS == "false" ? 0 : 1 ;
       $is_journal_international_SJR = isset($_POST["is_journal_international_SJR"]) && !empty($_POST["is_journal_international_SJR"]) ? $_POST["is_journal_international_SJR"] : "false" ;
-      //echo "is_journal_international_SJR".$is_journal_international_SJR."<br/>";
+      $is_journal_international_SJR = $is_journal_international_SJR == "false" ? 0 : 1 ;
       if ($is_journal_international_SJR != "false") {
         $journal_international_group_sjr = isset($_POST["journal_international_group_sjr"]) ? $_POST["journal_international_group_sjr"] : "" ;
       }
@@ -193,7 +193,7 @@
   if (!$result) {
     die('Error: ' . mysqli_error($con));
   }
-  header('Location: research_view.php?message=Add New Paper Completed');
+  //header('Location: research_view.php?message=Add New Paper Completed');
 
   echo "1 record added";
   mysqli_close($con);

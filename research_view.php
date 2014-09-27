@@ -41,12 +41,40 @@
 
           $("#researchTitleDetailJournalTitle").html(research.journal_name);
 
+
+          $("#researchTitleDetailJournalNationalInternational").html(research.journal_type);
+          var message = "";
+          if(research.journal_type == "national") {
+            message += research.journal_national_group + " ";
+          } else {
+            console.log(research.is_journal_international_ISI);
+            if(research.is_journal_international_ISI == "1") {
+              message += "ISI ";
+            }
+            if(research.is_journal_international_SCOPUS == "1") {
+              message += "SCOPUS ";
+            }
+            if(research.is_journal_international_SJR == "1") {
+              message += "SJR " + research.journal_international_group_sjr;
+            }
+          }
+          $("#researchTitleDetailJournalNationalInternationaldetail").html(message);
+
+          $("#researchTitleDetailJournalPublishedInpress").html(research.journal_type_progress);
+
         } else if (research.research_type == "conference") {
           $("#researchTitleDetailForProceeding").show();
           $("#researchTitleDetailForJournal").hide();
 
           $("#researchTitleDetailConferenceName").html(research.conference_name);
           $("#researchTitleDetailVenue").html(research.conference_address);
+
+          $("#researchTitleDetailStartDate").html(research.conference_start_date);
+          $("#researchTitleDetailEndDate").html(research.conference_end_date);
+          $("#researchTitleDetailPageFrom").html(research.conference_page_start);
+          $("#researchTitleDetailPageTo").html(research.conference_page_end);
+          $("#researchTitleDetailNationalInternational").html(research.conference_location_type);
+          $("#researchTitleDetailOralPoster").html(research.conference_type);
 
         }
 
@@ -135,6 +163,7 @@
               <tr class="info">
                 <th>Paper Title</th>
                 <th>Author</th>
+                <th>Type</th>
                 <th>Detail</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -159,6 +188,15 @@
                       <td>
                         <?php echo $row['author_name_th']; ?><br/>
                         <?php echo $row['author_name_en']; ?>
+                      </td>
+                      <td>
+                        <?php
+                          if($row['research_type']=="journal") {
+                            echo "Journal";
+                          } else {
+                            echo "Conference";
+                          }
+                        ?>
                       </td>
                       <td>
                         <!-- Button trigger modal -->
@@ -204,48 +242,137 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabelDetail">Modal title</h4>
+            <h4 class="modal-title" id="myModalLabelDetail">Detail</h4>
           </div>
           <div class="modal-body" id="mySmallModalBodyDetail">
             <div>
-              <strong>Title:</strong> <span id="researchTitleDetail"></span>
+              <p>
+                <strong>Title:</strong><br/>
+                <span id="researchTitleDetail"></span>
+              </p>
             </div>
+
             <div>
-              <strong>For Student Graduation:</strong> <span id="researchTitleDetailForStudentGraduation"></span>
+              <p>
+                <strong>For Student Graduation:</strong><br/>
+                <span id="researchTitleDetailForStudentGraduation"></span>
+              </p>
             </div>
+
             <div>
-              <strong>Author:</strong> <span id="researchTitleDetailAuthor"></span>
+              <p>
+                <strong>Author:</strong><br/>
+                <span id="researchTitleDetailAuthor"></span>
+              </p>
             </div>
+
             <div>
-              <strong>Corresponding:</strong> <span id="researchTitleDetailCorresponding"></span>
+              <p>
+                <strong>Corresponding:</strong><br/>
+                <span id="researchTitleDetailCorresponding"></span>
+              </p>
             </div>
+
             <div>
-              <strong>Reference:</strong> <span id="researchTitleDetailReference"></span>
+              <p>
+                <strong>Reference:</strong><br/>
+                <span id="researchTitleDetailReference"></span>
+              </p>
             </div>
 
             <div id="researchTitleDetailForJournal">
 
               <div>
-                <strong>Journal Title:</strong> <span id="researchTitleDetailJournalTitle"></span>
+                <p>
+                  <strong>Journal Title:</strong><br/>
+                  <span id="researchTitleDetailJournalTitle"></span>
+                </p>
+              </div>
+
+              <div>
+                <p>
+                  <strong>National / International:</strong><br/>
+                  <span id="researchTitleDetailJournalNationalInternational"></span>
+                  <span id="researchTitleDetailJournalNationalInternationaldetail"></span>
+                </p>
+              </div>
+
+              <div>
+                <p>
+                  <strong>Published / Inpress:</strong><br/>
+                  <span id="researchTitleDetailJournalPublishedInpress"></span>
+                </p>
               </div>
 
             </div>
 
             <div id="researchTitleDetailForProceeding">
 
+
               <div>
-                <strong>Conference Name:</strong> <span id="researchTitleDetailConferenceName"></span>
+                <p>
+                  <strong>Conference Name:</strong><br/>
+                  <span id="researchTitleDetailConferenceName"></span>
+                </p>
               </div>
+
               <div>
-                <strong>Venue:</strong> <span id="researchTitleDetailVenue"></span>
+                <p>
+                  <strong>Venue:</strong><br/>
+                  <span id="researchTitleDetailVenue"></span>
+                </p>
+              </div>
+
+              <div>
+                <p>
+                  <strong>Conference Start Date:</strong><br/>
+                  <span id="researchTitleDetailStartDate"></span>
+                </p>
+              </div>
+
+              <div>
+                <p>
+                  <strong>Conference End Date:</strong><br/>
+                  <span id="researchTitleDetailEndDate"></span>
+                </p>
+              </div>
+
+              <div>
+                <p>
+                  <strong>Page From:</strong><br/>
+                  <span id="researchTitleDetailPageFrom"></span>
+                </p>
+              </div>
+
+              <div>
+                <p>
+                  <strong>Page To:</strong><br/>
+                  <span id="researchTitleDetailPageTo"></span>
+                </p>
+              </div>
+
+              <div>
+                <p>
+                  <strong>National / International:</strong><br/>
+                  <span id="researchTitleDetailNationalInternational"></span>
+                </p>
+              </div>
+
+              <div>
+                <p>
+                  <strong>Oral / Poster:</strong><br/>
+                  <span id="researchTitleDetailOralPoster"></span>
+                </p>
               </div>
 
             </div>
 
             <div>
-              <a id="researchTitleDetailAttFile" href="#" class='btn btn-primary' target="_blank">
-                <span class='glyphicon glyphicon-download'></span> Download
-              </a>
+              <p>
+                <a id="researchTitleDetailAttFile" href="#" class='btn btn-primary' target="_blank">
+                  <span class='glyphicon glyphicon-download'></span> Download
+                </a>
+              </p>
             </div>
           </div>
           <div class="modal-footer">
