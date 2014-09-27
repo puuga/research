@@ -58,9 +58,23 @@
               message += "SJR " + research.journal_international_group_sjr;
             }
           }
-          $("#researchTitleDetailJournalNationalInternationaldetail").html(message);
+          $("#researchTitleDetailJournalNationalInternationalDetail").html(message);
 
           $("#researchTitleDetailJournalPublishedInpress").html(research.journal_type_progress);
+          message = "";
+          if(research.journal_type_progress == "public") {
+            message += "Vol. " + research.journal_vol + "<br/>";
+            message += "Issue No. " + research.journal_issue + "<br/>";
+            message += "Number. " + research.journal_number + "<br/>";
+            message += "From Page. " + research.journal_page_start + "<br/>";
+            message += "To Page. " + research.journal_page_end + "<br/>";
+            message += "DOI no. " + research.journal_doi_no + "<br/>";
+            message += "Accepted date. " + research.journal_accepted_date + "<br/>";
+            message += "Published month. " + research.journal_published_month + "<br/>";
+            message += "Published year. " + research.journal_published_year + "<br/>";
+
+          }
+          $("#researchTitleDetailJournalPublishedInpressDetail").html(message);
 
         } else if (research.research_type == "conference") {
           $("#researchTitleDetailForProceeding").show();
@@ -293,7 +307,7 @@
                 <p>
                   <strong>National / International:</strong><br/>
                   <span id="researchTitleDetailJournalNationalInternational"></span>
-                  <span id="researchTitleDetailJournalNationalInternationaldetail"></span>
+                  <span id="researchTitleDetailJournalNationalInternationalDetail"></span>
                 </p>
               </div>
 
@@ -301,6 +315,7 @@
                 <p>
                   <strong>Published / Inpress:</strong><br/>
                   <span id="researchTitleDetailJournalPublishedInpress"></span>
+                  <span id="researchTitleDetailJournalPublishedInpressDetail"></span>
                 </p>
               </div>
 

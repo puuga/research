@@ -72,6 +72,9 @@
       $journal_page_end = isset($_POST["journal_page_end"]) ? $_POST["journal_page_end"] : "" ;
       $journal_doi_no = isset($_POST["journal_doi_no"]) ? $_POST["journal_doi_no"] : "" ;
       $journal_accepted_date = isset($_POST["journal_accepted_date"]) ? $_POST["journal_accepted_date"] : "" ;
+      if($journal_accepted_date != "") {
+        $journal_accepted_date = $journal_accepted_date."-01";
+      }
       $journal_published_month = isset($_POST["journal_published_month"]) ? $_POST["journal_published_month"] : "" ;
       $journal_published_year = isset($_POST["journal_published_year"]) ? $_POST["journal_published_year"] : "" ;
     } else if ($journal_type_progress == "inpress") {
