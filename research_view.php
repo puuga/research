@@ -16,6 +16,7 @@
     <script>
       // globol var
       var researchs = [];
+      var idToDelete;
 
       function setDataForDetail(id) {
         console.log("researchs.length:"+researchs.length);
@@ -104,10 +105,51 @@
           }
         }
 
-        $("#researchTitleToEdit").html(research.title);
+        $("#researchTitleToEdit").val(research.title);
+        if(research.is_student_grad != "0") {
+          $("#researchTitleDetailForStudentGraduationToEdit").prop('checked', true);
+        }
+        $("#researchTitleDetailReferenceToEdit").val(research.reference);
+
+
+
+
+
+
+
+
+
+
+
+
+        $("#researchIdToEdit").attr("href", "javascript:editData("+ research.id +")");
+      }
+
+      function editData(id) {
+        $.ajax({
+          url: 'research_edit.php',
+          data: {
+            id: id,
+            title: $("#researchTitleToEdit").val(),
+            isStudentGraduation: $("#researchTitleDetailForStudentGraduationToEdit").is(':checked'),
+            reference: $("#researchTitleDetailReferenceToEdit").val()
+            },
+          type: 'post',
+          dataType: 'json',
+          success: function(output) {
+            // alert(output);
+            if (!output.success) { //If fails
+              //alert("error");
+            } else {
+              //alert("succ");
+              location.reload();
+            }
+          }
+        });
       }
 
       function setDataToDelete(id) {
+        idToDelete = id;
         var research;
         for (var i=0; i<researchs.length; i++) {
           if (researchs[i].id == id) {
@@ -118,8 +160,29 @@
 
         $("#researchTitleToDelete").html(research.title);
 
-        $("#researchIdToDelete").attr("href", "research_delete.php?id="+research.id);
+        $("#researchIdToDelete").attr("href", "javascript:deleteData("+research.id+")");
       }
+
+      function deleteData(id) {
+        $.ajax({
+          url: 'research_delete.php',
+          data: {
+            id: id},
+          type: 'post',
+          dataType: 'json',
+          success: function(output) {
+            // alert(output);
+            if (!output.success) { //If fails
+              //alert("error");
+            } else {
+              //alert("succ");
+              location.reload();
+            }
+          }
+        });
+      }
+
+
 
     </script>
   </head>
@@ -221,7 +284,7 @@
                       <td>
                         <!-- Button trigger modal -->
                         <button class='btn btn-warning' data-toggle='modal' data-target='#myModal' onclick='setDataForModal("<?php echo $row['id']; ?>")'>
-                          <span class='glyphicon glyphicon-pencil'></span> edit
+                          <span class='glyphicon glyphicon-pencil'></span> Edit
                         </button>
                       </td>
                       <td>
@@ -404,16 +467,44 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            <h4 class="modal-title" id="myModalLabel">Edit</h4>
           </div>
           <div class="modal-body" id="mySmallModalBody">
-            <div>
-              <strong>Title:</strong> <span id="researchTitleToEdit"></span>
-            </div>
+
+            <form role="form" id="formEdit" method="post" action="input_form_process.php">
+
+              <div class="form-group">
+                <label for="researchTitleToEdit">Title:</label>
+                <input type="text" class="form-control" name="researchTitleToEdit" id="researchTitleToEdit"/>
+              </div>
+
+              <div>
+                <div class="checkbox">
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="researchTitleDetailForStudentGraduationToEdit"
+                      id="researchTitleDetailForStudentGraduationToEdit"
+                      value="true">For Student Graduation:
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <div class="form-group">
+                  <label for="reference">Reference:</label>
+                  <textarea name="researchTitleDetailReferenceToEdit" id="researchTitleDetailReferenceToEdit" rows="5" class="form-control"></textarea>
+                </div>
+              </div>
+
+            </form>
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancle</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <a id="researchIdToEdit" href="#" class="btn btn-primary">
+              <span class='glyphicon glyphicon-floppy-save'></span> Save changes
+            </a>
           </div>
         </div>
       </div>
@@ -434,7 +525,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancle</button>
-            <button type="button" class="btn btn-danger">Delete</button>
             <a id="researchIdToDelete" href="#" class='btn btn-danger'>
               <span class='glyphicon glyphicon-trash'></span> Delete
             </a>
