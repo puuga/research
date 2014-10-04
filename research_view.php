@@ -242,8 +242,7 @@
                 <th>Author</th>
                 <th>Type</th>
                 <th>Detail</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>Edit / Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -277,21 +276,23 @@
                       </td>
                       <td>
                         <!-- Button trigger modal -->
-                        <button class='btn btn-info' data-toggle='modal' data-target='#myModalDetail' onclick='setDataForDetail("<?php echo $row['id']; ?>")'>
+                        <button class='btn btn-xs btn-info' data-toggle='modal' data-target='#myModalDetail' onclick='setDataForDetail("<?php echo $row['id']; ?>")'>
                           <span class='glyphicon glyphicon-th-list'></span> Detail
                         </button>
                       </td>
                       <td>
-                        <!-- Button trigger modal -->
-                        <button class='btn btn-warning' data-toggle='modal' data-target='#myModal' onclick='setDataForModal("<?php echo $row['id']; ?>")'>
-                          <span class='glyphicon glyphicon-pencil'></span> Edit
-                        </button>
-                      </td>
-                      <td>
-                        <!-- Button trigger modal alert -->
-                        <button class='btn btn-danger' data-toggle='modal' data-target='#alertToDelete' onclick='setDataToDelete("<?php echo $row['id']; ?>")'>
-                          <span class='glyphicon glyphicon-remove'></span> Delete
-                        </button>
+                        <p>
+                          <!-- Button trigger modal -->
+                          <button class='btn btn-xs btn-warning' data-toggle='modal' data-target='#myModal' onclick='setDataForModal("<?php echo $row['id']; ?>")'>
+                            <span class='glyphicon glyphicon-pencil'></span> Edit
+                          </button>
+                        <p>
+                        <p>
+                          <!-- Button trigger modal alert -->
+                          <button class='btn btn-xs btn-danger' data-toggle='modal' data-target='#alertToDelete' onclick='setDataToDelete("<?php echo $row['id']; ?>")'>
+                            <span class='glyphicon glyphicon-remove'></span> Delete
+                          </button>
+                        </p>
                       </td>
                     </tr>
                     <?php
