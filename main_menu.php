@@ -384,7 +384,8 @@
                     or author_name_en like '%$key%'
                     or department like '%$key%'
                     or year(journal_accepted_date) = '$key'
-                    or year(conference_start_date) = '$key'";
+                    or year(conference_start_date) = '$key'
+                    or journal_published_year = '$key'";
                 }
                 if(!empty($_GET["advance_search"])) {
                   $sql .= "where 1=1 ";
@@ -423,7 +424,9 @@
 
                   } else {
                     $paper_year = $_GET["paper_year"];
-                    $sql .= "and (year(journal_accepted_date) = '$paper_year' or year(conference_start_date) = '$paper_year')";
+                    $sql .= "and (year(journal_accepted_date) = '$paper_year'
+                      or year(conference_start_date) = '$paper_year'
+                      or journal_published_year = '$paper_year')";
                   }
 
                 }
