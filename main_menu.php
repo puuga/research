@@ -163,7 +163,7 @@
 
             <div class="form-group">
               <label for="search_keyword" class="col-sm-2 control-label">Keyword:</label>
-              <div class="col-sm-8">
+              <div class="col-sm-7">
                 <input list="unified_datas"
                   id="search_keyword"
                   name="search_keyword"
@@ -186,19 +186,14 @@
                   ?>
                 </datalist>
               </div>
-              <div class="col-sm-2">
-                <!-- Split button -->
-                <div class="btn-group">
-                  <button type="submit" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-search"></span> Search</button>
-                  <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="javascript:showAdvanceSearch()">Advance Search</a></li>
-                  </ul>
-                </div>
+
+              <div class="col-sm-3">
+                <button type="submit" class="btn btn-primary">
+                  <span class="glyphicon glyphicon-search"></span> Search</button>
+
+                <a href="javascript:showAdvanceSearch()" class="btn btn-success">
+                  <span class="glyphicon glyphicon-search"></span> Advance Search</a>
+
               </div>
             </div>
 
@@ -239,8 +234,125 @@
             </div>
 
             <div class="form-group">
+              <div class="col-sm-2 control-label">
+                Paper type:
+              </div>
+
+              <div class="col-sm-2">
+                <div class="radio">
+                  <label>
+                    <input type="checkbox" name="options_journal" id="options_journal" value="true"
+                      <?php
+                        if( empty($_GET["advance_search"]) ) {
+                          echo "checked";
+                        } else {
+                          if( !empty($_GET["options_journal"]) ) {
+                            echo "checked";
+                          }
+                        }
+                      ?> >
+                    Journal
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <div class="radio">
+                  <label>
+                    <input type="checkbox" name="options_conference" id="options_conference" value="true"
+                    <?php
+                      if( empty($_GET["advance_search"]) ) {
+                        echo "checked";
+                      } else {
+                        if( !empty($_GET["options_conference"]) ) {
+                          echo "checked";
+                        }
+                      }
+                    ?> >
+                    Conference
+                  </label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="form-group">
+
+              <div class="col-sm-offset-2 col-sm-2">
+                <div class="radio">
+                  <label>
+                    <input type="checkbox" name="options_international" id="options_international" value="true"
+                    <?php
+                      if( empty($_GET["advance_search"]) ) {
+                        echo "checked";
+                      } else {
+                        if( !empty($_GET["options_international"]) ) {
+                          echo "checked";
+                        }
+                      }
+                    ?> >
+                    International
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <div class="radio">
+                  <label>
+                    <input type="checkbox" name="options_national" id="options_national" value="true"
+                    <?php
+                      if( empty($_GET["advance_search"]) ) {
+                        echo "checked";
+                      } else {
+                        if( !empty($_GET["options_national"]) ) {
+                          echo "checked";
+                        }
+                      }
+                    ?> >
+                    National
+                  </label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                Year:
+              </div>
+
+              <div class="col-sm-4">
+                <select class="form-control" name="paper_year">
+                  <option
+                    <?php
+                      if( !empty($_GET["advance_search"]) ) {
+                        if( $_GET["paper_year"]=="all" ) {
+                          echo "selected";
+                        }
+                      }
+                    ?>>all</option>
+                  <?php
+                    for($initYear = date('Y'); $initYear>=2010; $initYear--) {
+                      if( !empty($_GET["advance_search"]) ) {
+                        if( $_GET["paper_year"]==$initYear ) {
+                          echo "<option selected>$initYear</option>\n";
+                        } else {
+                          echo "<option>$initYear</option>\n";
+                        }
+                      } else {
+                        echo "<option>$initYear</option>\n";
+                      }
+                    }
+                  ?>
+                </select>
+              </div>
+
+            </div>
+
+            <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-success">Search</button>
+                <button type="submit" class="btn btn-success">
+                  <span class="glyphicon glyphicon-search"></span> Search with Filter</button>
               </div>
             </div>
 
@@ -270,7 +382,9 @@
                   $sql .= "where title like '%$key%'
                     or author_name_th like '%$key%'
                     or author_name_en like '%$key%'
-                    or department like '%$key%'";
+                    or department like '%$key%'
+                    or year(journal_accepted_date) = '$key'
+                    or year(conference_start_date) = '$key'";
                 }
                 if(!empty($_GET["advance_search"])) {
                   $sql .= "where 1=1 ";
@@ -278,11 +392,40 @@
                     $key = $_GET["paper_title"];
                     $sql .= "and title like '%$key%' ";
                   }
+
                   if($_GET["paper_author"]  != "") {
                     $key = $_GET["paper_author"];
                     $sql .= "and (author_name_th like '%$key%' ";
                     $sql .= "or author_name_en like '%$key%') ";
                   }
+
+                  if(!empty($_GET["options_journal"]) || !empty($_GET["options_conference"])) {
+                    if(!empty($_GET["options_journal"]) && !empty($_GET["options_conference"])) {
+
+                    } else if (!empty($_GET["options_journal"])) {
+                      $sql .= "and research_type = 'journal' ";
+                    } else if (!empty($_GET["options_conference"])) {
+                      $sql .= "and research_type = 'conference' ";
+                    }
+                  }
+
+                  if(!empty($_GET["options_international"]) || !empty($_GET["options_national"])) {
+                    if(!empty($_GET["options_international"]) && !empty($_GET["options_national"])) {
+
+                    } else if (!empty($_GET["options_international"])) {
+                      $sql .= "and (journal_type = 'international' or conference_location_type = 'international')";
+                    } else if (!empty($_GET["options_national"])) {
+                      $sql .= "and (journal_type = 'national' or conference_location_type = 'national')";
+                    }
+                  }
+
+                  if($_GET["paper_year"] == "all") {
+
+                  } else {
+                    $paper_year = $_GET["paper_year"];
+                    $sql .= "and (year(journal_accepted_date) = '$paper_year' or year(conference_start_date) = '$paper_year')";
+                  }
+
                 }
                 $result_for_json = array();
                 $result = mysqli_query($con, $sql);
