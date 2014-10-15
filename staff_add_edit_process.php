@@ -1,4 +1,4 @@
-<?php //staff_add_edit.php ?>
+<?php //staff_add_edit_process.php ?>
 <?php include 'db_connect.php'; ?>
 <?php
   $post_action = $_POST["action"];

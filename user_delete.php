@@ -1,10 +1,10 @@
-<?php //staff_delete.php ?>
+<?php //user_delete.php ?>
 <?php include 'db_connect.php'; ?>
 <?php
 
   $post_id = $_GET["id"];
 
-  $sql = "DELETE FROM `research`.`researcher` WHERE `researcher`.`id` = $post_id";
+  $sql = "DELETE FROM user WHERE id = $post_id";
   // echo $sql."<br/>";
 
   $result = mysqli_query($con, $sql);

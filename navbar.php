@@ -39,9 +39,12 @@
           <ul class="dropdown-menu" role="menu">
             <?php
               if ($current_user_name != "") {
-                echo '<li><a href="logout_process.php">Sign out</a></li>';
+                if ($current_user_admin_level == 0) {
+                  echo '<li><a href="user_view.php"><span class="glyphicon glyphicon-wrench"></span> Admin Manager</a></li>';
+                }
+                echo '<li><a href="logout_process.php"><span class="glyphicon glyphicon-log-out"></span> Sign out</a></li>';
               } else {
-                echo '<li><a href="login.php">Sign in</a></li>';
+                echo '<li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></li>';
               }
             ?>
 
