@@ -122,6 +122,10 @@
         return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
       }
 
+      function checkSql(val) {
+        console.log(val);
+      }
+
     </script>
 
     <?php
@@ -379,34 +383,38 @@
                 $sql = "SELECT * FROM research ";
                 if(!empty($_GET["search_keyword"])) {
                   $key = str_replace("+"," ",$_GET["search_keyword"]);
-                  $sql .= "where title like '%$key%'
-                    or author_name_th like '%$key%'
-                    or author_name_en like '%$key%'
-                    or department like '%$key%'
-                    or year(journal_accepted_date) = '$key'
-                    or year(conference_start_date) = '$key'
-                    or journal_published_year = '$key'";
+                  $sql .= " where title like '%$key%' ";
+                  $sql .= " or author_name_th like '%$key%' ";
+                  $sql .= " or author_name_en like '%$key%' ";
+                  $sql .= " or department like '%$key%' ";
+                  if (is_numeric($key)) {
+                    $sql .= " or year(journal_accepted_date) = '$key' ";
+                    $sql .= " or year(conference_start_date) = '$key' ";
+                    $sql .= " or journal_published_year = '$key' ";
+                  }
+
+
                 }
                 if(!empty($_GET["advance_search"])) {
-                  $sql .= "where 1=1 ";
+                  $sql .= " where 1=1 ";
                   if($_GET["paper_title"] != "") {
                     $key = $_GET["paper_title"];
-                    $sql .= "and title like '%$key%' ";
+                    $sql .= " and title like '%$key%' ";
                   }
 
                   if($_GET["paper_author"]  != "") {
                     $key = $_GET["paper_author"];
-                    $sql .= "and (author_name_th like '%$key%' ";
-                    $sql .= "or author_name_en like '%$key%') ";
+                    $sql .= " and (author_name_th like '%$key%' ";
+                    $sql .= " or author_name_en like '%$key%') ";
                   }
 
                   if(!empty($_GET["options_journal"]) || !empty($_GET["options_conference"])) {
                     if(!empty($_GET["options_journal"]) && !empty($_GET["options_conference"])) {
 
                     } else if (!empty($_GET["options_journal"])) {
-                      $sql .= "and research_type = 'journal' ";
+                      $sql .= " and research_type = 'journal' ";
                     } else if (!empty($_GET["options_conference"])) {
-                      $sql .= "and research_type = 'conference' ";
+                      $sql .= " and research_type = 'conference' ";
                     }
                   }
 
@@ -414,9 +422,9 @@
                     if(!empty($_GET["options_international"]) && !empty($_GET["options_national"])) {
 
                     } else if (!empty($_GET["options_international"])) {
-                      $sql .= "and (journal_type = 'international' or conference_location_type = 'international')";
+                      $sql .= " and (journal_type = 'international' or conference_location_type = 'international')";
                     } else if (!empty($_GET["options_national"])) {
-                      $sql .= "and (journal_type = 'national' or conference_location_type = 'national')";
+                      $sql .= " and (journal_type = 'national' or conference_location_type = 'national')";
                     }
                   }
 
@@ -424,13 +432,18 @@
 
                   } else {
                     $paper_year = $_GET["paper_year"];
-                    $sql .= "and (year(journal_accepted_date) = '$paper_year'
+                    $sql .= " and (year(journal_accepted_date) = '$paper_year'
                       or year(conference_start_date) = '$paper_year'
                       or journal_published_year = '$paper_year')";
                   }
 
                 }
                 $result_for_json = array();
+                ?>
+                <script>
+                  checkSql("<?php echo $sql; ?>");
+                </script>
+                <?php
                 $result = mysqli_query($con, $sql);
                 if (!$result) {
                   die('Error: ' . mysqli_error($con));
