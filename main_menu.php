@@ -584,6 +584,59 @@
       <div class="row">
         <div class="col-md-12">
           show if admin
+          <a href="javascript:DownloadJSON2CSV()" class="btn btn-primary">Experimental Export</a>
+          <script>
+            function DownloadJSON2CSV()
+            {
+                var array = researchs;
+                var str = '';
+
+                for (var i = 0; i < array.length; i++) {
+                    var line = '';
+                    for (var index in array[i]) {
+                        if(line != '') line += ','
+
+                        line += array[i][index];
+                    }
+
+                    str += line + '\r\n';
+                }
+
+                if (navigator.appName != 'Microsoft Internet Explorer')
+                {
+                    window.open('data:text/csv;charset=utf-8,' + escape(str));
+                }
+                else
+                {
+                    var popup = window.open('','csv','');
+                    popup.document.body.innerHTML = '<pre>' + str + '</pre>';
+                }
+            }
+
+            function exportCsv() {
+              $.ajax({
+                url: "json_to_csv.php",
+                type: 'POST',
+                contentType:'application/json',
+                data: JSON.stringify(researchs),
+                dataType:'json',
+                success: function(data){
+                  //On ajax success do this
+                  alert("success");
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                  //On error do this
+                  if (xhr.status == 200) {
+                    alert(ajaxOptions);
+                  }
+                  else {
+                    alert(xhr.status);
+                    alert(thrownError);
+                  }
+                }
+              });
+            }
+          </script>
         </div>
       </div>
       <?php
