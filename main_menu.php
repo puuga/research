@@ -15,10 +15,13 @@
       $( document ).ready(function() {
         if(getParameterByName("search_keyword") != "") {
           $("#advance_search").hide();
+          $("#item_per_page").attr("form","form_normal_search");
         } else if(getParameterByName("advance_search") != "") {
           $("#normal_search").hide();
+          $("#item_per_page").attr("form","form_advance_search");
         } else {
           $("#advance_search").hide();
+          $("#item_per_page").attr("form","form_normal_search");
         }
 
       });
@@ -163,7 +166,7 @@
       <div>
 
         <div id="normal_search">
-          <form class="form-horizontal" role="form" action="main_menu.php">
+          <form class="form-horizontal" id="form_normal_search" role="form" action="main_menu.php">
 
             <div class="form-group">
               <label for="search_keyword" class="col-sm-2 control-label">Keyword:</label>
@@ -214,7 +217,7 @@
             </p>
           </div>
 
-          <form class="form-horizontal" role="form" action="main_menu.php">
+          <form class="form-horizontal" id="form_advance_search" role="form" action="main_menu.php">
             <input type="hidden" name="advance_search" value="true"/>
 
             <div class="form-group">
@@ -438,6 +441,13 @@
                   }
 
                 }
+                $sqlBeforeLimit = $sql;
+                $item_per_page = !empty($_GET["item_per_page"])? $_GET["item_per_page"] : 25;
+                $page = !empty($_GET["page"])? $_GET["page"]*1 : 1;
+                if ($item_per_page != "All") {
+                  $sql .= " limit ".(($page-1)*$item_per_page).",".$item_per_page;
+                }
+
                 $result_for_json = array();
                 ?>
                 <script>
@@ -491,6 +501,95 @@
 
         </div>
       </div>
+
+      <!-- item_per_page -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="item_per_page" class="col-sm-1 control-label">Show:</label>
+            <div class="col-sm-1">
+              <select class="form-control" form="form_normal_search" name="item_per_page" id="item_per_page" onchange="changeItemPerPage(this.value)">
+                <option <?php echo empty($_GET["item_per_page"])?"selected":$_GET["item_per_page"]=="25"?"selected":""; ?> >25</option>
+                <option <?php echo !empty($_GET["item_per_page"])&&$_GET["item_per_page"]=="50"?"selected":""?> >50</option>
+                <option <?php echo !empty($_GET["item_per_page"])&&$_GET["item_per_page"]=="2"?"selected":""?> >2</option>
+                <option <?php echo !empty($_GET["item_per_page"])&&$_GET["item_per_page"]=="All"?"selected":""?>>All</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div><!-- end item_per_page -->
+      <!-- Pagination -->
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="pagination">
+            <li <?php echo $page-1<=0?"class='disabled'":''; ?>><a href="javascript:gotoPage(<?php echo $page-1; ?>)">&laquo;</a></li>
+            <?php
+              if ($result=mysqli_query($con,$sqlBeforeLimit)) {
+                // Return the number of rows in result set
+                $rowcount=mysqli_num_rows($result);
+                $total_page = $rowcount/$item_per_page +1;
+              }
+              for($i=1;$i<=$total_page;$i++) {
+                if ($i == ($page*1)) {
+                  echo '<li class="active"><span>'.$i.' <span class="sr-only">(current)</span></span></li>';
+                } else {
+                  echo '<li><a href="javascript:gotoPage('.$i.')">'.$i.'</a></li>';
+                }
+
+              }
+            ?>
+            <li <?php echo $page==(int)$total_page?"class='disabled'":''; ?>><a href="javascript:gotoPage(<?php echo $page+1; ?>)">&raquo;</a></li>
+          </ul>
+        </div>
+      </div>
+      <script><!-- end Pagination -->
+        function changeItemPerPage(val) {
+          //console.log(val)
+          if(getParameterByName("search_keyword") != "") {
+            $("#form_normal_search").submit();
+          } else if(getParameterByName("advance_search") != "") {
+            $("#form_advance_search").submit();
+          } else {
+            $("#form_normal_search").submit();
+          }
+        }
+
+        function gotoPage(val) {
+          if(getParameterByName("search_keyword") != "") {
+            $('<input />').attr('type', 'hidden')
+                .attr('name', "page")
+                .attr('value', val)
+                .appendTo('#form_normal_search');
+            $("#form_normal_search").submit();
+          } else if(getParameterByName("advance_search") != "") {
+            $('<input />').attr('type', 'hidden')
+                .attr('name', "page")
+                .attr('value', val)
+                .appendTo('#form_advance_search');
+            $("#form_advance_search").submit();
+          } else {
+            $('<input />').attr('type', 'hidden')
+                .attr('name', "page")
+                .attr('value', val)
+                .appendTo('#form_normal_search');
+            $("#form_normal_search").submit();
+          }
+        }
+      </script>
+
+      <!-- export -->
+      <?php
+        if ($current_user_admin_level<=1) {
+      ?>
+      <div class="row">
+        <div class="col-md-12">
+          show if admin
+        </div>
+      </div>
+      <?php
+        }
+      ?>
+      <!-- end export -->
 
     </div>
 
@@ -644,5 +743,8 @@
 
 
 
+  <script>
+    console.log(document.URL);
+  </script>
   </body>
 </html>

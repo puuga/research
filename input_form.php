@@ -746,7 +746,7 @@ code by siwawes wongcharoen
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label for="att_file">Uplaod File: (.pdf file)</label>
+              <label for="att_file">Upload File: (.pdf file)</label>
               <input type="file" name="att_file" id="att_file" accept="application/pdf" />
               <p class="help-block">Accept only .pdf file</p>
             </div>
