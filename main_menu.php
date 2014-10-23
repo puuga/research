@@ -644,6 +644,44 @@
       ?>
       <!-- end export -->
 
+      <!-- new export -->
+      <div>
+        <div class="row">
+          <div class="col-md-12">
+            <input type="checkbox" id="op_title" name="op_title" value="true">Title<br>
+            <input type="checkbox" id="op_author" name="op_author" value="true">Author<br>
+            <input type="button" onclick="doOutput()" value="output">
+          </div>
+        </div>
+
+        <script>
+          function doOutput() {
+            $("#output").html("");
+            var output = "";
+
+            for(i=0;i<researchs.length;i++) {
+              if( $("#op_title").is(':checked') ) {
+                output += researchs[i].title+",";
+              }
+              if( $("#op_author").is(':checked') ) {
+                output += researchs[i].author_name_th+","+researchs[i].author_name_en+",";
+              }
+              output += "<br/>";
+            }
+
+            $("#output").html(output);
+          }
+        </script>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div id="output">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end new export -->
+
     </div>
 
     <!-- Detail Modal -->
