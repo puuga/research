@@ -577,97 +577,235 @@
         }
       </script>
 
-      <!-- export -->
+
+
+      <!-- new export -->
       <?php
         if ($current_user_admin_level<=1) {
       ?>
-      <div class="row">
-        <div class="col-md-12">
-          show if admin
-          <a href="javascript:DownloadJSON2CSV()" class="btn btn-primary">Experimental Export</a>
-          <script>
-            function DownloadJSON2CSV()
-            {
-                var array = researchs;
-                var str = '';
-
-                for (var i = 0; i < array.length; i++) {
-                    var line = '';
-                    for (var index in array[i]) {
-                        if(line != '') line += ','
-
-                        line += array[i][index];
-                    }
-
-                    str += line + '\r\n';
-                }
-
-                if (navigator.appName != 'Microsoft Internet Explorer')
-                {
-                    window.open('data:text/csv;charset=utf-8,' + escape(str));
-                }
-                else
-                {
-                    var popup = window.open('','csv','');
-                    popup.document.body.innerHTML = '<pre>' + str + '</pre>';
-                }
-            }
-
-            function exportCsv() {
-              $.ajax({
-                url: "json_to_csv.php",
-                type: 'POST',
-                contentType:'application/json',
-                data: JSON.stringify(researchs),
-                dataType:'json',
-                success: function(data){
-                  //On ajax success do this
-                  alert("success");
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                  //On error do this
-                  if (xhr.status == 200) {
-                    alert(ajaxOptions);
-                  }
-                  else {
-                    alert(xhr.status);
-                    alert(thrownError);
-                  }
-                }
-              });
-            }
-          </script>
-        </div>
-      </div>
-      <?php
-        }
-      ?>
-      <!-- end export -->
-
-      <!-- new export -->
       <div>
         <div class="row">
+          <div class="col-md-4">
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_title" name="op_title" value="true"> Title
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_is_student_graduation" name="op_is_student_graduation" value="true"> For Student Graduation
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_author_th" name="op_author_th" value="true"> Thai Author
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_author_en" name="op_author_en" value="true"> English Author
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_corresponding" name="op_corresponding" value="true"> Corresponding
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_reference" name="op_reference" value="true"> Reference
+              </label>
+            </div>
+
+          </div>
+
+          <div class="col-md-4">
+            <p><b>Journal</b></p>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_journal_title" name="op_journal_title" value="true"> Journal Title
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_journal_national_international" name="op_journal_national_international" value="true"> National/International
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_journal_published_inpress" name="op_journal_published_inpress" value="true"> Published/Inpress
+              </label>
+            </div>
+
+          </div>
+
+          <div class="col-md-4">
+            <p><b>Proceedings</b></p>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_conference_name" name="op_conference_name" value="true"> Conference Name
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_conference_venue" name="op_conference_venue" value="true"> Venue
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_conference_date" name="op_conference_date" value="true"> Conference date
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_conference_page" name="op_conference_page" value="true"> Page
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_conference_national_international" name="op_conference_national_international" value="true"> National/International
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="op_conference_oral_poster" name="op_conference_oral_poster" value="true"> Oral/Poster
+              </label>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="row">
           <div class="col-md-12">
-            <input type="checkbox" id="op_title" name="op_title" value="true">Title<br>
-            <input type="checkbox" id="op_author" name="op_author" value="true">Author<br>
-            <input type="button" onclick="doOutput()" value="output">
+            <input type="button" class="btn btn-success" onclick="doOutput()" value="output">
           </div>
         </div>
+
+        <br/>
 
         <script>
           function doOutput() {
             $("#output").html("");
-            var output = "";
+            var output = "<table border='1'>";
+            output += "<tr>";
+            if( $("#op_title").is(':checked') ) {
+              output += "<th>Title</th>";
+            }
+            if( $("#op_is_student_graduation").is(':checked') ) {
+              output += "<th>For Student Graduation</th>";
+            }
+            if( $("#op_author_th").is(':checked') ) {
+              output += "<th>Thai Author</th>";
+            }
+            if( $("#op_author_en").is(':checked') ) {
+              output += "<th>English Author</th>";
+            }
+            if( $("#op_corresponding").is(':checked') ) {
+              output += "<th>Corresponding</th>";
+            }
+            if( $("#op_reference").is(':checked') ) {
+              output += "<th>Reference</th>";
+            }
+
+            if( $("#op_journal_title").is(':checked') ) {
+              output += "<th>Journal Title</th>";
+            }
+            if( $("#op_journal_national_international").is(':checked') ) {
+              output += "<th>National/International</th>";
+            }
+            if( $("#op_journal_published_inpress").is(':checked') ) {
+              output += "<th>Published/Inpress</th>";
+            }
+
+            if( $("#op_conference_name").is(':checked') ) {
+              output += "<th>Conference Name</th>";
+            }
+            if( $("#op_conference_venue").is(':checked') ) {
+              output += "<th>Venue</th>";
+            }
+            if( $("#op_conference_date").is(':checked') ) {
+              output += "<th>Conference date</th>";
+            }
+            if( $("#op_conference_page").is(':checked') ) {
+              output += "<th>Page</th>";
+            }
+            if( $("#op_conference_national_international").is(':checked') ) {
+              output += "<th>National/International</th>";
+            }
+            if( $("#op_conference_oral_poster").is(':checked') ) {
+              output += "<th>Oral/Poster</th>";
+            }
+            output += "</tr>";
 
             for(i=0;i<researchs.length;i++) {
+              output += "<tr>";
               if( $("#op_title").is(':checked') ) {
-                output += researchs[i].title+",";
+                output += "<td>"+researchs[i].title+"</td>";
               }
-              if( $("#op_author").is(':checked') ) {
-                output += researchs[i].author_name_th+","+researchs[i].author_name_en+",";
+              if( $("#op_is_student_graduation").is(':checked') ) {
+                output += "<td>"+researchs[i].is_student_grad+"</td>";
               }
-              output += "<br/>";
+              if( $("#op_author_th").is(':checked') ) {
+                output += "<td>"+researchs[i].author_name_th+"</td>";
+              }
+              if( $("#op_author_en").is(':checked') ) {
+                output += "<td>"+researchs[i].author_name_en+"</td>";
+              }
+              if( $("#op_corresponding").is(':checked') ) {
+                output += "<td>"+researchs[i].corresponding+"</td>";
+              }
+              if( $("#op_reference").is(':checked') ) {
+                output += "<td>"+researchs[i].reference+"</td>";
+              }
+
+              if( $("#op_journal_title").is(':checked') ) {
+                output += "<td>"+researchs[i].journal_name+"</td>";
+              }
+              if( $("#op_journal_national_international").is(':checked') ) {
+                output += "<td>"+researchs[i].journal_type+"</td>";
+              }
+              if( $("#op_journal_published_inpress").is(':checked') ) {
+                output += "<td>"+researchs[i].journal_type_progress+"</td>";
+              }
+
+              if( $("#op_conference_name").is(':checked') ) {
+                output += "<td>"+researchs[i].conference_name+"</td>";
+              }
+              if( $("#op_conference_venue").is(':checked') ) {
+                output += "<td>"+researchs[i].conference_address+"</td>";
+              }
+              if( $("#op_conference_date").is(':checked') ) {
+                output += "<td>"+researchs[i].conference_start_date+" - "+researchs[i].conference_end_date+"</td>";
+              }
+              if( $("#op_conference_page").is(':checked') ) {
+                output += "<td>"+researchs[i].conference_page_start+" - "+researchs[i].conference_page_end+"</td>";
+              }
+              if( $("#op_conference_national_international").is(':checked') ) {
+                output += "<td>"+researchs[i].conference_location_type+"</td>";
+              }
+              if( $("#op_conference_oral_poster").is(':checked') ) {
+                output += "<td>"+researchs[i].conference_type+"</td>";
+              }
+              output += "</tr>";
             }
+
+            output += "</table>";
 
             $("#output").html(output);
           }
@@ -680,6 +818,9 @@
           </div>
         </div>
       </div>
+      <?php
+        }
+      ?>
       <!-- end new export -->
 
     </div>
