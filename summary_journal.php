@@ -9,7 +9,7 @@
 
     <?php include 'head_tag.php'; ?>
 
-    
+
 
     <!-- start google chart -->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -71,67 +71,63 @@
           <table class="table table-hover table-striped">
             <thead>
               <tr class="info">
-                <th>Department</th>
-                <th>year</th>
-                <th>Journal</th>
-                <th>Proceedings</th>
+                <th rowspan="2">Department</th>
+                <th rowspan="2">National Journal</th>
+                <th colspan="4">International Journal</th>
+                <th rowspan="2">Total</th>
+              </tr>
+              <tr class="info">
+                <th>ISI</th>
+                <th>Scopus</th>
+                <th>SJR</th>
+                <th>Others</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td rowspan="2">Chemistry</td>
-                <td>2013</td>
+                <td>Chemistry</td>
+                <td>50</td>
+                <td>50</td>
+                <td>50</td>
+                <td>50</td>
                 <td>50</td>
                 <td>50</td>
               </tr>
               <tr>
-                <td>2014</td>
-                <td>60</td>
-                <td>60</td>
-              </tr>
-              <tr>
-                <td rowspan="2">Physics</td>
-                <td>2013</td>
+                <td>Physics</td>
+                <td>50</td>
+                <td>50</td>
+                <td>50</td>
+                <td>50</td>
                 <td>50</td>
                 <td>50</td>
               </tr>
               <tr>
-                <td>2014</td>
-                <td>60</td>
-                <td>60</td>
-              </tr>
-              <tr>
-                <td rowspan="2">Biology</td>
-                <td>2013</td>
+                <td>Biology</td>
+                <td>50</td>
+                <td>50</td>
+                <td>50</td>
+                <td>50</td>
                 <td>50</td>
                 <td>50</td>
               </tr>
               <tr>
-                <td>2014</td>
-                <td>60</td>
-                <td>60</td>
-              </tr>
-              <tr>
-                <td rowspan="2">Mathematics</td>
-                <td>2013</td>
+                <td>Mathematics</td>
+                <td>50</td>
+                <td>50</td>
+                <td>50</td>
+                <td>50</td>
                 <td>50</td>
                 <td>50</td>
               </tr>
               <tr>
-                <td>2014</td>
-                <td>60</td>
-                <td>60</td>
-              </tr>
-              <tr>
-                <td rowspan="2">CSIT</td>
-                <td>2013</td>
+                <td>CSIT</td>
                 <td>50</td>
                 <td>50</td>
-              </tr>
-              <tr>
-                <td>2014</td>
-                <td>60</td>
-                <td>60</td>
+                <td>50</td>
+                <td>50</td>
+                <td>50</td>
+                <td>50</td>
               </tr>
             </tbody>
           </table>

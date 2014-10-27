@@ -75,7 +75,7 @@
 
           $("#researchTitleDetailJournalPublishedInpress").html(research.journal_type_progress);
           message = "";
-          if(research.journal_type_progress == "public") {
+          if(research.journal_type_progress == "published") {
             message += "Vol. " + research.journal_vol + "<br/>";
             message += "Issue No. " + research.journal_issue + "<br/>";
             message += "Number. " + research.journal_number + "<br/>";
@@ -511,7 +511,6 @@
               <select class="form-control" form="form_normal_search" name="item_per_page" id="item_per_page" onchange="changeItemPerPage(this.value)">
                 <option <?php echo empty($_GET["item_per_page"])?"selected":$_GET["item_per_page"]=="25"?"selected":""; ?> >25</option>
                 <option <?php echo !empty($_GET["item_per_page"])&&$_GET["item_per_page"]=="50"?"selected":""?> >50</option>
-                <option <?php echo !empty($_GET["item_per_page"])&&$_GET["item_per_page"]=="2"?"selected":""?> >2</option>
                 <option <?php echo !empty($_GET["item_per_page"])&&$_GET["item_per_page"]=="All"?"selected":""?>>All</option>
               </select>
             </div>

@@ -62,9 +62,20 @@
         var data = google.visualization.arrayToDataTable([
           ['Year', 'Chemistry', 'Physics', 'Biology', 'Mathematics', 'CSIT'],
           <?php
-            for($i=0; $i<count($result_conference_year_arr); $i++) {
+            for($i=0; $i<2&&$i<count($result_conference_year_arr); $i++) {
           ?>
-          ['<?php echo $result_conference_year_arr[$i];?>', 90, 100, 110, 105, 110]
+          ['<?php echo $result_conference_year_arr[$i];?>',
+            <?php echo $result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["national"]
+              +$result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["international"]; ?>,
+            <?php echo $result_conference_arr[$result_conference_year_arr[$i]]["Physics"]["national"]
+              +$result_conference_arr[$result_conference_year_arr[$i]]["Physics"]["international"];?>,
+            <?php echo $result_conference_arr[$result_conference_year_arr[$i]]["Biology"]["national"]
+              +$result_conference_arr[$result_conference_year_arr[$i]]["Biology"]["international"];?>,
+            <?php echo $result_conference_arr[$result_conference_year_arr[$i]]["Mathematics"]["national"]
+                +$result_conference_arr[$result_conference_year_arr[$i]]["Mathematics"]["international"];?>,
+            <?php echo $result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["national"]
+              +$result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["international"];?>
+          ]
           <?php
               if($i != count($result_conference_year_arr)-1) {
                 echo ",";
@@ -103,14 +114,32 @@
 
       <!--title row-->
       <div class="row bg-primary">
-        <div class="col-md-12 ">
+        <div class="col-md-10 ">
           <h2>Summary Proceedings Data</h2>
+        </div>
+
+        <div class="col-md-2 ">
+          <p><br/>
+            <form action="summary_proceedings.php" method="get" role="form">
+            <select class="form-control" name="year" onchange="this.form.submit()">
+              <?php
+                for($i=0; $i<count($result_conference_year_arr); $i++) {
+                  ?>
+                    <option <?php echo $_GET['year']==$result_conference_year_arr[$i]?"selected":""; ?>>
+                      <?php echo $result_conference_year_arr[$i]; ?></option>
+                  <?php
+                }
+              ?>
+            </select>
+            <form>
+          </p>
         </div>
       </div>
 
       <br/>
       <?php
         for($i=0; $i<count($result_conference_year_arr); $i++) {
+          if($result_conference_year_arr[$i]==$_GET["year"]||empty($_GET["year"])) {
       ?>
       <!--data row-->
       <div class="row">
@@ -266,17 +295,18 @@
         </div>
       </div><!--end data row-->
       <?php
-    } // end for
+          } // end if
+        } // end for
       ?>
 
       <div>
         <?php
-          print_r($result_conference_arr);
+          //print_r($result_conference_arr);
         ?>
       </div>
       <div>
         <?php
-          print_r($result_conference_year_arr);
+          //print_r($result_conference_year_arr);
         ?>
       </div>
 

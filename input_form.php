@@ -507,7 +507,7 @@ code by siwawes wongcharoen
                 <div class="col-md-2">
                   <div class="radio">
                     <label>
-                      <input id="radio_journal_type_public" type="radio" name="journal_type_progress" value="public" />
+                      <input id="radio_journal_type_public" type="radio" name="journal_type_progress" value="published" />
                       Published
                     </label>
                   </div>

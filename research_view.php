@@ -63,7 +63,7 @@
 
           $("#researchTitleDetailJournalPublishedInpress").html(research.journal_type_progress);
           message = "";
-          if(research.journal_type_progress == "public") {
+          if(research.journal_type_progress == "published") {
             message += "Vol. " + research.journal_vol + "<br/>";
             message += "Issue No. " + research.journal_issue + "<br/>";
             message += "Number. " + research.journal_number + "<br/>";
@@ -167,7 +167,7 @@
             $("#journal_type_public").hide();
             $("#journal_type_inpress").show();
 
-          } else if(research.journal_type_progress == "public") {
+          } else if(research.journal_type_progress == "published") {
             $("#radio_journal_type_public").prop("checked", true);
             $("#journal_type_public").show();
             $("#journal_type_inpress").hide();
@@ -749,7 +749,7 @@
                       <div class="col-md-2">
                         <div class="radio">
                           <label>
-                            <input id="radio_journal_type_public" type="radio" name="journal_type_progress" value="public" />
+                            <input id="radio_journal_type_public" type="radio" name="journal_type_progress" value="published" />
                             Published
                           </label>
                         </div>
