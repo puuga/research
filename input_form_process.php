@@ -64,17 +64,17 @@
     }
 
     $journal_type_progress = isset($_POST["journal_type_progress"]) ? $_POST["journal_type_progress"] : "" ;
-    if ($journal_type_progress == "public") {
+    if ($journal_type_progress == "published") {
       $journal_vol = isset($_POST["journal_vol"]) ? $_POST["journal_vol"] : "" ;
       $journal_issue = isset($_POST["journal_issue"]) ? $_POST["journal_issue"] : "" ;
       $journal_number = isset($_POST["journal_number"]) ? $_POST["journal_number"] : "" ;
       $journal_page_start = isset($_POST["journal_page_start"]) ? $_POST["journal_page_start"] : "" ;
       $journal_page_end = isset($_POST["journal_page_end"]) ? $_POST["journal_page_end"] : "" ;
       $journal_doi_no = isset($_POST["journal_doi_no"]) ? $_POST["journal_doi_no"] : "" ;
-      $journal_accepted_date = isset($_POST["journal_accepted_date"]) ? $_POST["journal_accepted_date"] : "" ;
-      if($journal_accepted_date != "") {
-        $journal_accepted_date = $journal_accepted_date."-01";
-      }
+      $journal_accepted_date = isset($_POST["journal_accepted_date"]) ? $_POST["journal_accepted_date"]."-01" : "" ;
+      // if($journal_accepted_date != "") {
+      //   $journal_accepted_date = $journal_accepted_date."-01";
+      // }
       $journal_published_month = isset($_POST["journal_published_month"]) ? $_POST["journal_published_month"] : "" ;
       $journal_published_year = isset($_POST["journal_published_year"]) ? $_POST["journal_published_year"] : "" ;
     } else if ($journal_type_progress == "inpress") {
