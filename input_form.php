@@ -351,7 +351,7 @@ code by siwawes wongcharoen
                   <div class="col-md-2">
                     <div class="radio">
                       <label>
-                        <input type="radio" name="corresponding" value="0">Corresponding
+                        <input type="radio" name="corresponding" value="0" required>Corresponding
                       </label>
                     </div>
                   </div>
