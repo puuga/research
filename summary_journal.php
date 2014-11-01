@@ -87,7 +87,7 @@
           die('Error: ' . mysqli_error($con));
         } else {
           while($row = mysqli_fetch_array($result)) {
-            $result_journal_arr[$row["journal_year"]][$row["department_en"]][$row["scope"]][$row["type"]] = $row["count"];
+            $result_journal_arr[$row["journal_year"]][$row["department_en"]]["isi"] = $row["count"];
           }
         }
 
@@ -119,7 +119,7 @@
           die('Error: ' . mysqli_error($con));
         } else {
           while($row = mysqli_fetch_array($result)) {
-            $result_journal_arr[$row["journal_year"]][$row["department_en"]][$row["scope"]][$row["type"]] = $row["count"];
+            $result_journal_arr[$row["journal_year"]][$row["department_en"]]["scopus"] = $row["count"];
           }
         }
 
@@ -151,7 +151,7 @@
           die('Error: ' . mysqli_error($con));
         } else {
           while($row = mysqli_fetch_array($result)) {
-            $result_journal_arr[$row["journal_year"]][$row["department_en"]][$row["scope"]][$row["type"]] = $row["count"];
+            $result_journal_arr[$row["journal_year"]][$row["department_en"]]["sjr"] = $row["count"];
           }
         }
 
@@ -185,7 +185,7 @@
           die('Error: ' . mysqli_error($con));
         } else {
           while($row = mysqli_fetch_array($result)) {
-            $result_journal_arr[$row["journal_year"]][$row["department_en"]][$row["scope"]][$row["type"]] = $row["count"];
+            $result_journal_arr[$row["journal_year"]][$row["department_en"]]["other"] = $row["count"];
           }
         }
       ?>
@@ -199,47 +199,48 @@
         var data = google.visualization.arrayToDataTable([
           ['Year', 'Chemistry', 'Physics', 'Biology', 'Mathematics', 'CSIT'],
           <?php
-            for($i=0; $i<2&&$i<count($result_journal_year_arr); $i++) {
+            $i = count($result_journal_year_arr)>3 ? 2 : count($result_journal_year_arr)-1;
+            for($i=$i; $i>=0; $i--) {
           ?>
           ['<?php echo $result_journal_year_arr[$i];?>',
             <?php
               echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["national"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"]["isi"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"]["scopus"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"]["sjr"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"]["other"];
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["isi"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["scopus"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["sjr"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["other"];
             ?>,
             <?php
               echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["national"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"]["isi"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"]["scopus"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"]["sjr"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"]["other"];
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["isi"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["scopus"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["sjr"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["other"];
             ?>,
             <?php
               echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["national"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"]["isi"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"]["scopus"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"]["sjr"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"]["other"];
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["isi"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["scopus"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["sjr"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["other"];
             ?>,
             <?php
               echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["national"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]["isi"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]["scopus"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]["sjr"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]["other"];
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["isi"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["scopus"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["sjr"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["other"];
             ?>,
             <?php
               echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["national"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"]["isi"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"]["scopus"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"]["sjr"]
-                +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"]["other"];
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["isi"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["scopus"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["sjr"]
+                +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["other"];
             ?>
           ]
           <?php
-              if($i != count($result_journal_year_arr)-1) {
+              if($i != 0) {
                 echo ",";
               }
             }
@@ -249,7 +250,7 @@
         var options = {
           title: 'Summary Chart',
           hAxis: {title: 'Year', titleTextStyle: {color: 'red'}},
-          vAxis: {title: 'Number of paper', titleTextStyle: {color: 'red'}}
+          vAxis: {title: 'Number of journal', titleTextStyle: {color: 'red'}}
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
@@ -332,31 +333,31 @@
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"]["isi"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["isi"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"]["scopus"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["scopus"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"]["sjr"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["sjr"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"]["other"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["other"];
                   ?>
                 </td>
                 <td>
                   <?php
                     echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["national"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"]["isi"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"]["scopus"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"]["sjr"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"]["other"];
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["other"];
                   ?>
                 </td>
               </tr>
@@ -369,31 +370,31 @@
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"]["isi"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["isi"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"]["scopus"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["scopus"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"]["sjr"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["sjr"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"]["other"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["other"];
                   ?>
                 </td>
                 <td>
                   <?php
                     echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["national"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"]["isi"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"]["scopus"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"]["sjr"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"]["other"];
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["other"];
                   ?>
                 </td>
               </tr>
@@ -406,31 +407,31 @@
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"]["isi"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["isi"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"]["scopus"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["scopus"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"]["sjr"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["sjr"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"]["other"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["other"];
                   ?>
                 </td>
                 <td>
                   <?php
                     echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["national"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"]["isi"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"]["scopus"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"]["sjr"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"]["other"];
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["other"];
                   ?>
                 </td>
               </tr>
@@ -443,31 +444,31 @@
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]["isi"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["isi"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]["scopus"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["scopus"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]["sjr"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["sjr"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]["other"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["other"];
                   ?>
                 </td>
                 <td>
                   <?php
                     echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["national"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]["isi"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]["scopus"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]["sjr"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]["other"];
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["other"];
                   ?>
                 </td>
               </tr>
@@ -480,41 +481,123 @@
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"]["isi"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["isi"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"]["scopus"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["scopus"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"]["sjr"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["sjr"];
                   ?>
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"]["other"];
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["other"];
                   ?>
                 </td>
                 <td>
                   <?php
                     echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["national"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"]["isi"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"]["scopus"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"]["sjr"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"]["other"];
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["other"];
                   ?>
                 </td>
               </tr>
             </tbody>
+            <tfoot>
+              <tr>
+                <th>Total</th>
+                <th>
+                  <?php
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["national"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["national"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["national"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["national"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["national"];
+                  ?>
+                </th>
+                <th>
+                  <?php
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["isi"];
+                  ?>
+                </th>
+                <th>
+                  <?php
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["scopus"];
+                  ?>
+                </th>
+                <th>
+                  <?php
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["sjr"];
+                  ?>
+                </th>
+                <th>
+                  <?php
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["other"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["other"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["other"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["other"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["other"];
+                  ?>
+                </th>
+                <th>
+                  <?php
+                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["national"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["other"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["national"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["other"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["national"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["other"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["national"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["other"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["national"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["isi"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["scopus"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["sjr"]
+                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["other"];
+                  ?>
+                </th>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
       <?php
           } // end if
         } // end for
+      ?>
+      <?php
+        print_r($result_journal_arr);
       ?>
 
     </div> <!-- end container -->

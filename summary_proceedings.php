@@ -62,7 +62,8 @@
         var data = google.visualization.arrayToDataTable([
           ['Year', 'Chemistry', 'Physics', 'Biology', 'Mathematics', 'CSIT'],
           <?php
-            for($i=0; $i<2&&$i<count($result_conference_year_arr); $i++) {
+            $i = count($result_conference_year_arr)>3 ? 2 : count($result_conference_year_arr)-1;
+            for($i=$i; $i>=0; $i--) {
           ?>
           ['<?php echo $result_conference_year_arr[$i];?>',
             <?php echo $result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["national"]
@@ -77,7 +78,7 @@
               +$result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["international"];?>
           ]
           <?php
-              if($i != count($result_conference_year_arr)-1) {
+              if($i != 0) {
                 echo ",";
               }
             }
@@ -87,7 +88,7 @@
         var options = {
           title: 'Summary Chart',
           hAxis: {title: 'Year', titleTextStyle: {color: 'red'}},
-          vAxis: {title: 'Number of paper', titleTextStyle: {color: 'red'}}
+          vAxis: {title: 'Number of proceedings', titleTextStyle: {color: 'red'}}
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
@@ -134,7 +135,7 @@
             <form>
           </p>
         </div>
-        
+
       </div>
 
       <br/>
