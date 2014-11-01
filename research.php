@@ -72,8 +72,8 @@
             for($i=$i; $i>=0; $i--) {
           ?>
           ['<?php echo $result_paper_year_arr[$i];?>',
-            <?php echo $result_paper_arr[$result_paper_year_arr[$i]]["conference"]; ?>,
-            <?php echo $result_paper_arr[$result_paper_year_arr[$i]]["journal"]; ?>
+            <?php echo 0+$result_paper_arr[$result_paper_year_arr[$i]]["conference"]; ?>,
+            <?php echo 0+$result_paper_arr[$result_paper_year_arr[$i]]["journal"]; ?>
           ]
           <?php
               if($i != 0) {
