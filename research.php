@@ -57,6 +57,52 @@
             $result_paper_arr[$row["paper_year"]][$row["name"]] = $row["count"];
           }
         }
+
+        // result journal
+        $sqlJ = "SELECT
+                    py.paper_year,
+                    'journal' as name,
+                    gv.journal_type,
+                    count(id) as count
+
+                FROM
+                    paper_year as py,
+                    research.graph_data_view as gv
+                where
+                    research_type = 'journal'
+                        and journal_type_progress = 'published'
+                        and year(journal_accepted_date) = py.paper_year
+                group by paper_year,journal_type";
+        $result = mysqli_query($con, $sqlJ);
+        if (!$result) {
+          die('Error: ' . mysqli_error($con));
+        } else {
+          while($row = mysqli_fetch_array($result)) {
+            $result_journal_arr[$row["paper_year"]][$row["journal_type"]] = $row["count"];
+          }
+        }
+
+        // result conference
+        $sqlC = "SELECT
+                    py.paper_year,
+                    'conference' as name,
+                    gv.conference_location_type,
+                    count(id) as count
+                FROM
+                    paper_year as py,
+                    research.graph_data_view as gv
+                where
+                    research_type = 'conference'
+                        and year(conference_start_date) = py.paper_year
+                group by paper_year,conference_location_type";
+        $result = mysqli_query($con, $sqlC);
+        if (!$result) {
+          die('Error: ' . mysqli_error($con));
+        } else {
+          while($row = mysqli_fetch_array($result)) {
+            $result_conference_arr[$row["paper_year"]][$row["conference_location_type"]] = $row["count"];
+          }
+        }
       ?>
 
       // Google chart
@@ -66,14 +112,14 @@
       function drawChart() {
 
         var data = google.visualization.arrayToDataTable([
-          ['Year', 'Proceedings', 'Journal'],
+          ['Year', 'Journal', 'Proceedings'],
           <?php
             $i = count($result_paper_year_arr)>3 ? 2 : count($result_paper_year_arr)-1;
             for($i=$i; $i>=0; $i--) {
           ?>
           ['<?php echo $result_paper_year_arr[$i];?>',
-            <?php echo 0+$result_paper_arr[$result_paper_year_arr[$i]]["conference"]; ?>,
-            <?php echo 0+$result_paper_arr[$result_paper_year_arr[$i]]["journal"]; ?>
+            <?php echo 0+$result_paper_arr[$result_paper_year_arr[$i]]["journal"]; ?>,
+            <?php echo 0+$result_paper_arr[$result_paper_year_arr[$i]]["conference"]; ?>
           ]
           <?php
               if($i != 0) {
@@ -118,6 +164,7 @@
         </div>
       </div>
 
+
       <br/>
       <!--data row-->
       <div class="row">
@@ -125,16 +172,28 @@
           <table class="table table-hover table-striped">
             <thead>
               <tr class="info">
-                <th>Year</th>
-                <th>Journal</th>
-                <th>Proceedings</th>
-                <th>Total</th>
+                <th rowspan="2">Year</th>
+                <th colspan="2">Journal</th>
+                <th rowspan="2">Total</th>
+                <th colspan="2">Proceedings</th>
+                <th rowspan="2">Total</th>
+                <th rowspan="2">Grand Total</th>
+              </tr>
+              <tr class="info">
+                <th>National</th>
+                <th>International</th>
+                <th>National</th>
+                <th>International</th>
               </tr>
             </thead>
             <tbody>
               <?php
-                $sum_conference = 0;
                 $sum_journal = 0;
+                $sum_journal_national = 0;
+                $sum_journal_international = 0;
+                $sum_conference = 0;
+                $sum_conference_national = 0;
+                $sum_conference_international = 0;
                 $sum_total = 0;
                 for($i=0; $i<count($result_paper_year_arr); $i++) {
               ?>
@@ -146,14 +205,38 @@
                 </td>
                 <td>
                   <?php
-                    echo 0+$result_paper_arr[$result_paper_year_arr[$i]]["conference"];
-                    $sum_conference += 0+$result_paper_arr[$result_paper_year_arr[$i]]["conference"];
+                    echo 0+$result_journal_arr[$result_paper_year_arr[$i]]["national"];
+                    $sum_journal_national += 0+$result_journal_arr[$result_paper_year_arr[$i]]["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_arr[$result_paper_year_arr[$i]]["international"];
+                    $sum_journal_international += 0+$result_journal_arr[$result_paper_year_arr[$i]]["international"];
                   ?>
                 </td>
                 <td>
                   <?php
                     echo 0+$result_paper_arr[$result_paper_year_arr[$i]]["journal"];
                     $sum_journal += 0+$result_paper_arr[$result_paper_year_arr[$i]]["journal"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_arr[$result_paper_year_arr[$i]]["national"];
+                    $sum_conference_national += 0+$result_conference_arr[$result_paper_year_arr[$i]]["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_arr[$result_paper_year_arr[$i]]["international"];
+                    $sum_conference_international += 0+$result_conference_arr[$result_paper_year_arr[$i]]["international"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_paper_arr[$result_paper_year_arr[$i]]["conference"];
+                    $sum_conference += 0+$result_paper_arr[$result_paper_year_arr[$i]]["conference"];
                   ?>
                 </td>
                 <td>
@@ -172,8 +255,12 @@
             <tfoot>
               <tr>
                 <th>Total</th>
-                <th><?php echo $sum_conference; ?></th>
+                <th><?php echo $sum_journal_national; ?></th>
+                <th><?php echo $sum_journal_international; ?></th>
                 <th><?php echo $sum_journal; ?></th>
+                <th><?php echo $sum_conference_national; ?></th>
+                <th><?php echo $sum_conference_international; ?></th>
+                <th><?php echo $sum_conference; ?></th>
                 <th><?php echo $sum_total; ?></th>
               </tr>
             </tfoot>

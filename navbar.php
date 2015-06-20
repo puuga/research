@@ -15,7 +15,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="research.php"><span class="glyphicon glyphicon-stats"></span> Summary Paper</a></li>
+        <li><a href="research.php"><span class="glyphicon glyphicon-stats"></span> Summary Total</a></li>
         <li><a href="summary_journal.php"><span class="glyphicon glyphicon-stats"></span> Summary Journal</a></li>
         <li><a href="summary_proceedings.php"><span class="glyphicon glyphicon-stats"></span> Summary Proceedings</a></li>
         <li class="dropdown">

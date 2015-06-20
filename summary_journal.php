@@ -657,7 +657,7 @@
         } // end for
       ?>
       <?php
-        print_r($result_journal_arr);
+        // print_r($result_journal_arr);
       ?>
 
     </div> <!-- end container -->

@@ -29,6 +29,7 @@
       // globol var
       var researchs = [];
       var idToDelete;
+      var isLogin = <?php echo $current_user_name === ""? "false" : "true";?>;
 
       function setDataForDetail(id) {
         console.log("researchs.length:"+researchs.length);
@@ -87,7 +88,9 @@
             message += "Published year. " + research.journal_published_year + "<br/>";
 
           }
+
           $("#researchTitleDetailJournalPublishedInpressDetail").html(message);
+
 
         } else if (research.research_type == "conference") {
           $("#researchTitleDetailForProceeding").show();
@@ -105,7 +108,12 @@
 
         }
 
-        $("#researchTitleDetailAttFile").attr("href", research.att_file);
+        if (isLogin) {
+          $("#researchTitleDetailAttFile").attr("href", research.att_file);
+        } else {
+          $("#researchTitleDetailAttFile").attr("href", "#");
+        }
+
       }
 
       function showAdvanceSearch() {
@@ -383,7 +391,7 @@
             <tbody>
               <?php
                 // set sql
-                $sql = "SELECT * FROM research ";
+                $sql = "SELECT * FROM research order by id desc";
                 if(!empty($_GET["search_keyword"])) {
                   $key = str_replace("+"," ",$_GET["search_keyword"]);
                   $sql .= " where title like '%$key%' ";

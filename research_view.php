@@ -370,7 +370,7 @@
             <tbody>
               <?php
                 // set sql
-                $sql = "SELECT * FROM research";
+                $sql = "SELECT * FROM research order by id desc";
                 $result_for_json = array();
                 $result = mysqli_query($con, $sql);
                 if (!$result) {
