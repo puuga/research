@@ -391,7 +391,7 @@
             <tbody>
               <?php
                 // set sql
-                $sql = "SELECT * FROM research order by id desc";
+                $sql = "SELECT * FROM research";
                 if(!empty($_GET["search_keyword"])) {
                   $key = str_replace("+"," ",$_GET["search_keyword"]);
                   $sql .= " where title like '%$key%' ";
@@ -443,13 +443,16 @@
 
                   } else {
                     $paper_year = $_GET["paper_year"];
-                    $sql .= " and (year(journal_accepted_date) = '$paper_year'
-                      or year(conference_start_date) = '$paper_year'
-                      or journal_published_year = '$paper_year')";
+                    $sql .= " and (year(journal_accepted_date) = '$paper_year'";
+                    $sql .= " or year(conference_start_date) = '$paper_year'";
+                    $sql .= " or journal_published_year = '$paper_year')";
                   }
 
                 }
                 $sqlBeforeLimit = $sql;
+                
+                $sql .= " order by id desc";
+
                 $item_per_page = !empty($_GET["item_per_page"])? $_GET["item_per_page"] : 25;
                 $page = !empty($_GET["page"])? $_GET["page"]*1 : 1;
                 if ($item_per_page != "All") {

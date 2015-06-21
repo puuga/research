@@ -110,6 +110,28 @@
       </div>
     </div>
 
+    <?php
+      function makeLink($isJournal, $isConference, $isNationnal, $isInternational, $year) {
+        $link = "main_menu.php?advance_search=true&paper_title=&paper_author=";
+        if ($isJournal) {
+          $link .= "&options_journal=true";
+        }
+        if ($isConference) {
+          $link .= "&options_conference=true";
+        }
+        if ($isNationnal) {
+          $link .= "&options_national=true";
+        }
+        if ($isInternational) {
+          $link .= "&options_international=true";
+        }
+        $link .= "&paper_year=2014";
+        $link .= "&item_per_page=25";
+
+        return $link;
+      }
+    ?>
+
 
     <div class="container">
 
@@ -257,9 +279,10 @@
               </tr>
             </tbody>
             <tfoot>
-              <tr>
+              <tr class="warning">
                 <th>Total</th>
                 <th>
+                  <a href="<?php echo makeLink(false,true,true,false,$result_conference_year_arr[$i]); ?>">
                   <?php
                     echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["national"]
                       +$result_conference_arr[$result_conference_year_arr[$i]]["Physics"]["national"]
@@ -267,8 +290,10 @@
                       +$result_conference_arr[$result_conference_year_arr[$i]]["Mathematics"]["national"]
                       +$result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["national"];
                   ?>
+                  </a>
                 </th>
                 <th>
+                  <a href="<?php echo makeLink(false,true,false,true,$result_conference_year_arr[$i]); ?>">
                   <?php
                     echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["international"]
                       +$result_conference_arr[$result_conference_year_arr[$i]]["Physics"]["international"]
@@ -276,8 +301,10 @@
                       +$result_conference_arr[$result_conference_year_arr[$i]]["Mathematics"]["international"]
                       +$result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["international"];
                   ?>
+                  </a>
                 </th>
                 <th>
+                  <a href="<?php echo makeLink(false,true,true,true,$result_conference_year_arr[$i]); ?>">
                   <?php
                     echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["national"]
                       +$result_conference_arr[$result_conference_year_arr[$i]]["Physics"]["national"]
@@ -290,6 +317,7 @@
                       +$result_conference_arr[$result_conference_year_arr[$i]]["Mathematics"]["international"]
                       +$result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["international"];
                   ?>
+                  </a>
                 </th>
               </tr>
             </tfoot>

@@ -277,6 +277,28 @@
       </div>
     </div>
 
+    <?php
+      function makeLink($isJournal, $isConference, $isNationnal, $isInternational, $year) {
+        $link = "main_menu.php?advance_search=true&paper_title=&paper_author=";
+        if ($isJournal) {
+          $link .= "&options_journal=true";
+        }
+        if ($isConference) {
+          $link .= "&options_conference=true";
+        }
+        if ($isNationnal) {
+          $link .= "&options_national=true";
+        }
+        if ($isInternational) {
+          $link .= "&options_international=true";
+        }
+        $link .= "&paper_year=2014";
+        $link .= "&item_per_page=25";
+
+        return $link;
+      }
+    ?>
+
 
     <div class="container">
 
@@ -552,9 +574,10 @@
               </tr>
             </tbody>
             <tfoot>
-              <tr>
+              <tr class="warning">
                 <th>Total</th>
                 <th>
+                  <a href="<?php echo makeLink(true,false,true,false,$result_journal_year_arr[$i]); ?>">
                   <?php
                     echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["national"]
                       +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["national"]
@@ -562,6 +585,7 @@
                       +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["national"]
                       +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["national"];
                   ?>
+                  </a>
                 </th>
                 <th>
                   <?php
@@ -600,40 +624,18 @@
                   ?>
                 </th>
                 <th>
+                  <a href="<?php echo makeLink(true,false,false,true,$result_journal_year_arr[$i]); ?>">
                   <?php
-                    // echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["national"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["isi"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["scopus"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["sjr"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["other"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["national"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["isi"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["scopus"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["sjr"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["other"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["national"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["isi"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["scopus"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["sjr"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["other"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["national"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["isi"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["scopus"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["sjr"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["other"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["national"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["isi"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["scopus"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["sjr"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["other"];
                     echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"]
                       +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"]
                       +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"]
                       +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]
                       +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"];
                   ?>
+                  </a>
                 </th>
                 <th>
+                  <a href="<?php echo makeLink(true,false,true,true,$result_journal_year_arr[$i]); ?>">
                   <?php
                     echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["national"]
                       +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["national"]
@@ -646,6 +648,7 @@
                       +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"]
                       +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"];
                   ?>
+                  </a>
                 </th>
               </tr>
             </tfoot>
