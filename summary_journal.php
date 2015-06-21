@@ -292,7 +292,7 @@
         if ($isInternational) {
           $link .= "&options_international=true";
         }
-        $link .= "&paper_year=2014";
+        $link .= "&paper_year=".$year;
         $link .= "&item_per_page=25";
 
         return $link;
