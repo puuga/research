@@ -254,7 +254,7 @@
               </div>
 
               <div class="col-sm-2">
-                <div class="radio">
+                <div class="checkbox">
                   <label>
                     <input type="checkbox" name="options_journal" id="options_journal" value="true"
                       <?php
@@ -272,7 +272,7 @@
               </div>
 
               <div class="col-sm-2">
-                <div class="radio">
+                <div class="checkbox">
                   <label>
                     <input type="checkbox" name="options_conference" id="options_conference" value="true"
                     <?php
@@ -294,7 +294,7 @@
             <div class="form-group">
 
               <div class="col-sm-offset-2 col-sm-2">
-                <div class="radio">
+                <div class="checkbox">
                   <label>
                     <input type="checkbox" name="options_international" id="options_international" value="true"
                     <?php
@@ -312,7 +312,7 @@
               </div>
 
               <div class="col-sm-2">
-                <div class="radio">
+                <div class="checkbox">
                   <label>
                     <input type="checkbox" name="options_national" id="options_national" value="true"
                     <?php
@@ -325,6 +325,103 @@
                       }
                     ?> >
                     National
+                  </label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-2 control-label">
+                Department:
+              </div>
+
+              <div class="col-sm-2">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="options_department_1" id="options_department_1" value="true"
+                      <?php
+                        if( empty($_GET["advance_search"]) ) {
+                          echo "checked";
+                        } else {
+                          if( !empty($_GET["options_department_1"]) ) {
+                            echo "checked";
+                          }
+                        }
+                      ?> >
+                    Mathematics
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="options_department_2" id="options_department_2" value="true"
+                    <?php
+                      if( empty($_GET["advance_search"]) ) {
+                        echo "checked";
+                      } else {
+                        if( !empty($_GET["options_department_2"]) ) {
+                          echo "checked";
+                        }
+                      }
+                    ?> >
+                    Computer Science and Information Technology
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="options_department_3" id="options_department_3" value="true"
+                    <?php
+                      if( empty($_GET["advance_search"]) ) {
+                        echo "checked";
+                      } else {
+                        if( !empty($_GET["options_department_3"]) ) {
+                          echo "checked";
+                        }
+                      }
+                    ?> >
+                    Physics
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="options_department_4" id="options_department_4" value="true"
+                    <?php
+                      if( empty($_GET["advance_search"]) ) {
+                        echo "checked";
+                      } else {
+                        if( !empty($_GET["options_department_4"]) ) {
+                          echo "checked";
+                        }
+                      }
+                    ?> >
+                    Chemistry
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-sm-2">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="options_department_5" id="options_department_5" value="true"
+                    <?php
+                      if( empty($_GET["advance_search"]) ) {
+                        echo "checked";
+                      } else {
+                        if( !empty($_GET["options_department_5"]) ) {
+                          echo "checked";
+                        }
+                      }
+                    ?> >
+                    Biology
                   </label>
                 </div>
               </div>
@@ -439,6 +536,56 @@
                     }
                   }
 
+                  if ($_GET["options_department_1"] == "true" ||
+                  $_GET["options_department_2"] == "true" ||
+                  $_GET["options_department_3"] == "true" ||
+                  $_GET["options_department_4"] == "true" ||
+                  $_GET["options_department_5"] == "true") {
+                    $isFirst = true;
+                    $sql .= " and ( ";
+                    if ($_GET["options_department_1"] == "true") {
+                      if ($isFirst) {
+                        $isFirst = false;
+                      } else {
+                        $sql .= " or ";
+                      }
+                      $sql .= "  department like '%Mathematics%' or department like '%คณิตศาสตร์%' ";
+                    }
+                    if ($_GET["options_department_2"] == "true") {
+                      if ($isFirst) {
+                        $isFirst = false;
+                      } else {
+                        $sql .= " or ";
+                      }
+                      $sql .= "  department like '%Computer Science and Information Technology%' or department like '%ภาควิชาวิทยาการคอมพิวเตอร์และเทคโนโลยีสารสนเทศ%' ";
+                    }
+                    if ($_GET["options_department_3"] == "true") {
+                      if ($isFirst) {
+                        $isFirst = false;
+                      } else {
+                        $sql .= " or ";
+                      }
+                      $sql .= "  department like '%Physics%' or department like '%ฟิสิกส์%' ";
+                    }
+                    if ($_GET["options_department_4"] == "true") {
+                      if ($isFirst) {
+                        $isFirst = false;
+                      } else {
+                        $sql .= " or ";
+                      }
+                      $sql .= "  department like '%Chemistry%' or department like '%เคมี%' ";
+                    }
+                    if ($_GET["options_department_5"] == "true") {
+                      if ($isFirst) {
+                        $isFirst = false;
+                      } else {
+                        $sql .= " or ";
+                      }
+                      $sql .= "  department like '%Biology%' or department like '%ชีววิทยา%' ";
+                    }
+                    $sql .= " ) ";
+                  }
+
                   if($_GET["paper_year"] == "all") {
 
                   } else {
@@ -450,7 +597,7 @@
 
                 }
                 $sqlBeforeLimit = $sql;
-                
+
                 $sql .= " order by id desc";
 
                 $item_per_page = !empty($_GET["item_per_page"])? $_GET["item_per_page"] : 25;
