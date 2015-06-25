@@ -69,13 +69,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="main_menu.php"><?php echo String::system_title; ?></a>
+      <a class="navbar-brand" href="main_menu.php">
+        Faculty of Science, Naresuan University.
+      </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="http://www.sci.nu.ac.th/science/">Sci Web</a></li>
+        <li><a href="http://www.sci.nu.ac.th/science/">Science Web</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Department <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">

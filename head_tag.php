@@ -2,6 +2,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="description" content="Research MIS: Faculty of Science, Naresuan University">
+	  <link rel='author' href='https://plus.google.com/u/0/+SiwawesWongcharoen'/>
+
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap mod -->
