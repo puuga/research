@@ -140,7 +140,7 @@
             } else {
               //alert("succ");
               console.log(output);
-              // location.reload();
+              location.reload();
             }
           }
         });

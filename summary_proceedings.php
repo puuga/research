@@ -340,6 +340,225 @@
         ?>
       </div>
 
+      <div class="row bg-primary">
+        <div class="col-md-12">
+          <h2>Range Summary Proceedings</h2>
+        </div>
+
+        <?php
+          $rangeFrom = isset($_GET['rangeFrom']) ? $_GET['rangeFrom'] : date("Y").'-01-01' ;
+          $rangeTo = isset($_GET['rangeTo']) ? $_GET['rangeTo'] : date("Y").'-12-31' ;
+        ?>
+
+        <div class="col-md-12">
+          <form class="form-inline"></form>
+
+          <form class="form-inline" action="summary_proceedings.php" method="get">
+            <div class="form-group">
+              <label for="rangeFrom">From</label>
+              <input
+                type="date"
+                class="form-control"
+                id="rangeFrom"
+                name="rangeFrom"
+                value="<?php echo $rangeFrom;?>"
+                required>
+            </div>
+            <div class="form-group">
+              <label for="rangeTo">To</label>
+              <input
+                type="date"
+                class="form-control"
+                id="rangeTo"
+                name="rangeTo"
+                value="<?php echo $rangeTo;?>"
+                required>
+            </div>
+            <button type="submit" class="btn btn-default">Search</button>
+          </form>
+          <br/>
+        </div>
+      </div>
+
+      <?php
+        $sql2="SELECT
+                  dv.department_en, sc.scope AS scope, COUNT(id) AS count
+              FROM
+                  research.graph_data_view AS gv,
+                  department_view AS dv,
+                  scope AS sc
+              WHERE
+                  research_type = 'conference'
+                      AND (conference_start_date BETWEEN '$rangeFrom' AND '$rangeTo')
+                      AND gv.department_en = dv.department_en
+                      AND gv.conference_location_type = sc.scope COLLATE utf8_unicode_ci
+              GROUP BY department_en , scope";
+
+        $result2 = mysqli_query($con, $sql2);
+        if (!$result2) {
+          die('Error: ' . mysqli_error($con));
+        } else {
+          while( $row = mysqli_fetch_array($result2) ) {
+            $result_conference_range[$row["department_en"]][$row["scope"]] = $row["count"];
+          }
+        }
+      ?>
+
+      <br/>
+      <!--data row-->
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr class="info">
+                <th>Range</th>
+                <th colspan="2">Proceedings</th>
+                <th rowspan="2">Total</th>
+              </tr>
+              <tr class="info">
+                <th>Department</th>
+                <th>National</th>
+                <th>International</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Chemistry</td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_range["Chemistry"]["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_range["Chemistry"]["international"];
+                  ?>
+                </td>
+                <th>
+                  <?php
+                    echo 0+$result_conference_range["Chemistry"]["national"]
+                      +$result_conference_range["Chemistry"]["international"];
+                  ?>
+                </th>
+              </tr>
+              <tr>
+                <td>Physics</td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_range["Physics"]["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_range["Physics"]["international"];
+                  ?>
+                </td>
+                <th>
+                  <?php
+                    echo 0+$result_conference_range["Physics"]["national"]
+                      +$result_conference_range["Physics"]["international"];
+                  ?>
+                </th>
+              </tr>
+              <tr>
+                <td>Biology</td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_range["Biology"]["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_range["Biology"]["international"];
+                  ?>
+                </td>
+                <th>
+                  <?php
+                    echo 0+$result_conference_range["Biology"]["national"]
+                      +$result_conference_range["Biology"]["international"];
+                  ?>
+                </th>
+              </tr>
+              <tr>
+                <td>Mathematics</td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_range["Mathematics"]["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_range["Mathematics"]["international"];
+                  ?>
+                </td>
+                <th>
+                  <?php
+                    echo 0+$result_conference_range["Mathematics"]["national"]
+                      +$result_conference_range["Mathematics"]["international"];
+                  ?>
+                </th>
+              </tr>
+              <tr>
+                <td>CSIT</td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_range["Computer Science and Information Technology"]["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_range["Computer Science and Information Technology"]["international"];
+                  ?>
+                </td>
+                <th>
+                  <?php
+                    echo 0+$result_conference_range["Computer Science and Information Technology"]["national"]
+                      +$result_conference_range["Computer Science and Information Technology"]["international"];
+                  ?>
+                </th>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="warning">
+                <th>Total</th>
+                <th>
+                  <?php
+                    echo 0+$result_conference_range["Chemistry"]["national"]
+                      +$result_conference_range["Physics"]["national"]
+                      +$result_conference_range["Biology"]["national"]
+                      +$result_conference_range["Mathematics"]["national"]
+                      +$result_conference_range["Computer Science and Information Technology"]["national"];
+                  ?>
+                </th>
+                <th>
+                  <?php
+                    echo 0+$result_conference_range["Chemistry"]["international"]
+                      +$result_conference_range["Physics"]["international"]
+                      +$result_conference_range["Biology"]["international"]
+                      +$result_conference_range["Mathematics"]["international"]
+                      +$result_conference_range["Computer Science and Information Technology"]["international"];
+                  ?>
+                </th>
+                <th>
+                  <?php
+                    echo 0+$result_conference_range["Chemistry"]["national"]
+                      +$result_conference_range["Physics"]["national"]
+                      +$result_conference_range["Biology"]["national"]
+                      +$result_conference_range["Mathematics"]["national"]
+                      +$result_conference_range["Computer Science and Information Technology"]["national"]
+                      +$result_conference_range["Chemistry"]["international"]
+                      +$result_conference_range["Physics"]["international"]
+                      +$result_conference_range["Biology"]["international"]
+                      +$result_conference_range["Mathematics"]["international"]
+                      +$result_conference_range["Computer Science and Information Technology"]["international"];
+                  ?>
+                </th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div><!--end data row-->
+
     </div> <!-- end container -->
 
 

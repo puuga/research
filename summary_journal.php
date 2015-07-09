@@ -338,12 +338,13 @@
           <table class="table table-hover table-striped">
             <thead>
               <tr class="info">
-                <th rowspan="2">Department</th>
+                <th>Year <?php echo $result_journal_year_arr[$i];?></th>
                 <th rowspan="2">National Journal</th>
                 <th colspan="5">International Journal</th>
                 <th rowspan="2">All Total</th>
               </tr>
               <tr class="info">
+                <th>Department</th>
                 <th>ISI</th>
                 <th>Scopus</th>
                 <th>SJR</th>
@@ -662,6 +663,488 @@
       <?php
         // print_r($result_journal_arr);
       ?>
+
+      <div class="row bg-primary">
+        <div class="col-md-12">
+          <h2>Range Summary Proceedings</h2>
+        </div>
+
+        <?php
+          $rangeFrom = isset($_GET['rangeFrom']) ? $_GET['rangeFrom'] : date("Y").'-01-01' ;
+          $rangeTo = isset($_GET['rangeTo']) ? $_GET['rangeTo'] : date("Y").'-12-31' ;
+        ?>
+
+        <div class="col-md-12">
+          <form class="form-inline"></form>
+
+          <form class="form-inline" action="summary_journal.php" method="get">
+            <div class="form-group">
+              <label for="rangeFrom">From</label>
+              <input
+                type="date"
+                class="form-control"
+                id="rangeFrom"
+                name="rangeFrom"
+                value="<?php echo $rangeFrom;?>"
+                required>
+            </div>
+            <div class="form-group">
+              <label for="rangeTo">To</label>
+              <input
+                type="date"
+                class="form-control"
+                id="rangeTo"
+                name="rangeTo"
+                value="<?php echo $rangeTo;?>"
+                required>
+            </div>
+            <button type="submit" class="btn btn-default">Search</button>
+          </form>
+          <br/>
+        </div>
+      </div>
+
+      <?php
+        // select journal_national_international_count
+        $sql2 = "SELECT
+                    'journal' AS name,
+                    dv.department_en,
+                    sc.scope AS scope,
+                    COUNT(id) AS count
+                FROM
+                    research.graph_data_view AS gv,
+                    department_view AS dv,
+                    scope AS sc
+                WHERE
+                    research_type = 'journal'
+                        AND journal_type_progress = 'published'
+                        AND (journal_accepted_date BETWEEN '$rangeFrom' AND '$rangeTo')
+                        AND gv.department_en = dv.department_en
+                        AND gv.journal_type = sc.scope COLLATE utf8_unicode_ci
+                GROUP BY department_en , scope";
+
+        $result2 = mysqli_query($con, $sql2);
+        if (!$result2) {
+          die('Error: ' . mysqli_error($con));
+        } else {
+          while( $row = mysqli_fetch_array($result2) ) {
+            $result_journal_range[$row["department_en"]][$row["scope"]] = $row["count"];
+          }
+        }
+
+        // select journal_international_isi_count
+        $sql3 = "SELECT
+                    'journal' AS name,
+                    dv.department_en,
+                    'international' AS scope,
+                    'isi' AS type,
+                    COUNT(id) AS count
+                FROM
+                    research.graph_data_view AS gv,
+                    department_view AS dv
+                WHERE
+                    research_type = 'journal'
+                        AND journal_type_progress = 'published'
+                        AND (journal_accepted_date BETWEEN '$rangeFrom' AND '$rangeTo')
+                        AND gv.department_en = dv.department_en
+                        AND gv.journal_type = 'international'
+                        AND is_journal_international_ISI = 1
+                GROUP BY department_en , scope";
+
+        $result3 = mysqli_query($con, $sql3);
+        if (!$result3) {
+          die('Error: ' . mysqli_error($con));
+        } else {
+          while( $row = mysqli_fetch_array($result3) ) {
+            $result_journal_range[$row["department_en"]]["isi"] = $row["count"];
+          }
+        }
+
+        // select journal_international_scopus_count
+        $sql4 = "SELECT
+                    'journal' AS name,
+                    dv.department_en,
+                    'international' AS scope,
+                    'scopus' AS type,
+                    COUNT(id) AS count
+                FROM
+                    research.graph_data_view AS gv,
+                    department_view AS dv
+                WHERE
+                    research_type = 'journal'
+                        AND journal_type_progress = 'published'
+                        AND (journal_accepted_date BETWEEN '$rangeFrom' AND '$rangeTo')
+                        AND gv.department_en = dv.department_en
+                        AND gv.journal_type = 'international'
+                        AND is_journal_international_SCOPUS = 1
+                GROUP BY department_en , scope";
+
+        $result4 = mysqli_query($con, $sql4);
+        if (!$result4) {
+          die('Error: ' . mysqli_error($con));
+        } else {
+          while( $row = mysqli_fetch_array($result4) ) {
+            $result_journal_range[$row["department_en"]]["scopus"] = $row["count"];
+          }
+        }
+
+        // select journal_international_sjr_count
+        $sql5 = "SELECT
+                    'journal' AS name,
+                    dv.department_en,
+                    'international' AS scope,
+                    'sjr' AS type,
+                    COUNT(id) AS count
+                FROM
+                    research.graph_data_view AS gv,
+                    department_view AS dv
+                WHERE
+                    research_type = 'journal'
+                        AND journal_type_progress = 'published'
+                        AND (journal_accepted_date BETWEEN '$rangeFrom' AND '$rangeTo')
+                        AND gv.department_en = dv.department_en
+                        AND gv.journal_type = 'international'
+                        AND is_journal_international_SJR = 1
+                GROUP BY department_en , scope";
+
+        $result5 = mysqli_query($con, $sql5);
+        if (!$result5) {
+          die('Error: ' . mysqli_error($con));
+        } else {
+          while( $row = mysqli_fetch_array($result5) ) {
+            $result_journal_range[$row["department_en"]]["sjr"] = $row["count"];
+          }
+        }
+
+        // select journal_international_other_count
+        $sql6 = "SELECT
+                    'journal' AS name,
+                    dv.department_en,
+                    'international' AS scope,
+                    'other' AS type,
+                    COUNT(id) AS count
+                FROM
+                    research.graph_data_view AS gv,
+                    department_view AS dv
+                WHERE
+                    research_type = 'journal'
+                        AND journal_type_progress = 'published'
+                        AND (journal_accepted_date BETWEEN '$rangeFrom' AND '$rangeTo')
+                        AND gv.department_en = dv.department_en
+                        AND gv.journal_type = 'international'
+                        AND is_journal_international_ISI = 0
+                        AND is_journal_international_SCOPUS = 0
+                        AND is_journal_international_SJR = 0
+                GROUP BY department_en , scope";
+
+        $result6 = mysqli_query($con, $sql6);
+        if (!$result6) {
+          die('Error: ' . mysqli_error($con));
+        } else {
+          while( $row = mysqli_fetch_array($result6) ) {
+            $result_journal_range[$row["department_en"]]["other"] = $row["count"];
+          }
+        }
+      ?>
+
+      <br/>
+      <!--data row-->
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr class="info">
+                <th>Year <?php echo $result_journal_year_arr[$i];?></th>
+                <th rowspan="2">National Journal</th>
+                <th colspan="5">International Journal</th>
+                <th rowspan="2">All Total</th>
+              </tr>
+              <tr class="info">
+                <th>Department</th>
+                <th>ISI</th>
+                <th>Scopus</th>
+                <th>SJR</th>
+                <th>Others</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Chemistry</td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["isi"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["scopus"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["sjr"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["other"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["international"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["national"]
+                      +$result_journal_range["Chemistry"]["international"];
+                  ?>
+                </td>
+              </tr>
+              <tr>
+                <td>Physics</td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Physics"]["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Physics"]["isi"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Physics"]["scopus"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Physics"]["sjr"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Physics"]["other"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Physics"]["international"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Physics"]["national"]
+                      +$result_journal_range["Physics"]["international"];
+                  ?>
+                </td>
+              </tr>
+              <tr>
+                <td>Biology</td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Biology"]["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Biology"]["isi"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Biology"]["scopus"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Biology"]["sjr"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Biology"]["other"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Biology"]["international"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Biology"]["national"]
+                      +$result_journal_range["Biology"]["international"];
+                  ?>
+                </td>
+              </tr>
+              <tr>
+                <td>Mathematics</td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Mathematics"]["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Mathematics"]["isi"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Mathematics"]["scopus"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Mathematics"]["sjr"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Mathematics"]["other"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Mathematics"]["international"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Mathematics"]["national"]
+                      +$result_journal_range["Mathematics"]["international"];
+                  ?>
+                </td>
+              </tr>
+              <tr>
+                <td>CSIT</td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Computer Science and Information Technology"]["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Computer Science and Information Technology"]["isi"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Computer Science and Information Technology"]["scopus"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Computer Science and Information Technology"]["sjr"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Computer Science and Information Technology"]["other"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Computer Science and Information Technology"]["international"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["Computer Science and Information Technology"]["national"]
+                      +$result_journal_range["Computer Science and Information Technology"]["international"];
+                  ?>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="warning">
+                <th>Total</th>
+                <th>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["national"]
+                      +$result_journal_range["Physics"]["national"]
+                      +$result_journal_range["Biology"]["national"]
+                      +$result_journal_range["Mathematics"]["national"]
+                      +$result_journal_range["Computer Science and Information Technology"]["national"];
+                  ?>
+                </th>
+                <th>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["isi"]
+                      +$result_journal_range["Physics"]["isi"]
+                      +$result_journal_range["Biology"]["isi"]
+                      +$result_journal_range["Mathematics"]["isi"]
+                      +$result_journal_range["Computer Science and Information Technology"]["isi"];
+                  ?>
+                </th>
+                <th>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["scopus"]
+                      +$result_journal_range["Physics"]["scopus"]
+                      +$result_journal_range["Biology"]["scopus"]
+                      +$result_journal_range["Mathematics"]["scopus"]
+                      +$result_journal_range["Computer Science and Information Technology"]["scopus"];
+                  ?>
+                </th>
+                <th>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["sjr"]
+                      +$result_journal_range["Physics"]["sjr"]
+                      +$result_journal_range["Biology"]["sjr"]
+                      +$result_journal_range["Mathematics"]["sjr"]
+                      +$result_journal_range["Computer Science and Information Technology"]["sjr"];
+                  ?>
+                </th>
+                <th>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["other"]
+                      +$result_journal_range["Physics"]["other"]
+                      +$result_journal_range["Biology"]["other"]
+                      +$result_journal_range["Mathematics"]["other"]
+                      +$result_journal_range["Computer Science and Information Technology"]["other"];
+                  ?>
+                </th>
+                <th>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["international"]
+                      +$result_journal_range["Physics"]["international"]
+                      +$result_journal_range["Biology"]["international"]
+                      +$result_journal_range["Mathematics"]["international"]
+                      +$result_journal_range["Computer Science and Information Technology"]["international"];
+                  ?>
+                </th>
+                <th>
+                  <?php
+                    echo 0+$result_journal_range["Chemistry"]["national"]
+                      +$result_journal_range["Physics"]["national"]
+                      +$result_journal_range["Biology"]["national"]
+                      +$result_journal_range["Mathematics"]["national"]
+                      +$result_journal_range["Computer Science and Information Technology"]["national"]
+                      +$result_journal_range["Chemistry"]["international"]
+                      +$result_journal_range["Physics"]["international"]
+                      +$result_journal_range["Biology"]["international"]
+                      +$result_journal_range["Mathematics"]["international"]
+                      +$result_journal_range["Computer Science and Information Technology"]["international"];
+                  ?>
+                </th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div><!--end data row-->
+
+      <div>
+        <?php // print_r($result_journal_range); ?>
+      </div>
 
     </div> <!-- end container -->
 
