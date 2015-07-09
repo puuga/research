@@ -268,6 +268,190 @@
         </div>
       </div>
 
+      <div class="row bg-primary">
+        <div class="col-md-12">
+          <h2>Range Summary Papers</h2>
+        </div>
+
+        <?php
+          $rangeFrom = isset($_GET['rangeFrom']) ? $_GET['rangeFrom'] : date("Y").'-01-01' ;
+          $rangeTo = isset($_GET['rangeTo']) ? $_GET['rangeTo'] : date("Y").'-12-31' ;
+        ?>
+
+        <div class="col-md-12">
+          <form class="form-inline"></form>
+
+          <form class="form-inline" action="research.php" method="get">
+            <div class="form-group">
+              <label for="rangeFrom">From</label>
+              <input
+                type="date"
+                class="form-control"
+                id="rangeFrom"
+                name="rangeFrom"
+                value="<?php echo $rangeFrom;?>"
+                required>
+            </div>
+            <div class="form-group">
+              <label for="rangeTo">To</label>
+              <input
+                type="date"
+                class="form-control"
+                id="rangeTo"
+                name="rangeTo"
+                value="<?php echo $rangeTo;?>"
+                required>
+            </div>
+            <button type="submit" class="btn btn-default">Search</button>
+          </form>
+          <br/>
+        </div>
+      </div>
+
+      <?php
+        // summary
+        $sql2 = "SELECT
+                    'journal' as name,
+                    count(id) as count
+                FROM
+                    research.graph_data_view as gv
+                where
+                    research_type = 'journal'
+                        and journal_type_progress = 'published'
+                        and (journal_accepted_date between '$rangeFrom' and '$rangeTo')
+                union SELECT
+                    'conference' as name,
+                    count(id) as count
+                FROM
+                    research.graph_data_view as gv
+                where
+                    research_type = 'conference'
+                        and (conference_start_date BETWEEN '$rangeFrom' and '$rangeTo')";
+
+        //$result_conference_arr = array();
+        $result2 = mysqli_query($con, $sql2);
+        if (!$result2) {
+          die('Error: ' . mysqli_error($con));
+        } else {
+          while($row = mysqli_fetch_array($result2)) {
+            $result_paper_range[$row["name"]] = $row["count"];
+          }
+        }
+
+        // result journal
+        $sqlJ2 = "SELECT
+                    'journal' as name,
+                    gv.journal_type,
+                    count(id) as count
+
+                FROM
+                    research.graph_data_view as gv
+                where
+                    research_type = 'journal'
+                        and journal_type_progress = 'published'
+                        and (journal_accepted_date BETWEEN '$rangeFrom' and '$rangeTo')
+                group by journal_type";
+        $resultJ2 = mysqli_query($con, $sqlJ2);
+        if (!$resultJ2) {
+          die('Error: ' . mysqli_error($con));
+        } else {
+          while($row = mysqli_fetch_array($resultJ2)) {
+            $result_journal_range[$row["journal_type"]] = $row["count"];
+          }
+        }
+
+        // result conference
+        $sqlC2 = "SELECT
+                    'conference' as name,
+                    gv.conference_location_type,
+                    count(id) as count
+                FROM
+                    research.graph_data_view as gv
+                where
+                    research_type = 'conference'
+                        and (conference_start_date BETWEEN '$rangeFrom' and '$rangeTo')
+                group by conference_location_type";
+        $resultC2 = mysqli_query($con, $sqlC2);
+        if (!$resultC2) {
+          die('Error: ' . mysqli_error($con));
+        } else {
+          while($row = mysqli_fetch_array($resultC2)) {
+            $result_conference_range[$row["conference_location_type"]] = $row["count"];
+          }
+        }
+      ?>
+
+      <br/>
+      <!--data row-->
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr class="info">
+                <th rowspan="2">Range</th>
+                <th colspan="2">Journal</th>
+                <th rowspan="2">Total</th>
+                <th colspan="2">Proceedings</th>
+                <th rowspan="2">Total</th>
+                <th rowspan="2">Grand Total</th>
+              </tr>
+              <tr class="info">
+                <th>National</th>
+                <th>International</th>
+                <th>National</th>
+                <th>International</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr>
+                <td>
+                  <?php
+                    echo "From ".$rangeFrom." To ".$rangeTo;
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_journal_range["international"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_paper_range["journal"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_range["national"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_conference_range["international"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_paper_range["conference"];
+                  ?>
+                </td>
+                <td>
+                  <?php
+                    echo 0+$result_paper_range["conference"]
+                      +$result_paper_range["journal"];
+                  ?>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div><!--end data row-->
+
     </div> <!-- end container -->
 
 
