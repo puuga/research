@@ -479,9 +479,11 @@
           <table class="table table-hover table-striped">
             <thead>
               <tr class="info">
-                <th>Paper Title</th>
+                <!-- <th>Paper Title</th> -->
+                <th>Reference</th>
                 <th>Author</th>
                 <th>Type</th>
+                <th>Published Date</th>
                 <th>Detail</th>
               </tr>
             </thead>
@@ -590,9 +592,9 @@
 
                   } else {
                     $paper_year = $_GET["paper_year"];
-                    $sql .= " and (year(journal_accepted_date) = '$paper_year'";
-                    $sql .= " or year(conference_start_date) = '$paper_year'";
-                    $sql .= " or journal_published_year = '$paper_year')";
+                    $sql .= " and ( ";
+                    $sql .= " year(conference_start_date) = '$paper_year'";
+                    $sql .= " or journal_published_year = '$paper_year' )";
                   }
 
                 }
@@ -621,10 +623,12 @@
                     ?>
                     <tr>
                       <td>
-                        <?php echo $row['title']; ?>
+                        <!-- <?php echo $row['title']; ?> -->
+                        <?php echo $row['reference'];?>
                       </td>
                       <td>
-                        <?php echo $row['author_name_th']; ?><br/>
+                        <!-- <?php echo $row['author_name_th']; ?> -->
+                        <!-- <br/> -->
                         <?php echo $row['author_name_en']; ?>
                       </td>
                       <td>
@@ -633,6 +637,16 @@
                             echo "Journal";
                           } else {
                             echo "Conference";
+                          }
+                        ?>
+                      </td>
+                      <td>
+                        <?php
+                          if($row['research_type']=="journal") {
+                            echo $row['journal_published_year']." ";
+                            echo $row['journal_published_month'];
+                          } else {
+                            echo $row['conference_start_date'];
                           }
                         ?>
                       </td>

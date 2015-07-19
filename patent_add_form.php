@@ -26,6 +26,37 @@ code by siwawes wongcharoen
       }
     </style>
 
+    <?php
+      //read researcher
+      $sql = "SELECT * FROM researcher";
+      $result = mysqli_query($con, $sql);
+
+      $researchers = array();
+
+      $researchers_name = array();
+
+      while($row = mysqli_fetch_array($result)) {
+        $researcherTH = array();
+        $researcherTH["name"] = $row['name_th'];
+        $researcherTH["department"] = $row['department_th'];
+        $researcherEN = array();
+        $researcherEN["name"] = $row['name_en'];
+        $researcherEN["department"] = $row['department_en'];
+
+        $researchers[] = $researcherTH;
+        $researchers[] = $researcherEN;
+
+        $temp = array();
+        $temp["name_th"] = $row['name_th'];
+        $temp["name_en"] = $row['name_en'];
+        $researchers_name[] = $temp;
+      }
+    ?>
+
+    <script type="text/javascript">
+      var researchers_name = JSON.parse('<?php echo json_encode($researchers_name); ?>');
+    </script>
+
   </head>
 
   <body>
@@ -65,12 +96,18 @@ code by siwawes wongcharoen
           <div class="col-md-12">
             <div class="form-group">
               <label for="belong_to">Owner:</label>
-              <input type="text"
+              <input list="researchersList"
                 class="form-control"
                 name="belong_to"
                 id="belong_to"
-                placeholder="Owner"
                 required />
+              <datalist id="researchersList">
+                <?php
+                  for ($i=0; $i<count($researchers) ; $i++) {
+                    echo "<option value='".$researchers[$i]["name"]."'>";
+                  }
+                ?>
+              </datalist>
             </div>
           </div>
         </div>

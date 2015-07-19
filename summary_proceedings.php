@@ -130,6 +130,33 @@
 
         return $link;
       }
+
+      function makeLinkWithDept($isJournal, $isConference, $isNationnal, $isInternational, $year, $dept) {
+        $link = makeLink($isJournal, $isConference, $isNationnal, $isInternational, $year);
+
+        switch ($dept) {
+          case 1:
+            $link .= "&options_department_1=true";
+            break;
+          case 2:
+            $link .= "&options_department_2=true";
+            break;
+          case 3:
+            $link .= "&options_department_3=true";
+            break;
+          case 4:
+            $link .= "&options_department_4=true";
+            break;
+          case 5:
+            $link .= "&options_department_5=true";
+            break;
+          default:
+            # code...
+            break;
+        }
+
+        return $link;
+      }
     ?>
 
 
@@ -185,96 +212,126 @@
               <tr>
                 <td>Chemistry</td>
                 <td>
-                  <?php
-                    echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["national"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,true,false,$result_conference_year_arr[$i],4); ?>">
+                    <?php
+                      echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["national"];
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
-                    echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,false,true,$result_conference_year_arr[$i],4); ?>">
+                    <?php
+                      echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["international"];
+                    ?>
+                  </a>
                 </td>
                 <th>
-                  <?php
-                    echo $result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["national"]
-                      +$result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,true,true,$result_conference_year_arr[$i],4); ?>">
+                    <?php
+                      echo $result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["national"]
+                        +$result_conference_arr[$result_conference_year_arr[$i]]["Chemistry"]["international"];
+                    ?>
+                  </a>
                 </th>
               </tr>
               <tr>
                 <td>Physics</td>
                 <td>
-                  <?php
-                    echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Physics"]["national"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,true,false,$result_conference_year_arr[$i],3); ?>">
+                    <?php
+                      echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Physics"]["national"];
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
-                    echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Physics"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,false,true,$result_conference_year_arr[$i],3); ?>">
+                    <?php
+                      echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Physics"]["international"];
+                    ?>
+                  </a>
                 </td>
                 <th>
-                  <?php
-                    echo $result_conference_arr[$result_conference_year_arr[$i]]["Physics"]["national"]
-                      +$result_conference_arr[$result_conference_year_arr[$i]]["Physics"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,true,true,$result_conference_year_arr[$i],3); ?>">
+                    <?php
+                      echo $result_conference_arr[$result_conference_year_arr[$i]]["Physics"]["national"]
+                        +$result_conference_arr[$result_conference_year_arr[$i]]["Physics"]["international"];
+                    ?>
+                  </a>
                 </th>
               </tr>
               <tr>
                 <td>Biology</td>
                 <td>
-                  <?php
-                    echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Biology"]["national"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,true,false,$result_conference_year_arr[$i],5); ?>">
+                    <?php
+                      echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Biology"]["national"];
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
-                    echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Biology"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,false,true,$result_conference_year_arr[$i],5); ?>">
+                    <?php
+                      echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Biology"]["international"];
+                    ?>
+                  </a>
                 </td>
                 <th>
-                  <?php
-                    echo $result_conference_arr[$result_conference_year_arr[$i]]["Biology"]["national"]
-                      +$result_conference_arr[$result_conference_year_arr[$i]]["Biology"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,true,true,$result_conference_year_arr[$i],5); ?>">
+                    <?php
+                      echo $result_conference_arr[$result_conference_year_arr[$i]]["Biology"]["national"]
+                        +$result_conference_arr[$result_conference_year_arr[$i]]["Biology"]["international"];
+                    ?>
+                  </a>
                 </th>
               </tr>
               <tr>
                 <td>Mathematics</td>
                 <td>
-                  <?php
-                    echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Mathematics"]["national"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,true,false,$result_conference_year_arr[$i],1); ?>">
+                    <?php
+                      echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Mathematics"]["national"];
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
-                    echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Mathematics"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,false,true,$result_conference_year_arr[$i],1); ?>">
+                    <?php
+                      echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Mathematics"]["international"];
+                    ?>
+                  </a>
                 </td>
                 <th>
-                  <?php
-                    echo $result_conference_arr[$result_conference_year_arr[$i]]["Mathematics"]["national"]
-                      +$result_conference_arr[$result_conference_year_arr[$i]]["Mathematics"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,true,true,$result_conference_year_arr[$i],1); ?>">
+                    <?php
+                      echo $result_conference_arr[$result_conference_year_arr[$i]]["Mathematics"]["national"]
+                        +$result_conference_arr[$result_conference_year_arr[$i]]["Mathematics"]["international"];
+                    ?>
+                  </a>
                 </th>
               </tr>
               <tr>
                 <td>CSIT</td>
                 <td>
-                  <?php
-                    echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["national"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,true,false,$result_conference_year_arr[$i],2); ?>">
+                    <?php
+                      echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["national"];
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
-                    echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,false,true,$result_conference_year_arr[$i],2); ?>">
+                    <?php
+                      echo 0+$result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["international"];
+                    ?>
+                  </a>
                 </td>
                 <th>
-                  <?php
-                    echo $result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["national"]
-                      +$result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(false,true,true,true,$result_conference_year_arr[$i],2); ?>">
+                    <?php
+                      echo $result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["national"]
+                        +$result_conference_arr[$result_conference_year_arr[$i]]["Computer Science and Information Technology"]["international"];
+                    ?>
+                  </a>
                 </th>
               </tr>
             </tbody>

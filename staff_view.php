@@ -34,8 +34,21 @@
       <!--title row-->
       <div class="row bg-info">
 
-        <div class="col-md-10">
+        <div class="col-md-4">
           <h2>Staff View</h2>
+        </div>
+
+        <div class="col-md-6">
+          <p>
+            <form class="form-inline" method="get">
+              <div class="form-group">
+                <input type="text" class="form-control"
+                  name="key" id="key" placeholder="Key Search"
+                  value="<?php echo isset($_GET["key"])?$_GET["key"]:'';?>">
+              </div>
+              <button type="submit" class="btn btn-default">Search</button>
+            </form>
+          </p>
         </div>
 
         <div class="col-md-2 text-right">
@@ -88,7 +101,15 @@
             <tbody>
               <?php
                 // set sql
-                $sql = "SELECT * FROM researcher ORDER BY department_th,name_th ASC";
+                if ( isset($_GET["key"])) {
+                  $key = $_GET["key"];
+                  $sql = "SELECT * FROM researcher
+                    WHERE name_th like '%$key%' or name_en like '%$key%'
+                    ORDER BY department_th,name_th ASC";
+                } else {
+                  $sql = "SELECT * FROM researcher ORDER BY department_th,name_th ASC";
+                }
+
                 $result_for_json = array();
                 $result = mysqli_query($con, $sql);
                 if (!$result) {

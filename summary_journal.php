@@ -297,6 +297,33 @@
 
         return $link;
       }
+
+      function makeLinkWithDept($isJournal, $isConference, $isNationnal, $isInternational, $year, $dept) {
+        $link = makeLink($isJournal, $isConference, $isNationnal, $isInternational, $year);
+
+        switch ($dept) {
+          case 1:
+            $link .= "&options_department_1=true";
+            break;
+          case 2:
+            $link .= "&options_department_2=true";
+            break;
+          case 3:
+            $link .= "&options_department_3=true";
+            break;
+          case 4:
+            $link .= "&options_department_4=true";
+            break;
+          case 5:
+            $link .= "&options_department_5=true";
+            break;
+          default:
+            # code...
+            break;
+        }
+
+        return $link;
+      }
     ?>
 
 
@@ -356,9 +383,11 @@
               <tr>
                 <td>Chemistry</td>
                 <td>
-                  <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["national"];
-                  ?>
+                  <a href="<?php echo makeLinkWithdept(true,false,true,false,$result_journal_year_arr[$i],4); ?>">
+                    <?php
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["national"];
+                    ?>
+                  </a>
                 </td>
                 <td>
                   <?php
@@ -381,28 +410,34 @@
                   ?>
                 </td>
                 <td>
-                  <?php
-                    // echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["national"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["isi"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["scopus"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["sjr"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["other"];
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(true,false,false,true,$result_journal_year_arr[$i],4); ?>">
+                    <?php
+                      // echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["national"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["isi"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["scopus"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["sjr"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["other"];
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"];
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["national"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(true,false,true,true,$result_journal_year_arr[$i],4); ?>">
+                    <?php
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["national"]
+                        +$result_journal_arr[$result_journal_year_arr[$i]]["Chemistry"]["international"];
+                    ?>
+                  </a>
                 </td>
               </tr>
               <tr>
                 <td>Physics</td>
                 <td>
-                  <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["national"];
-                  ?>
+                  <a href="<?php echo makeLinkWithdept(true,false,true,false,$result_journal_year_arr[$i],3); ?>">
+                    <?php
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["national"];
+                    ?>
+                  </a>
                 </td>
                 <td>
                   <?php
@@ -425,28 +460,34 @@
                   ?>
                 </td>
                 <td>
-                  <?php
-                    // echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["national"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["isi"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["scopus"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["sjr"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["other"];
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(true,false,false,true,$result_journal_year_arr[$i],3); ?>">
+                    <?php
+                      // echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["national"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["isi"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["scopus"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["sjr"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["other"];
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"];
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["national"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(true,false,true,true,$result_journal_year_arr[$i],3); ?>">
+                    <?php
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["national"]
+                        +$result_journal_arr[$result_journal_year_arr[$i]]["Physics"]["international"];
+                    ?>
+                  </a>
                 </td>
               </tr>
               <tr>
                 <td>Biology</td>
                 <td>
-                  <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["national"];
-                  ?>
+                  <a href="<?php echo makeLinkWithdept(true,false,true,false,$result_journal_year_arr[$i],5); ?>">
+                    <?php
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["national"];
+                    ?>
+                  </a>
                 </td>
                 <td>
                   <?php
@@ -469,28 +510,34 @@
                   ?>
                 </td>
                 <td>
-                  <?php
-                    // echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["national"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["isi"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["scopus"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["sjr"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["other"];
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(true,false,false,true,$result_journal_year_arr[$i],5); ?>">
+                    <?php
+                      // echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["national"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["isi"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["scopus"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["sjr"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["other"];
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"];
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["national"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(true,false,true,true,$result_journal_year_arr[$i],5); ?>">
+                    <?php
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["national"]
+                        +$result_journal_arr[$result_journal_year_arr[$i]]["Biology"]["international"];
+                    ?>
+                  </a>
                 </td>
               </tr>
               <tr>
                 <td>Mathematics</td>
                 <td>
-                  <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["national"];
-                  ?>
+                  <a href="<?php echo makeLinkWithdept(true,false,true,false,$result_journal_year_arr[$i],1); ?>">
+                    <?php
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["national"];
+                    ?>
+                  </a>
                 </td>
                 <td>
                   <?php
@@ -513,28 +560,35 @@
                   ?>
                 </td>
                 <td>
-                  <?php
-                    // echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["national"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["isi"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["scopus"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["sjr"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["other"];
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(true,false,false,true,$result_journal_year_arr[$i],1); ?>">
+                    <?php
+                      // echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["national"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["isi"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["scopus"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["sjr"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["other"];
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"];
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["national"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(true,false,true,true,$result_journal_year_arr[$i],1); ?>">
+                    <?php
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["national"]
+                        +$result_journal_arr[$result_journal_year_arr[$i]]["Mathematics"]["international"];
+                    ?>
+                  </a>
                 </td>
               </tr>
               <tr>
                 <td>CSIT</td>
                 <td>
-                  <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["national"];
-                  ?>
+                  <a href="<?php echo makeLinkWithdept(true,false,true,false,$result_journal_year_arr[$i],2); ?>">
+                    <?php
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["national"];
+                    ?>
+                  </a>
+
                 </td>
                 <td>
                   <?php
@@ -557,20 +611,24 @@
                   ?>
                 </td>
                 <td>
-                  <?php
-                    // echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["national"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["isi"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["scopus"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["sjr"]
-                    //   +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["other"];
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(true,false,false,true,$result_journal_year_arr[$i],2); ?>">
+                    <?php
+                      // echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["national"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["isi"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["scopus"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["sjr"]
+                      //   +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["other"];
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"];
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
-                    echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["national"]
-                      +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"];
-                  ?>
+                  <a href="<?php echo makeLinkWithDept(true,false,true,true,$result_journal_year_arr[$i],2); ?>">
+                    <?php
+                      echo 0+$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["national"]
+                        +$result_journal_arr[$result_journal_year_arr[$i]]["Computer Science and Information Technology"]["international"];
+                    ?>
+                  </a>
                 </td>
               </tr>
             </tbody>

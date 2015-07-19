@@ -2,6 +2,8 @@
 <?php
   // Create connection
   $con = mysqli_connect("localhost","researchdba","123456","research");
+  //http://128.199.208.34/
+  // $con = mysqli_connect("128.199.208.34","researchdba","123456","research");
 
   //mysqli_query("SET NAMES 'UTF-8'");
   mysqli_set_charset($con , "UTF8");

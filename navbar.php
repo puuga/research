@@ -15,20 +15,84 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="research.php"><span class="glyphicon glyphicon-stats"></span> Summary Total</a></li>
-        <li><a href="summary_journal.php"><span class="glyphicon glyphicon-stats"></span> Summary Journal</a></li>
-        <li><a href="summary_proceedings.php"><span class="glyphicon glyphicon-stats"></span> Summary Proceedings</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-stats"></span>
+            Summary Research<span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a href="research.php">
+                <span class="glyphicon glyphicon-stats"></span>
+                Summary Total
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="summary_journal.php">
+                <span class="glyphicon glyphicon-stats"></span>
+                Summary Journal
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="summary_proceedings.php">
+                <span class="glyphicon glyphicon-stats"></span>
+                Summary Proceedings
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- <li>
+          <a href="research.php">
+            <span class="glyphicon glyphicon-stats"></span>
+            Summary Total
+          </a>
+        </li>
+        <li>
+          <a href="summary_journal.php">
+            <span class="glyphicon glyphicon-stats"></span>
+            Summary Journal
+          </a>
+        </li>
+        <li>
+          <a href="summary_proceedings.php">
+            <span class="glyphicon glyphicon-stats"></span>
+            Summary Proceedings
+          </a>
+        </li> -->
+        <li>
+          <a href="staff_ranking.php">
+            <span class="glyphicon glyphicon-stats"></span>
+            Staff Ranking
+          </a>
+        </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-th"></span>
             System <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="research_view.php"><span class="glyphicon glyphicon-list-alt"></span> Paper Management System</a></li>
+            <li>
+              <a href="research_view.php">
+                <span class="glyphicon glyphicon-list-alt"></span>
+                Paper Management System
+              </a>
+            </li>
             <li class="divider"></li>
-            <li><a href="patent_view.php"><span class="glyphicon glyphicon-tag"></span> Patent Management System</a></li>
+            <li>
+              <a href="patent_view.php">
+                <span class="glyphicon glyphicon-tag"></span>
+                Patent Management System
+              </a>
+            </li>
             <li class="divider"></li>
-            <li><a href="staff_view.php"><span class="glyphicon glyphicon-user"></span> Staff Management System</a></li>
+            <li>
+              <a href="staff_view.php">
+                <span class="glyphicon glyphicon-user"></span>
+                Staff Management System
+              </a>
+            </li>
           </ul>
         </li>
       </ul>
