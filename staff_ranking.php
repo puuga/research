@@ -142,7 +142,7 @@
                         ?>
                       </td>
                       <td>
-                        <a href="<?php echo makeLink($row['name_en'])?>">
+                        <a href="<?php echo makeLink($row['name_th'])?>">
                           <?php echo $row['gdv_count']; ?>
                         </a>
                       </td>
