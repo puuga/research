@@ -61,11 +61,30 @@
             Summary Proceedings
           </a>
         </li> -->
-        <li>
+        <!-- <li>
           <a href="staff_ranking.php">
             <span class="glyphicon glyphicon-stats"></span>
             Staff Ranking
           </a>
+        </li> -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false">
+            <span class="glyphicon glyphicon-stats"></span>
+            Staff Ranking <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="staff_ranking.php">Summary</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="staff_ranking.php?dep=chemistry">Chemistry</a></li>
+            <li><a href="staff_ranking.php?dep=physics">Physics</a></li>
+            <li><a href="staff_ranking.php?dep=biology">Biology</a></li>
+            <li><a href="staff_ranking.php?dep=mathematics">Mathematics</a></li>
+            <li><a href="staff_ranking.php?dep=csit">CSIT</a></li>
+          </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">

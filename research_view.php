@@ -360,9 +360,11 @@
           <table class="table table-hover table-striped">
             <thead>
               <tr class="info">
+                <th>#</th>
                 <th>Paper Title</th>
                 <th>Author</th>
                 <th>Type</th>
+                <th>date</th>
                 <th>Detail</th>
                 <th>Edit / Delete</th>
               </tr>
@@ -376,15 +378,19 @@
                 if (!$result) {
                   die('Error: ' . mysqli_error($con));
                 } else {
+                  $ii =1;
                   while($row = mysqli_fetch_array($result)) {
                     $result_for_json[] = $row;
                     ?>
                     <tr>
                       <td>
+                        <?php echo $ii++; ?>
+                      </td>
+                      <td>
                         <?php echo $row['title']; ?>
                       </td>
                       <td>
-                        <?php echo $row['author_name_th']; ?><br/>
+                        <!-- <?php echo $row['author_name_th']; ?><br/> -->
                         <?php echo $row['author_name_en']; ?>
                       </td>
                       <td>
@@ -397,24 +403,29 @@
                         ?>
                       </td>
                       <td>
+                        <?php
+                          if($row['research_type']=="journal") {
+                            echo $row['journal_accepted_date'];
+                          } else {
+                            echo $row['conference_start_date'];
+                          }
+                        ?>
+                      </td>
+                      <td>
                         <!-- Button trigger modal -->
                         <button class='btn btn-xs btn-info' data-toggle='modal' data-target='#myModalDetail' onclick='setDataForDetail("<?php echo $row['id']; ?>")'>
                           <span class='glyphicon glyphicon-th-list'></span> Detail
                         </button>
                       </td>
                       <td>
-                        <p>
-                          <!-- Button trigger modal -->
-                          <button class='btn btn-xs btn-warning' data-toggle='modal' data-target='#myModal' onclick='setDataForModal("<?php echo $row['id']; ?>")'>
-                            <span class='glyphicon glyphicon-pencil'></span> Edit
-                          </button>
-                        <p>
-                        <p>
-                          <!-- Button trigger modal alert -->
-                          <button class='btn btn-xs btn-danger' data-toggle='modal' data-target='#alertToDelete' onclick='setDataToDelete("<?php echo $row['id']; ?>")'>
-                            <span class='glyphicon glyphicon-trash'></span> Delete
-                          </button>
-                        </p>
+                        <!-- Button trigger modal -->
+                        <button class='btn btn-xs btn-warning' data-toggle='modal' data-target='#myModal' onclick='setDataForModal("<?php echo $row['id']; ?>")'>
+                          <span class='glyphicon glyphicon-pencil'></span> Edit
+                        </button>
+                        <!-- Button trigger modal alert -->
+                        <button class='btn btn-xs btn-danger' data-toggle='modal' data-target='#alertToDelete' onclick='setDataToDelete("<?php echo $row['id']; ?>")'>
+                          <span class='glyphicon glyphicon-trash'></span> Delete
+                        </button>
                       </td>
                     </tr>
                     <?php

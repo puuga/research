@@ -480,6 +480,7 @@
             <thead>
               <tr class="info">
                 <!-- <th>Paper Title</th> -->
+                <th>#</th>
                 <th>Reference</th>
                 <th>Author</th>
                 <th>Type</th>
@@ -489,6 +490,7 @@
             </thead>
             <tbody>
               <?php
+                $ii = 1;
                 // set sql
                 $sql = "SELECT * FROM research";
                 if(!empty($_GET["search_keyword"])) {
@@ -618,10 +620,14 @@
                 if (!$result) {
                   die('Error: ' . mysqli_error($con));
                 } else {
+                  $ii = ($page-1)*$item_per_page+1;
                   while($row = mysqli_fetch_array($result)) {
                     $result_for_json[] = $row;
                     ?>
                     <tr>
+                      <td>
+                        <?php echo $ii++;?>
+                      </td>
                       <td>
                         <!-- <?php echo $row['title']; ?> -->
                         <?php echo $row['reference'];?>

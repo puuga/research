@@ -271,6 +271,7 @@
           <table class="table table-hover table-striped">
             <thead>
               <tr class="info">
+                <th>#</th>
                 <th>Patent Title</th>
                 <th>Type</th>
                 <th>Owner</th>
@@ -309,10 +310,14 @@
                 if (!$result) {
                   die('Error: ' . mysqli_error($con));
                 } else {
+                  $ii = 1;
                   while($row = mysqli_fetch_array($result)) {
                     $result_for_json[] = $row;
                     ?>
                     <tr>
+                      <td>
+                        <?php echo $ii++; ?>
+                      </td>
                       <td>
                         <?php echo $row['name']; ?>
                       </td>

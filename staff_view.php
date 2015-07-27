@@ -91,11 +91,11 @@
           <table class="table table-hover table-striped">
             <thead>
               <tr class="info">
+                <th>#</th>
                 <th>Thai name</th>
                 <th>English name</th>
                 <th>Department</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>Edit / Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -115,10 +115,14 @@
                 if (!$result) {
                   die('Error: ' . mysqli_error($con));
                 } else {
+                  $ii = 1;
                   while($row = mysqli_fetch_array($result)) {
                     $result_for_json[] = $row;
                     ?>
                     <tr>
+                      <td>
+                        <?php echo $ii++; ?>
+                      </td>
                       <td>
                         <?php echo $row['name_th']; ?>
                       </td>
@@ -128,13 +132,18 @@
                       <td>
                         <?php echo $row['department_th']; ?><br/>
                         <?php echo $row['department_en']; ?>
+                        <!-- <?php
+                          if ($row['department_en']==='Computer Science and Information Technology') {
+                            echo 'CSIT';
+                          } else {
+                            echo $row['department_en'];
+                          }
+                        ?> -->
                       </td>
                       <td>
                         <a class='btn btn-warning' href='staff_add_edit.php?id=<?php echo $row['id']; ?>&name_th=<?php echo $row['name_th']; ?>&name_en=<?php echo $row['name_en']; ?>&department_en=<?php echo $row['department_en']; ?>'>
                           <span class='glyphicon glyphicon-pencil'></span> edit
                         </a>
-                      </td>
-                      <td>
                         <a class='btn btn-danger' href='javascript:deleteStaff("<?php echo $row['id']; ?>","<?php echo $row['name_th']; ?>","<?php echo $row['name_en']; ?>","<?php echo $row['department_th']; ?>","<?php echo $row['department_en']; ?>")'>
                           <span class='glyphicon glyphicon-remove'></span> Delete
                         </a>
