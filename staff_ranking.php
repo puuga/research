@@ -56,6 +56,8 @@
                                 LEFT JOIN
                             graph_data_view gdv ON corresponding LIKE CONCAT('%', r.name_th, '%')
                                 OR corresponding LIKE CONCAT('%', r.name_en, '%')
+                                OR gdv.author_name_th LIKE CONCAT('%', r.name_th, '%')
+                                OR gdv.author_name_en LIKE CONCAT('%', r.name_en, '%')
                         GROUP BY r.id
                         order by gdv_count desc";
 
