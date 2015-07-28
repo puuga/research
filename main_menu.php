@@ -670,7 +670,7 @@
                 ?>
                 <script>
                   researchs = <?php echo json_encode($result_for_json) ?>;
-                  //console.log("count" + research.length);
+                  console.log(researchs);
                 </script>
                 <?php
               ?>
@@ -819,6 +819,12 @@
 
             <div class="checkbox">
               <label>
+                <input type="checkbox" id="op_journal_n_i_isi_scopus_sjr" name="op_journal_n_i_isi_scopus_sjr" value="true"> ISI / SCOPUS / SJR
+              </label>
+            </div>
+
+            <div class="checkbox">
+              <label>
                 <input type="checkbox" id="op_journal_published_inpress" name="op_journal_published_inpress" value="true"> Published/Inpress
               </label>
             </div>
@@ -904,12 +910,14 @@
               output += "<th>Journal Title</th>";
             }
             if( $("#op_journal_national_international").is(':checked') ) {
-              output += "<th>National/International</th>";
+              output += "<th>National / International</th>";
+            }
+            if( $("#op_journal_n_i_isi_scopus_sjr").is(':checked') ) {
+              output += "<th>ISI / SCOPUS / SJR</th>";
             }
             if( $("#op_journal_published_inpress").is(':checked') ) {
-              output += "<th>Published/Inpress</th>";
+              output += "<th>Published / Inpress</th>";
             }
-
             if( $("#op_conference_name").is(':checked') ) {
               output += "<th>Conference Name</th>";
             }
@@ -956,6 +964,19 @@
               }
               if( $("#op_journal_national_international").is(':checked') ) {
                 output += "<td>"+researchs[i].journal_type+"</td>";
+              }
+              if( $("#op_journal_n_i_isi_scopus_sjr").is(':checked') ) {
+                output += "<td>";
+                if ( researchs[i].is_journal_international_ISI === "1") {
+                  output += "ISI ";
+                }
+                if ( researchs[i].is_journal_international_SCOPUS === "1") {
+                  output += "SCOPUS ";
+                }
+                if ( researchs[i].is_journal_international_SJR === "1") {
+                  output += "SJR-"+researchs[i].journal_international_group_sjr+" ";
+                }
+                output += "</td>";
               }
               if( $("#op_journal_published_inpress").is(':checked') ) {
                 output += "<td>"+researchs[i].journal_type_progress+"</td>";

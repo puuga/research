@@ -164,6 +164,12 @@
         </div>
       </div>
 
+      <!-- <p>
+        <?php print_r($result_paper_arr) ?>
+      </p>
+      <p>
+        <?php print_r($result_journal_arr) ?>
+      </p> -->
 
       <br/>
       <!--data row-->

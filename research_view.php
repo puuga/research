@@ -283,8 +283,7 @@
       function deleteData(id) {
         $.ajax({
           url: 'research_delete.php',
-          data: {
-            id: id},
+          data: {id: id},
           type: 'post',
           dataType: 'json',
           success: function(output) {
@@ -297,6 +296,32 @@
             }
           }
         });
+      }
+
+      function getFile(research_id) {
+        $('#'+research_id).click();
+      }
+
+      function uploadFile(research_id) {
+        // console.log(research_id);
+        var data = new FormData($("#uploadForm")[0]);
+    		$.ajax({
+    			url : "upload_file.php",
+    			method : 'POST',
+    			data	: data,
+    			processData: false,
+    			contentType: false
+    		})
+    		.done(function( result ) {
+          // console.log(result);
+    			if (result.result==='success') {
+    				console.log(result);
+            $("#help-block").html("Upload success");
+    			}
+    		})
+    		.fail(function() {
+    			alert( "error" );
+    		});
       }
 
       function resetEditForm() {
@@ -366,6 +391,7 @@
                 <th>Type</th>
                 <th>date</th>
                 <th>Detail</th>
+                <th>New File</th>
                 <th>Edit / Delete</th>
               </tr>
             </thead>
@@ -416,6 +442,23 @@
                         <button class='btn btn-xs btn-info' data-toggle='modal' data-target='#myModalDetail' onclick='setDataForDetail("<?php echo $row['id']; ?>")'>
                           <span class='glyphicon glyphicon-th-list'></span> Detail
                         </button>
+                      </td>
+                      <td>
+                        <button class='btn btn-xs btn-warning' onclick='getFile("upfile<?php echo $row['id']; ?>")'>
+                          <span class='glyphicon glyphicon-upload'></span> Upload new file.
+                        </button>
+                        <div style="display: none;">
+                          <form id="uploadForm">
+                            <input type="hidden" name="research_id" value="<?php echo $row['id']; ?>">
+                            <input
+                              type="file"
+                              id="upfile<?php echo $row['id']; ?>"
+                              name="att_file"
+                              accept="application/pdf"
+                              onchange="uploadFile('upfile<?php echo $row['id']; ?>')">
+                          </form>
+                        </div>
+                        <p class="help-block" id="help-block"></p>
                       </td>
                       <td>
                         <!-- Button trigger modal -->
