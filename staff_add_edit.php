@@ -99,9 +99,9 @@ code by siwawes wongcharoen
             <div class="radio">
               <label>
                 <input type="radio" name="department" value="1" required
-                  <?php echo $mode=="edit"&&$_GET['department_en']=="Matematics" ? "checked" : ""; ?>
+                  <?php echo $mode=="edit"&&$_GET['department_en']=="Mathematics" ? "checked" : ""; ?>
                   />
-                คณิตศาสตร์<br/>Matematics
+                คณิตศาสตร์<br/>Mathematics
               </label>
             </div>
             <div class="radio">

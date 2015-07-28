@@ -17,7 +17,7 @@
   switch ($post_department) {
     case 1:
         $department_th = "คณิตศาสตร์";
-        $department_en = "Matematics";
+        $department_en = "Mathematics";
         break;
     case 2:
         $department_th = "ชีววิทยา";
