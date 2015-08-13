@@ -596,7 +596,7 @@
                     $paper_year = $_GET["paper_year"];
                     $sql .= " and ( ";
                     $sql .= " year(conference_start_date) = '$paper_year'";
-                    $sql .= " or journal_published_year = '$paper_year' )";
+                    $sql .= " or year(journal_accepted_date) = '$paper_year' )";
                   }
 
                 }
