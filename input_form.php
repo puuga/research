@@ -172,11 +172,13 @@ code by siwawes wongcharoen
         $("#radio_journal_type_public").click( function() {
           $("#journal_type_inpress").hide();
           $("#journal_type_public").show();
+          $("#journal_accepted_date").attr("required", true);
         });
 
         $("#radio_journal_type_inpress").click( function() {
           $("#journal_type_public").hide();
           $("#journal_type_inpress").show();
+          $("#journal_accepted_date").attr("required", false);
         });
 
       });

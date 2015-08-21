@@ -389,7 +389,7 @@
                 <th>Paper Title</th>
                 <th>Author</th>
                 <th>Type</th>
-                <th>date</th>
+                <th>Date</th>
                 <th>Detail</th>
                 <th>New File</th>
                 <th>Edit / Delete</th>
