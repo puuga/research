@@ -87,6 +87,7 @@
 
         var options = {
           title: 'Summary Chart',
+          colors: ['#9E9E9E','#2196F3','#4CAF50','#F44336','#FF9800'],
           hAxis: {title: 'Year', titleTextStyle: {color: 'red'}},
           vAxis: {title: 'Number of proceedings', titleTextStyle: {color: 'red'}}
         };

@@ -131,6 +131,7 @@
 
         var options = {
           title: 'Summary Chart',
+          colors: ['#3F51B5','#E91E63'],
           hAxis: {title: 'Year', titleTextStyle: {color: 'red'}},
           vAxis: {title: 'Number of paper', titleTextStyle: {color: 'red'}}
         };
