@@ -275,6 +275,8 @@
                 <th>Patent Title</th>
                 <th>Type</th>
                 <th>Owner</th>
+                <th>Date</th>
+                <th>Detail</th>
                 <th>Detail</th>
                 <th>Edit / Delete</th>
               </tr>
@@ -304,7 +306,7 @@
                 } elseif ( $viewgroup==="copyright" ) {
                   $sql .= " where patent_type_id = 1 ";
                 }
-                $sql .= " order by p.id desc";
+                $sql .= " order by p.grant_date desc";
                 $result_for_json = array();
                 $result = mysqli_query($con, $sql);
                 if (!$result) {
@@ -326,6 +328,12 @@
                       </td>
                       <td>
                         <?php echo $row['belong_to']; ?>
+                      </td>
+                      <td>
+                        <?php echo $row['grant_date']; ?>
+                      </td>
+                      <td>
+                        <?php echo $row['description']; ?>
                       </td>
                       <td>
                         <!-- Button trigger detail modal -->
