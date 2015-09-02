@@ -913,7 +913,9 @@
               output += "<th>National / International</th>";
             }
             if( $("#op_journal_n_i_isi_scopus_sjr").is(':checked') ) {
-              output += "<th>ISI / SCOPUS / SJR</th>";
+              output += "<th>ISI</th>";
+              output += "<th>SCOPUS</th>";
+              output += "<th>SJR</th>";
             }
             if( $("#op_journal_published_inpress").is(':checked') ) {
               output += "<th>Published / Inpress</th>";
@@ -966,17 +968,21 @@
                 output += "<td>"+researchs[i].journal_type+"</td>";
               }
               if( $("#op_journal_n_i_isi_scopus_sjr").is(':checked') ) {
-                output += "<td>";
                 if ( researchs[i].is_journal_international_ISI === "1") {
-                  output += "ISI ";
+                  output += "<td>&#10004;</td>";
+                } else {
+                  output += "<td>&nbsp;</td>";
                 }
                 if ( researchs[i].is_journal_international_SCOPUS === "1") {
-                  output += "SCOPUS ";
+                  output += "<td>&#10004;</td>";
+                } else {
+                  output += "<td>&nbsp;</td>";
                 }
                 if ( researchs[i].is_journal_international_SJR === "1") {
-                  output += "SJR-"+researchs[i].journal_international_group_sjr+" ";
+                  output += "<td>"+researchs[i].journal_international_group_sjr+"</td>";
+                } else {
+                  output += "<td>&nbsp;</td>";
                 }
-                output += "</td>";
               }
               if( $("#op_journal_published_inpress").is(':checked') ) {
                 output += "<td>"+researchs[i].journal_type_progress+"</td>";
