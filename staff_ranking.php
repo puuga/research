@@ -9,6 +9,18 @@
     $out = "main_menu.php?advance_search=true&paper_title=&paper_author=$name&options_journal=true&options_conference=true&options_international=true&options_national=true&options_department_1=true&options_department_2=true&options_department_3=true&options_department_4=true&options_department_5=true&paper_year=all";
     return $out;
   }
+
+  $sql = "SELECT * FROM research.paper_year";
+  $paper_year = array();
+  $result = mysqli_query($con, $sql);
+  if (!$result) {
+    die('Error: ' . mysqli_error($con));
+  } else {
+    while($row = mysqli_fetch_array($result)) {
+      $paper_year[] = $row["paper_year"];
+    }
+  }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +39,7 @@
       <!--title row-->
       <div class="row bg-info">
 
-        <div class="col-md-4">
+        <div class="col-md-9">
           <h2>
             Staff Ranking
             <?php
@@ -53,8 +65,36 @@
               } else {
                 $dep = '';
               }
+
+              $year = isset($_GET['year']) ? $_GET['year'] : 'all';
+
+
             ?>
           </h2>
+        </div>
+        <div class="col-md-3">
+          <form action="staff_ranking.php" method="get" role="form">
+            <?php
+            if ( isset($_GET['dep']) ) {
+              echo '<input type="hidden" name="dep" value="'.$_GET['dep'].'">';
+            }
+            ?>
+
+            <div class="form-group">
+              <div class="col-lg-10">
+                <select class="form-control" id="select" name="year" onchange="this.form.submit()">
+                  <?php
+                  echo "<option>all</option>";
+
+                  for ($i=0; $i < count($paper_year); $i++) {
+                    $is_selected = $year===$paper_year[$i]? ' selected': '';
+                    echo "<option$is_selected>$paper_year[$i]</option>";
+                  }
+                  ?>
+                </select>
+              </div>
+            </div>
+          </form>
         </div>
 
       </div>
@@ -77,8 +117,7 @@
               <?php
                 $ii = 1;
                 // set sql
-                if ( isset($_GET['dep'] )) {
-
+                if ( $dep!='' ) {
                   $sql = "SELECT
                               r.id,
                               r.name_th,
@@ -92,7 +131,12 @@
                               research rs ON
                                   rs.author_name_th LIKE CONCAT('%', r.name_th, '%')
                                   OR rs.author_name_en LIKE CONCAT('%', r.name_en, '%')
-                          WHERE r.department_en = '$dep'
+                          WHERE r.department_en = '$dep'";
+                  if ($year!=='all') {
+                    $sql .= " AND (YEAR(rs.journal_accepted_date) = $year
+                                  OR YEAR(rs.conference_start_date) = $year)";
+                  }
+                  $sql .= "
                           GROUP BY r.id
                           ORDER BY gdv_count DESC";
                 } else {
@@ -108,7 +152,12 @@
                                   LEFT JOIN
                               research rs ON
                                   rs.author_name_th LIKE CONCAT('%', r.name_th, '%')
-                                  OR rs.author_name_en LIKE CONCAT('%', r.name_en, '%')
+                                  OR rs.author_name_en LIKE CONCAT('%', r.name_en, '%')";
+                  if ($year!=='all') {
+                    $sql .= " WHERE (YEAR(rs.journal_accepted_date) = $year
+                                  OR YEAR(rs.conference_start_date) = $year)";
+                  }
+                  $sql.="
                           GROUP BY r.id
                           ORDER BY gdv_count DESC";
                 }
@@ -159,6 +208,9 @@
 
 
     </div> <!-- end container -->
+
+    <script type="text/javascript">
+    </script>
 
 
 
