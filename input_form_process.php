@@ -48,6 +48,7 @@
   $type = isset($_POST["type"]) ?  $_POST["type"] : "" ;
   if ($type == "journal") {
     $journal_name = isset($_POST["journal_name"]) ? $_POST["journal_name"] : "" ;
+    $journal_name = mysql_real_escape_string($journal_name);
     $journal_type = isset($_POST["journal_type"]) ? $_POST["journal_type"] : "" ;
 
     if ($journal_type == "national") {
@@ -86,7 +87,9 @@
 
   } else if ($type == "conference") {
     $conference_name = isset($_POST["conference_name"]) ?  $_POST["conference_name"] : "" ;
+    $conference_name = mysql_real_escape_string($conference_name);
     $conference_address = isset($_POST["conference_address"]) ?  $_POST["conference_address"] : "" ;
+    $conference_address = mysql_real_escape_string($conference_address);
     $conference_start_date = isset($_POST["conference_start_date"]) ?  $_POST["conference_start_date"] : "" ;
     $conference_end_date = isset($_POST["conference_end_date"]) ?  $_POST["conference_end_date"] : "" ;
     $conference_page_start = isset($_POST["conference_page_start"]) ?  $_POST["conference_page_start"] : "" ;
