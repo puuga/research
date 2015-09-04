@@ -5,6 +5,7 @@
   $sql = "";
 
   $research_name = isset($_POST["research_name"]) ? $_POST["research_name"] : $_POST["research_name"] ;
+  $research_name = mysql_real_escape_string($research_name);
   //echo "research_name".$research_name."<br/>";
   $isStudentProduct = isset($_POST["isStudentProduct"]) ? $_POST["isStudentProduct"] : "false" ;
   //echo "isStudentProduct".$isStudentProduct."<br/>";
@@ -115,6 +116,7 @@
   }
   $att_file = $uploadfile;
   $reference = isset($_POST["reference"]) ? $_POST["reference"] : "" ;
+  $reference = mysql_real_escape_string($reference);
   //echo "reference".$reference."<br/>";
 
   $sql .= "INSERT INTO research (
