@@ -18,27 +18,27 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-stats"></span>
-            Summary Research<span class="caret"></span>
+            Research Summary <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
             <li>
               <a href="research.php">
                 <span class="glyphicon glyphicon-stats"></span>
-                Summary Total
+                Total Summary
               </a>
             </li>
             <li class="divider"></li>
             <li>
               <a href="summary_journal.php">
                 <span class="glyphicon glyphicon-stats"></span>
-                Summary Journal
+                Journal Summary
               </a>
             </li>
             <li class="divider"></li>
             <li>
               <a href="summary_proceedings.php">
                 <span class="glyphicon glyphicon-stats"></span>
-                Summary Proceedings
+                Proceedings Summary
               </a>
             </li>
           </ul>
@@ -84,6 +84,29 @@
             <li><a href="staff_ranking.php?dep=biology">Biology</a></li>
             <li><a href="staff_ranking.php?dep=mathematics">Mathematics</a></li>
             <li><a href="staff_ranking.php?dep=csit">CSIT</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false">
+            <span class="glyphicon glyphicon-stats"></span>
+            Patent <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="patent_summary.php">
+                <span class="glyphicon glyphicon-stats"></span> Patent Summary
+              </a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li>
+              <a href="patent.php">
+                <span class="glyphicon glyphicon-th-list"></span> Patent
+              </a>
+            </li>
           </ul>
         </li>
         <li class="dropdown">
