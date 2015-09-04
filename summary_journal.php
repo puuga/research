@@ -10,7 +10,6 @@
     <?php include 'head_tag.php'; ?>
 
 
-
     <!-- start google chart -->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
@@ -338,7 +337,7 @@
 
         <div class="col-md-2 ">
           <p><br/>
-            <form action="summary_proceedings.php" method="get" role="form">
+            <form action="summary_journal.php" method="get" role="form">
             <select class="form-control" name="year" onchange="this.form.submit()">
               <?php
                 for($i=0; $i<count($result_journal_year_arr); $i++) {
@@ -725,7 +724,7 @@
 
       <div class="row bg-primary">
         <div class="col-md-12">
-          <h2>Range Summary Proceedings</h2>
+          <h2>Range Summary Journal</h2>
         </div>
 
         <?php
