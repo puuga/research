@@ -388,6 +388,7 @@
                 <th>#</th>
                 <th>Paper Title</th>
                 <th>Author</th>
+                <th>Corresponding</th>
                 <th>Type</th>
                 <th>Date</th>
                 <th>Detail</th>
@@ -418,6 +419,9 @@
                       <td>
                         <!-- <?php echo $row['author_name_th']; ?><br/> -->
                         <?php echo $row['author_name_en']; ?>
+                      </td>
+                      <td>
+                        <?php echo $row['corresponding']; ?>
                       </td>
                       <td>
                         <?php
