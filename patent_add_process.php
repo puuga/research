@@ -7,10 +7,10 @@
 
   $patent_type_id = $_POST["patent_type_id"];
   $name = $_POST["name"];
-  $name = mysqli_real_escape_string($name);
+  $name = mysqli_real_escape_string($con,$name);
   $number = $_POST["number"];
   $description = $_POST["description"];
-  $description = mysqli_real_escape_string($description);
+  $description = mysqli_real_escape_string($con,$description);
   $belong_to = $_POST["belong_to"];
   $grant_date = $_POST["grant_date"];
   $extra1 = $_POST["extra1"];
