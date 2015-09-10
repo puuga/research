@@ -399,7 +399,10 @@
             <tbody>
               <?php
                 // set sql
-                $sql = "SELECT * FROM research order by id desc";
+                // $sql = "SELECT * FROM research order by id desc";
+                $sql = "SELECT r.* ,gdv.id gdv_id
+                        FROM research r left join graph_data_view gdv on r.id=gdv.id
+                        order by r.id desc";
                 $result_for_json = array();
                 $result = mysqli_query($con, $sql);
                 if (!$result) {
@@ -412,6 +415,7 @@
                     <tr>
                       <td>
                         <?php echo $ii++; ?>
+                        <?php echo is_null($row['gdv_id'])?"*":""; ?>
                       </td>
                       <td>
                         <?php echo $row['title']; ?>
