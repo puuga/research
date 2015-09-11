@@ -5,10 +5,11 @@
   header('Content-Type: application/json');
   needAdminLevel(1);
   $id_to_edit = $_POST["id"];
-  $title = $_POST["title"];
+  $title = mysqli_real_escape_string($con,$_POST["title"]);
   $isStudentGraduation = empty($_POST["isStudentGraduation"])? "0": $_POST["isStudentGraduation"];
   $reference = $_POST["reference"];
   $journal_type = $_POST["journal_type"];
+  $journal_title = mysqli_real_escape_string($con,$_POST["journal_title"]);
   $is_journal_international_ISI = empty($_POST["is_journal_international_ISI"])? "0": $_POST["is_journal_international_ISI"];
   $is_journal_international_SCOPUS = empty($_POST["is_journal_international_SCOPUS"])? "0": $_POST["is_journal_international_SCOPUS"];
   $is_journal_international_SJR = empty($_POST["is_journal_international_SJR"])? "0": $_POST["is_journal_international_SJR"];
@@ -37,6 +38,7 @@
     title = '$title',
     is_student_grad = $isStudentGraduation,
     reference = '$reference',
+    journal_name = '$journal_title',
     journal_type = '$journal_type',
     is_journal_international_ISI = $is_journal_international_ISI,
     is_journal_international_SCOPUS = $is_journal_international_SCOPUS,

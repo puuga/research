@@ -217,38 +217,42 @@
       }
 
       function editData(id) {
+        var data = {
+          id: id,
+          title: $("#researchTitleToEdit").val(),
+          isStudentGraduation: $("#researchTitleDetailForStudentGraduationToEdit").is(':checked'),
+          reference: $("#researchTitleDetailReferenceToEdit").val(),
+          journal_type: $("input:radio[name*='journal_type']:checked").val(),
+          journal_title: $("#researchEditJournalTitle").val(),
+          is_journal_international_ISI: $("#is_journal_international_ISI").is(':checked'),
+          is_journal_international_SCOPUS: $("#is_journal_international_SCOPUS").is(':checked'),
+          is_journal_international_SJR: $("#is_journal_international_SJR").is(':checked'),
+          journal_international_group_sjr: $("input:radio[name*='journal_international_group_sjr']:checked").val(),
+          journal_national_group: $("input:radio[name*='journal_national_group']:checked").val(),
+          journal_type_progress: $("input:radio[name*='journal_type_progress']:checked").val(),
+          journal_vol: $("#journal_vol").val(),
+          journal_issue: $("#journal_issue").val(),
+          journal_number: $("#journal_number").val(),
+          journal_page_start: $("#journal_page_start").val(),
+          journal_page_end: $("#journal_page_end").val(),
+          journal_doi_no: $("#journal_doi_no").val(),
+          journal_accepted_date: $("#journal_accepted_date").val(),
+          journal_published_month: $("#journal_published_month").val(),
+          journal_published_year: $("#journal_published_year").val(),
+          conference_name: $("#conference_name").val(),
+          conference_address: $("#conference_address").val(),
+          conference_start_date: $("#conference_start_date").val(),
+          conference_end_date: $("#conference_end_date").val(),
+          conference_page_start: $("#conference_page_start").val(),
+          conference_page_end: $("#conference_page_end").val(),
+          conference_location_type: $("input:radio[name*='conference_location_type']:checked").val(),
+          conference_type: $("input:radio[name*='conference_type']:checked").val()
+        };
+        console.log(data);
+
         $.ajax({
           url: 'research_edit.php',
-          data: {
-            id: id,
-            title: $("#researchTitleToEdit").val(),
-              isStudentGraduation: $("#researchTitleDetailForStudentGraduationToEdit").is(':checked'),
-              reference: $("#researchTitleDetailReferenceToEdit").val(),
-              journal_type: $("input:radio[name*='journal_type']:checked").val(),
-              is_journal_international_ISI: $("#is_journal_international_ISI").is(':checked'),
-              is_journal_international_SCOPUS: $("#is_journal_international_SCOPUS").is(':checked'),
-              is_journal_international_SJR: $("#is_journal_international_SJR").is(':checked'),
-              journal_international_group_sjr: $("input:radio[name*='journal_international_group_sjr']:checked").val(),
-              journal_national_group: $("input:radio[name*='journal_national_group']:checked").val(),
-              journal_type_progress: $("input:radio[name*='journal_type_progress']:checked").val(),
-              journal_vol: $("#journal_vol").val(),
-              journal_issue: $("#journal_issue").val(),
-              journal_number: $("#journal_number").val(),
-              journal_page_start: $("#journal_page_start").val(),
-              journal_page_end: $("#journal_page_end").val(),
-              journal_doi_no: $("#journal_doi_no").val(),
-              journal_accepted_date: $("#journal_accepted_date").val(),
-              journal_published_month: $("#journal_published_month").val(),
-              journal_published_year: $("#journal_published_year").val(),
-              conference_name: $("#conference_name").val(),
-              conference_address: $("#conference_address").val(),
-              conference_start_date: $("#conference_start_date").val(),
-              conference_end_date: $("#conference_end_date").val(),
-              conference_page_start: $("#conference_page_start").val(),
-              conference_page_end: $("#conference_page_end").val(),
-              conference_location_type: $("input:radio[name*='conference_location_type']:checked").val(),
-              conference_type: $("input:radio[name*='conference_type']:checked").val()
-            },
+          data: data,
           type: 'post',
           dataType: 'json',
           success: function(output) {
@@ -687,7 +691,7 @@
 
                 <div>
                   <div class="form-group">
-                    <label for="researchEditJournalTitle">Title:</label>
+                    <label for="researchEditJournalTitle">Journal Title:</label>
                     <input type="text" class="form-control" name="researchEditJournalTitle" id="researchEditJournalTitle"/>
                   </div>
                 </div>
