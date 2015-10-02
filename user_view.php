@@ -35,7 +35,7 @@
       <div class="row bg-info">
 
         <div class="col-md-10">
-          <h2>Staff View</h2>
+          <h2>Admin View</h2>
         </div>
 
         <div class="col-md-2 text-right">
