@@ -400,7 +400,7 @@
 
       <div class="row bg-primary">
         <div class="col-md-12">
-          <h2>Range Summary Proceedings</h2>
+          <h2>Search on Range of Publication (Proceedings)</h2>
         </div>
 
         <?php

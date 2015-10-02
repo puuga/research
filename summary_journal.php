@@ -724,7 +724,7 @@
 
       <div class="row bg-primary">
         <div class="col-md-12">
-          <h2>Range Summary Journal</h2>
+          <h2>Search on Range of Publication (Journal)</h2>
         </div>
 
         <?php
