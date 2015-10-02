@@ -7,6 +7,7 @@
   }
   $post_name_th = $_POST["name_th"];
   $post_name_en = $_POST["name_en"];
+  $post_status = $_POST["status"];
   $post_department = $_POST["department"];
 
   // echo $post_action."<br/>";
@@ -38,12 +39,13 @@
 }
 
   if( $post_action=="add") {
-    $sql = "INSERT INTO researcher (name_th, name_en, department_th, department_en)
-      VALUES ('$post_name_th', '$post_name_en', '$department_th', '$department_en')";
+    $sql = "INSERT INTO researcher (name_th, name_en, department_th, department_en, status)
+      VALUES ('$post_name_th', '$post_name_en', '$department_th', '$department_en', $post_status)";
   } else {
     $sql = "UPDATE researcher
       SET name_th = '$post_name_th',
       name_en = '$post_name_en',
+      status = $post_status,
       department_th = '$department_th',
       department_en = '$department_en'
       WHERE id = $post_id;";

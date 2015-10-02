@@ -95,6 +95,30 @@ code by siwawes wongcharoen
         <div class="row">
           <div class="col-md-12">
             <br/>
+            Status:
+            <div class="radio">
+              <label>
+                <input type="radio" name="status" value="1" required
+                  <?php echo $mode=="edit"&&$_GET['status']=="1" ? "checked" : ""; ?>
+                  />
+                ปกติ
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="status" value="2"
+                  <?php echo $mode=="edit"&&$_GET['status']=="2" ? "checked" : ""; ?>
+                  />
+                ย้ายสังกัด
+              </label>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <br/>
             Department:
             <div class="radio">
               <label>

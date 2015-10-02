@@ -95,6 +95,7 @@
                 <th>Thai name</th>
                 <th>English name</th>
                 <th>Department</th>
+                <th>Status</th>
                 <th>Edit / Delete</th>
               </tr>
             </thead>
@@ -141,7 +142,16 @@
                         ?> -->
                       </td>
                       <td>
-                        <a class='btn btn-warning' href='staff_add_edit.php?id=<?php echo $row['id']; ?>&name_th=<?php echo $row['name_th']; ?>&name_en=<?php echo $row['name_en']; ?>&department_en=<?php echo $row['department_en']; ?>'>
+                        <?php
+                        if ( $row['status']==1) {
+                          echo "ปกติ";
+                        } else {
+                          echo "ย้ายสังกัด";
+                        }
+                        ?>
+                      </td>
+                      <td>
+                        <a class='btn btn-warning' href='staff_add_edit.php?id=<?php echo $row['id']; ?>&name_th=<?php echo $row['name_th']; ?>&name_en=<?php echo $row['name_en']; ?>&department_en=<?php echo $row['department_en']; ?>&status=<?php echo $row['status']; ?>'>
                           <span class='glyphicon glyphicon-pencil'></span> edit
                         </a>
                         <a class='btn btn-danger' href='javascript:deleteStaff("<?php echo $row['id']; ?>","<?php echo $row['name_th']; ?>","<?php echo $row['name_en']; ?>","<?php echo $row['department_th']; ?>","<?php echo $row['department_en']; ?>")'>

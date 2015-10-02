@@ -110,7 +110,7 @@
                 <th>Thai name</th>
                 <th>English name</th>
                 <th>Department</th>
-                <th>Ranking</th>
+                <th>Number of Publications</th>
               </tr>
             </thead>
             <tbody>
@@ -131,7 +131,7 @@
                               research rs ON
                                   rs.author_name_th LIKE CONCAT('%', r.name_th, '%')
                                   OR rs.author_name_en LIKE CONCAT('%', r.name_en, '%')
-                          WHERE r.department_en = '$dep'";
+                          WHERE r.department_en = '$dep' and r.status=1 ";
                   if ($year!=='all') {
                     $sql .= " AND (YEAR(rs.journal_accepted_date) = $year
                                   OR YEAR(rs.conference_start_date) = $year)";
@@ -152,9 +152,11 @@
                                   LEFT JOIN
                               research rs ON
                                   rs.author_name_th LIKE CONCAT('%', r.name_th, '%')
-                                  OR rs.author_name_en LIKE CONCAT('%', r.name_en, '%')";
+                                  OR rs.author_name_en LIKE CONCAT('%', r.name_en, '%')
+                          WHERE r.status=1 ";
                   if ($year!=='all') {
-                    $sql .= " WHERE (YEAR(rs.journal_accepted_date) = $year
+                    $sql .= " and
+                                  (YEAR(rs.journal_accepted_date) = $year
                                   OR YEAR(rs.conference_start_date) = $year)";
                   }
                   $sql.="
