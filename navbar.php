@@ -175,7 +175,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="main_menu.php">
+      <a class="navbar-brand" href="summary_journal.php">
         Faculty of Science, Naresuan University.
       </a>
     </div>
