@@ -1,15 +1,11 @@
 <?php //db_connect.php ?>
 <?php
+  include "env.php";
   // Create connection
-  $con = mysqli_connect("localhost","researchdba","123456","research");
-  //http://128.199.208.34/
-  // $con = mysqli_connect("128.199.208.34","researchdba","123456","research");
+  $con = mysqli_connect($servername, $username, $password, $dbname);
 
-  //mysqli_query("SET NAMES 'UTF-8'");
+  // set charset to connection
   mysqli_set_charset($con , "UTF8");
-  //mysqli_query("SET character_set_results=UTF-8");
-  //mysqli_query("SET character_set_client=UTF-8");
-  //mysqli_query("SET character_set_connection=UTF-8");
 
   // Check connection
   if (mysqli_connect_errno()) {
