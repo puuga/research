@@ -293,6 +293,9 @@
                 } elseif ( $viewgroup==="copyright" ) {
                   $sql .= " where patent_type_id = 1 ";
                 }
+                if ( isset($_GET["year"]) ) {
+                  $sql .= " and year(grant_date)=".$_GET["year"]." ";
+                }
                 $sql .= " order by p.grant_date desc";
                 $result_for_json = array();
                 $result = mysqli_query($con, $sql);

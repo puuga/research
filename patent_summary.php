@@ -86,6 +86,22 @@
       </div>
     </div>
 
+    <?php
+      function makeLink($year, $patent_type, $number_of_patents) {
+        switch ($patent_type) {
+          case 0:
+            return '<a href="patent.php?year='.$year.'">'.$number_of_patents.'</a>';
+          case 1:
+            return '<a href="patent.php?year='.$year.'&view=copyright">'.$number_of_patents.'</a>';
+          case 2:
+          case 3:
+            return '<a href="patent.php?year='.$year.'&view=patent">'.$number_of_patents.'</a>';
+          default:
+            return "";
+        }
+      }
+    ?>
+
     <table class="table table-striped table-bordered table-hover">
       <thead>
         <tr>
@@ -110,10 +126,14 @@
           $sum_x3 += $x3;
           echo "<tr>";
           echo "<td>$i</td>";
-          echo "<td>$x1</td>";
-          echo "<td>$x2</td>";
-          echo "<td>$x3</td>";
-          echo "<td>".($x1+$x2+$x3)."</td>";
+          // echo "<td>$x1</td>";
+          echo "<td>".makeLink($i, 1, $x1)."</td>";
+          // echo "<td>$x2</td>";
+          echo "<td>".makeLink($i, 2, $x2)."</td>";
+          // echo "<td>$x3</td>";
+          echo "<td>".makeLink($i, 3, $x3)."</td>";
+          // echo "<td>".($x1+$x2+$x3)."</td>";
+          echo "<td>".makeLink($i, 0, $x1+$x2+$x3)."</td>";
           echo "</tr>";
         }
         ?>
