@@ -88,6 +88,19 @@
 
     <?php
       function makeLink($year, $patent_type, $number_of_patents) {
+        if ( $year == 0 ) {
+          switch ($patent_type) {
+            case 0:
+              return '<a href="patent.php">'.$number_of_patents.'</a>';
+            case 1:
+              return '<a href="patent.php?view=copyright">'.$number_of_patents.'</a>';
+            case 2:
+            case 3:
+              return '<a href="patent.php?view=patent">'.$number_of_patents.'</a>';
+            default:
+              return "";
+          }
+        }
         switch ($patent_type) {
           case 0:
             return '<a href="patent.php?year='.$year.'">'.$number_of_patents.'</a>';
@@ -141,10 +154,14 @@
       <tfoot>
         <tr class="info">
           <th>Total</th>
-          <th><?php echo $sum_x1; ?></th>
-          <th><?php echo $sum_x2; ?></th>
-          <th><?php echo $sum_x3; ?></th>
-          <th><?php echo $sum_x1+$sum_x2+$sum_x3; ?></th>
+          <!-- <th><?php echo $sum_x1; ?></th> -->
+          <th><?php echo makeLink(0, 1, $sum_x1); ?></th>
+          <!-- <th><?php echo $sum_x2; ?></th> -->
+          <th><?php echo makeLink(0, 2, $sum_x2); ?></th>
+          <!-- <th><?php echo $sum_x3; ?></th> -->
+          <th><?php echo makeLink(0, 2, $sum_x3); ?></th>
+          <!-- <th><?php echo $sum_x1+$sum_x2+$sum_x3; ?></th> -->
+          <th><?php echo makeLink(0, 0, $sum_x1+$sum_x2+$sum_x3); ?></th>
         </tr>
       </tfoot>
     </table>
