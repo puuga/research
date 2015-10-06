@@ -602,7 +602,8 @@
                 }
                 $sqlBeforeLimit = $sql;
 
-                $sql .= " order by id desc";
+                // $sql .= " order by id desc";
+                $sql .= " order by conference_start_date desc, journal_accepted_date desc";
 
                 $item_per_page = !empty($_GET["item_per_page"])? $_GET["item_per_page"] : 25;
                 $page = !empty($_GET["page"])? $_GET["page"]*1 : 1;
