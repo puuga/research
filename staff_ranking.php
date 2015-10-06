@@ -33,6 +33,7 @@
   <body>
     <?php include 'navbar.php'; ?>
 
+    <?php printLogo(); ?>
 
     <div class="container">
 

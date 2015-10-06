@@ -104,6 +104,8 @@
   <body>
     <?php include 'navbar.php'; ?>
 
+    <?php printLogo(); ?>
+
     <div class="jumbotron">
       <div class="container">
         <h2>Summary Proceedings Chart</h2>

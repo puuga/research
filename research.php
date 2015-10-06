@@ -148,6 +148,8 @@
   <body>
     <?php include 'navbar.php'; ?>
 
+    <?php printLogo(); ?>
+
     <div class="jumbotron">
       <div class="container">
         <h2>Summary Paper Chart</h2>
@@ -171,6 +173,30 @@
       <p>
         <?php print_r($result_journal_arr) ?>
       </p> -->
+
+      <?php
+        function makeLink($isJournal, $isConference, $isNationnal, $isInternational, $year) {
+          $link = "main_menu.php?advance_search=true&paper_title=&paper_author=";
+          if ($isJournal) {
+            $link .= "&options_journal=true";
+          }
+          if ($isConference) {
+            $link .= "&options_conference=true";
+          }
+          if ($isNationnal) {
+            $link .= "&options_national=true";
+          }
+          if ($isInternational) {
+            $link .= "&options_international=true";
+          }
+          if ( $year!="all" ) {
+            $link .= "&paper_year=".$year;
+          }
+          $link .= "&item_per_page=25";
+
+          return $link;
+        }
+      ?>
 
       <br/>
       <!--data row-->
@@ -211,48 +237,62 @@
                   ?>
                 </td>
                 <td>
-                  <?php
+                  <a href="<?php echo makeLink(true,false,true,false,$result_paper_year_arr[$i]); ?>">
+                    <?php
                     echo 0+$result_journal_arr[$result_paper_year_arr[$i]]["national"];
                     $sum_journal_national += 0+$result_journal_arr[$result_paper_year_arr[$i]]["national"];
-                  ?>
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
+                  <a href="<?php echo makeLink(true,false,false,true,$result_paper_year_arr[$i]); ?>">
+                    <?php
                     echo 0+$result_journal_arr[$result_paper_year_arr[$i]]["international"];
                     $sum_journal_international += 0+$result_journal_arr[$result_paper_year_arr[$i]]["international"];
-                  ?>
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
+                  <a href="<?php echo makeLink(true,false,true,true,$result_paper_year_arr[$i]); ?>">
+                    <?php
                     echo 0+$result_paper_arr[$result_paper_year_arr[$i]]["journal"];
                     $sum_journal += 0+$result_paper_arr[$result_paper_year_arr[$i]]["journal"];
-                  ?>
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
+                  <a href="<?php echo makeLink(false,true,true,false,$result_paper_year_arr[$i]); ?>">
+                    <?php
                     echo 0+$result_conference_arr[$result_paper_year_arr[$i]]["national"];
                     $sum_conference_national += 0+$result_conference_arr[$result_paper_year_arr[$i]]["national"];
-                  ?>
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
+                  <a href="<?php echo makeLink(false,true,false,true,$result_paper_year_arr[$i]); ?>">
+                    <?php
                     echo 0+$result_conference_arr[$result_paper_year_arr[$i]]["international"];
                     $sum_conference_international += 0+$result_conference_arr[$result_paper_year_arr[$i]]["international"];
-                  ?>
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
+                  <a href="<?php echo makeLink(false,true,true,true,$result_paper_year_arr[$i]); ?>">
+                    <?php
                     echo 0+$result_paper_arr[$result_paper_year_arr[$i]]["conference"];
                     $sum_conference += 0+$result_paper_arr[$result_paper_year_arr[$i]]["conference"];
-                  ?>
+                    ?>
+                  </a>
                 </td>
                 <td>
-                  <?php
+                  <a href="<?php echo makeLink(true,true,true,true,$result_paper_year_arr[$i]); ?>">
+                    <?php
                     echo 0+$result_paper_arr[$result_paper_year_arr[$i]]["conference"]
                       +$result_paper_arr[$result_paper_year_arr[$i]]["journal"];
                     $sum_total += 0+$result_paper_arr[$result_paper_year_arr[$i]]["conference"];
                     $sum_total += 0+$result_paper_arr[$result_paper_year_arr[$i]]["journal"];
-                  ?>
+                    ?>
+                  </a>
                 </td>
               </tr>
               <?php
@@ -262,13 +302,55 @@
             <tfoot>
               <tr>
                 <th>Total</th>
-                <th><?php echo $sum_journal_national; ?></th>
-                <th><?php echo $sum_journal_international; ?></th>
-                <th><?php echo $sum_journal; ?></th>
-                <th><?php echo $sum_conference_national; ?></th>
-                <th><?php echo $sum_conference_international; ?></th>
-                <th><?php echo $sum_conference; ?></th>
-                <th><?php echo $sum_total; ?></th>
+                <th>
+                  <a href="<?php echo makeLink(true,false,true,false,'all'); ?>">
+                    <?php
+                    echo $sum_journal_national;
+                    ?>
+                  </a>
+                </th>
+                <th>
+                  <a href="<?php echo makeLink(true,false,false,true,'all'); ?>">
+                    <?php
+                    echo $sum_journal_international;
+                    ?>
+                  </a>
+                </th>
+                <th>
+                  <a href="<?php echo makeLink(true,false,true,true,'all'); ?>">
+                    <?php
+                    echo $sum_journal;
+                    ?>
+                  </a>
+                </th>
+                <th>
+                  <a href="<?php echo makeLink(false,true,true,false,'all'); ?>">
+                    <?php
+                    echo $sum_conference_national;
+                    ?>
+                  </a>
+                </th>
+                <th>
+                  <a href="<?php echo makeLink(false,true,false,true,'all'); ?>">
+                    <?php
+                    echo $sum_conference_international;
+                    ?>
+                  </a>
+                </th>
+                <th>
+                  <a href="<?php echo makeLink(false,true,true,true,'all'); ?>">
+                    <?php
+                    echo $sum_conference;
+                    ?>
+                  </a>
+                </th>
+                <th>
+                  <a href="<?php echo makeLink(true,true,true,true,'all'); ?>">
+                    <?php
+                    echo $sum_total;
+                    ?>
+                  </a>
+                </th>
               </tr>
             </tfoot>
           </table>
@@ -277,7 +359,7 @@
 
       <div class="row bg-primary">
         <div class="col-md-12">
-          <h2>Range Summary Papers</h2>
+          <h2>Search on Range of Publication</h2>
         </div>
 
         <?php
