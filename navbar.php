@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="main_menu.php"><?php echo String::system_title; ?></a>
+      <a class="navbar-brand" href="summary_journal.php"><?php echo String::system_title; ?></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -39,6 +39,13 @@
               <a href="summary_proceedings.php">
                 <span class="glyphicon glyphicon-stats"></span>
                 Proceedings Summary
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="main_menu.php">
+                <span class="glyphicon glyphicon-stats"></span>
+                All Paper
               </a>
             </li>
           </ul>

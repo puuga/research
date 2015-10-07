@@ -1,6 +1,6 @@
 <?php
   class String {
-      const system_title = "Science Research MIS";
+      const system_title = "Research Data Base System";
 
   }
 ?>
