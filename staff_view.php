@@ -3,7 +3,7 @@
 <?php include 'db_connect.php'; ?>
 <?php include "class_import.php"; ?>
 <?php
-  needAdminLevel(0);
+  needAdminLevel(1);
 ?>
 <!DOCTYPE html>
 <html lang="en">

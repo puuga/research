@@ -203,6 +203,15 @@
         </li>
       </ul>
 
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="doc/manual_A_v2.pdf">
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            Manual
+          </a>
+        </li>
+      </ul>
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
