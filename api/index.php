@@ -11,19 +11,32 @@
     <li><a href="#h2">get researched by researcher arg.</a></li>
   </ul>
 
-  <p>
-    <a id="h1"></a>
-    <h2>get all researches</h2>
-    return all researches in JSON format.<br/>
-    url : <a href="researches.php">get</a>
-  </p>
+  <div style="background-color:#E1F5FE;">
+    <h2 id="h1">get all researches</h2>
+    <p>
+      return all researches in JSON format.
+    </p>
+    <p>
+      url : <a href="researches.php">get</a>
+    </p>
+  </div>
 
-  <p>
-    <a id="h2"></a>
-    <h2>get researched by researcher arg.</h2>
-    return all researches which match author name in JSON format.<br/>
-    url : <a href="researches.php?name=antony">get</a>
-  </p>
+  <div style="background-color:#E1F5FE;">
+    <h2 id="h2">get researched by researcher arg.</h2>
+    <p>
+      return all researches which match author name in JSON format.
+    </p>
+    <p>
+      <b>Parameter</b>
+      <dl>
+        <dt>name</dt>
+        <dd>(string) author name</dd>
+      </dl>
+    </p>
+    <p>
+      url : <a href="researches.php?name=antony">get</a>
+    </p>
+  </div>
 
 </body>
 </html>
