@@ -14,7 +14,10 @@
 
   $json = array();
   if ($result->num_rows > 0) {
-    $json = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    // $json = $result->fetch_array(MYSQLI_ASSOC);
+    while($row = $result->fetch_array()) {
+      $json[] = $row;
+    }
   }
 
   $conn->close();
